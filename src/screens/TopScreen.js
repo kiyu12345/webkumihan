@@ -1,6 +1,6 @@
 import React from 'react';
 
-// import Xxxx from './Xxxx.js';
+import ImageBox from '../components/ImageBox.js';
 
 const styles = {
     container: {
@@ -17,7 +17,12 @@ export default class TopScreen extends React.Component {
     render() {
         return (
             <div style={styles.container}>
-                <span>Hello React And Redux</span>
+                <ImageBox
+                    style={{
+                        width: '500px',
+                        height: '750px',
+                    }}
+                />
             </div>
         );
     }
