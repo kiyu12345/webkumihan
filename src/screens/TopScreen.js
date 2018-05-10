@@ -1,6 +1,6 @@
 import React from 'react';
 
-import ImageBox from '../components/ImageBox.js';
+import ViewBox from '../components/ViewBox.js';
 
 const styles = {
     container: {
@@ -14,10 +14,18 @@ const styles = {
 };
 
 export default class TopScreen extends React.Component {
+    onBaseClick(e) {
+        e.stopPropagation();
+        this.props.onBaseClick();
+    }
+
     render() {
         return (
-            <div style={styles.container}>
-                <ImageBox
+            <div
+                style={styles.container}
+                onClick={(e) => this.onBaseClick(e)}
+            >
+                <ViewBox
                     style={{
                         width: '500px',
                         height: '750px',

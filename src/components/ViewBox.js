@@ -1,6 +1,6 @@
 import React from 'react';
 
-import HouganshiSvgImage from './HouganshiSvgImage.js';
+import SvgImage from './SvgImage.js';
 
 const styles = {
     container: {
@@ -9,7 +9,7 @@ const styles = {
     }
 }
 
-export default class ImageBox extends React.Component {
+export default class ViewBox extends React.Component {
     render() {
         return (
             <div
@@ -18,7 +18,7 @@ export default class ImageBox extends React.Component {
                     ...this.props.style,
                 }}
             >
-                <HouganshiSvgImage
+                <SvgImage
                     width="500"
                     height="750"
                 />

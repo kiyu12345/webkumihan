@@ -1,8 +1,11 @@
 import React from 'react';
 
+import Grid from './Grid.js';
+import BoxsMap from './BoxsMap.js';
+
 const styles = {
     container: {
-        backgroundColor: 'lightgray',
+        backgroundColor: '#fff',
     },
 };
 
@@ -15,7 +18,13 @@ export default class SvgImage extends React.Component {
                 viewBox={`0 0 ${this.props.width} ${this.props.height}`}
                 style={styles.container}
             >
-                <rect x="250" y="0" width="250" height="250" fill="yellow" />
+
+                {/* グリッドの描画 */}
+                <Grid width={this.props.width} height={this.props.height} />
+
+                {/* ボックスの描画 */}
+                <BoxsMap />
+                    
             </svg>
         );
     }

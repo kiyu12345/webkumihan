@@ -1,11 +1,6 @@
 import { connect } from 'react-redux';
 
-import TopScreen from './TopScreen.js';
-
-import {
-    SU_FocusBox_Non_Select,
-} from '../actions_su/focusbox.js';
-
+import Boxs from './Boxs.js';
 
 // mapStateToProps
 const mapStateToProps = (state, props) => {
@@ -21,7 +16,7 @@ const mapDispatchToProps = (dispatch, props) => {
     };
 }
 
-// mergeProps
+// mergeProps 
 const mergeProps = (state, dispatch, props) => {
     return {
         // xxx: yyy,
@@ -29,17 +24,16 @@ const mergeProps = (state, dispatch, props) => {
         //     .....
         //     dispatch.dispatch(SU_Xxxxxx_Xxxxx_Xxxx());
         // },
-        onBaseClick: () => {
-            dispatch.dispatch(SU_FocusBox_Non_Select());
-        },
+        ...props,
+        box: state.box,
     };
 }
 
 // connect
-const TopScreenMap = connect(
+const BoxsMap = connect(
     mapStateToProps,
     mapDispatchToProps,
     mergeProps
-)(TopScreen);
+)(Boxs);
 
-export default TopScreenMap;
+export default BoxsMap;

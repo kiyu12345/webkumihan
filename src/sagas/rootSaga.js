@@ -1,7 +1,7 @@
 import { fork } from 'redux-saga/effects';
 
-// import xxxxxx from './xxxxxx.js';
+import focusbox from './focusbox.js';
 
 export default function* rootSaga() {
-    // yield fork(xxxxxx);
+    yield fork(focusbox);
 }

@@ -1,12 +1,10 @@
 import React from 'react';
 
 const styles = {
-    container: {
-        backgroundColor: 'white',
-    },
+
 };
 
-export default class HouganshiSvgImage extends React.Component {
+export default class Grid extends React.Component {
 
     yokokei() {
         let html = [];
@@ -62,17 +60,10 @@ export default class HouganshiSvgImage extends React.Component {
 
     render() {
         return (
-            <svg
-                width={this.props.width}
-                height={this.props.height}
-                viewBox={`0 0 ${this.props.width} ${this.props.height}`}
-                style={styles.container}
-            >
-                <g stroke="lightgray">
-                    {this.yokokei()}
-                    {this.tatekei()}
-                </g>
-            </svg>
+            <g stroke="#f9f9f9">
+                   {this.yokokei()}
+                   {this.tatekei()}
+            </g>
         );
     }
 }

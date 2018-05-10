@@ -1,9 +1,11 @@
 import { combineReducers } from 'redux';
 
-import { data } from './data.js';
+import { box } from './box.js';
+import { focusbox } from './focusbox.js';
 
 const rootReducer = combineReducers({
-    data,
+    box,
+    focusbox,
 });
 
 export default rootReducer;
