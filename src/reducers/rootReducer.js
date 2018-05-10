@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
 
-import { box } from './box.js';
+import { boxs } from './boxs.js';
 import { focusbox } from './focusbox.js';
 
 const rootReducer = combineReducers({
-    box,
+    boxs,
     focusbox,
 });
 

@@ -1,6 +1,11 @@
 import { connect } from 'react-redux';
 
-import Boxs from './Boxs.js';
+import EditBox from './EditBox.js';
+
+import {
+    SU_FocusBox_Box_Select,
+} from '../actions_su/focusbox.js';
+
 
 // mapStateToProps
 const mapStateToProps = (state, props) => {
@@ -25,15 +30,14 @@ const mergeProps = (state, dispatch, props) => {
         //     dispatch.dispatch(SU_Xxxxxx_Xxxxx_Xxxx());
         // },
         ...props,
-        boxs: state.boxs,
     };
 }
 
 // connect
-const BoxsMap = connect(
+const EditBoxMap = connect(
     mapStateToProps,
     mapDispatchToProps,
     mergeProps
-)(Boxs);
+)(EditBox);
 
-export default BoxsMap;
+export default EditBoxMap;

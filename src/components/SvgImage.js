@@ -2,6 +2,7 @@ import React from 'react';
 
 import Grid from './Grid.js';
 import BoxsMap from './BoxsMap.js';
+import SelectBoxsMap from './SelectBoxsMap.js';
 
 const styles = {
     container: {
@@ -24,7 +25,9 @@ export default class SvgImage extends React.Component {
 
                 {/* ボックスの描画 */}
                 <BoxsMap />
-                    
+                
+                {/* 選択ボックスの描画 */}
+                <SelectBoxsMap />
             </svg>
         );
     }

@@ -17,7 +17,7 @@
 //          }
 //      ]
 // ====================
-export const box = (state = [
+export const boxs = (state = [
     {
         id: 'editbox001',
         type: 'text',

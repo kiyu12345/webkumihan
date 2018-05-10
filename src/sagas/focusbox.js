@@ -16,7 +16,6 @@ export default function* focusbox() {
         yield put(Saga_FocusBox_Non_Select(action.payload));
     });
     yield takeEvery(SU_FOCUSBOX_BOX_SELECT, function* (action) {
-        console.log('+++++' + action.payload.id);
         yield put(Saga_FocusBox_Box_Select(action.payload));
     });
 }

@@ -12,7 +12,7 @@ export default class Boxs extends React.Component {
     render() {
         return (
             <g id={this.props.id}>
-                {this.props.box.map((obj) => {
+                {this.props.boxs.map((obj) => {
                     const z = Zahyo.changeRect1(obj.x1, obj.y1, obj.x2, obj.y2);
                     
                     switch (obj.type) {
