@@ -1,10 +1,10 @@
 import { connect } from 'react-redux';
 
-import EditBox from './EditBox.js';
+import SelectGroupBox from './SelectGroupBox.js';
 
 import {
-    SU_FocusBox_Box_Select,
-} from '../actions_su/focusbox.js';
+    SU_SelectBox_Box_Select,
+} from '../actions_su/selectbox.js';
 
 
 // mapStateToProps
@@ -30,14 +30,17 @@ const mergeProps = (state, dispatch, props) => {
         //     dispatch.dispatch(SU_Xxxxxx_Xxxxx_Xxxx());
         // },
         ...props,
+        onClickBox: (payload) => {
+            dispatch.dispatch(SU_SelectBox_Box_Select(payload));
+        },
     };
 }
 
 // connect
-const EditBoxMap = connect(
+const SelectGroupBoxMap = connect(
     mapStateToProps,
     mapDispatchToProps,
     mergeProps
-)(EditBox);
+)(SelectGroupBox);
 
-export default EditBoxMap;
+export default SelectGroupBoxMap;

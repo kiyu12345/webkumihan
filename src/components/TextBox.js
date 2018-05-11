@@ -11,17 +11,6 @@ export default class TextBox extends React.Component {
         super(props);
     }
 
-    clickBox(e) {
-        e.stopPropagation();
-
-        // alert('Box clicked ' + this.props.id + ' ' + this.props.group + ' ' + this.props.no);
-        this.props.onClickBox({
-            id:    this.props.id,
-            group: this.props.group,
-            no:    this.props.no,
-        });
-    }
-
     box() {
         return (
             <rect
@@ -45,7 +34,6 @@ export default class TextBox extends React.Component {
                 width={this.props.width}
                 height={this.props.height}
                 style={styles.container}
-                onClick={(e) => this.clickBox(e)}
             >
                 {this.box()}
                 <text x="0" y="20" fill="#000">あ</text>

@@ -7,6 +7,8 @@ const config = {
         filename: 'app.js'
     },
 
+    devtool: 'inline-source-map',
+
     devServer: {
         // web で公開するファイルのあるディレクトリ
         contentBase: './dist',

@@ -1,6 +1,8 @@
 import React from 'react';
 
-import EditBoxMap from './EditBoxMap.js'; 
+import SelectEditBoxMap   from './SelectEditBoxMap.js';
+import SelectGroupBoxMap  from './SelectGroupBoxMap.js';
+import SelectSonotaBoxMap from './SelectSonotaBoxMap.js';
 
 const styles = {
 
@@ -12,28 +14,83 @@ export default class SelectBoxs extends React.Component {
     }
 
     selectBox() {
+        let selectboxs = [];
+        
         for (let i = 0; i < this.props.boxs.length; i++) {
-            if (this.props.focusbox.id == this.props.boxs[i].id) {
-                return (
-                    <EditBoxMap
-                        id={this.props.box[i].id}
-                        x1={this.props.box[i].x1}
-                        y1={this.props.box[i].y1}
-                        x2={this.props.box[i].x2}
-                        y2={this.props.box[i].y2}
+            // 未選択状態の場合は、全てその他ボックス
+            if (this.props.focusbox.id == '') {
+                selectboxs.push(
+                    <SelectSonotaBoxMap
+                        id={this.props.boxs[i].id}
+                        x1={this.props.boxs[i].x1}
+                        y1={this.props.boxs[i].y1}
+                        x2={this.props.boxs[i].x2}
+                        y2={this.props.boxs[i].y2}
+                        group={this.props.boxs[i].group}
+                        no={this.props.boxs[i].no}
                     />
                 );
+
+                continue;
             }
+
+            // 選択したボックスの場合
+            if (this.props.focusbox.id == this.props.boxs[i].id) {
+                selectboxs.push(
+                    <SelectEditBoxMap
+                        id={this.props.boxs[i].id}
+                        x1={this.props.boxs[i].x1}
+                        y1={this.props.boxs[i].y1}
+                        x2={this.props.boxs[i].x2}
+                        y2={this.props.boxs[i].y2}
+                        group={this.props.boxs[i].group}
+                        no={this.props.boxs[i].no}
+                    />
+                )
+
+                continue;
+            }
+
+            // 選択したボックスのグループボックスの場合
+            if (this.props.focusbox.group == this.props.boxs[i].group) {
+                selectboxs.push(
+                    <SelectGroupBoxMap
+                        id={this.props.boxs[i].id}
+                        x1={this.props.boxs[i].x1}
+                        y1={this.props.boxs[i].y1}
+                        x2={this.props.boxs[i].x2}
+                        y2={this.props.boxs[i].y2}
+                        group={this.props.boxs[i].group}
+                        no={this.props.boxs[i].no}
+                    />
+                );
+
+                continue;
+            }
+
+            // その他のボックスの場合
+            selectboxs.push(
+                <SelectSonotaBoxMap
+                    id={this.props.boxs[i].id}
+                    x1={this.props.boxs[i].x1}
+                    y1={this.props.boxs[i].y1}
+                    x2={this.props.boxs[i].x2}
+                    y2={this.props.boxs[i].y2}
+                    group={this.props.boxs[i].group}
+                    no={this.props.boxs[i].no}
+                />
+            );
         }
 
-        return '';
+        return selectboxs;
     }
+
 
     render() {
         return (
-            <g id={'SelectBox_' + this.props.focusbox.id}>
+            <g>
                 {this.selectBox()}
             </g>            
-        )
+        );
     }
 }

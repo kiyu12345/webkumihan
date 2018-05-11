@@ -1,9 +1,9 @@
 import { connect } from 'react-redux';
 
-import TopScreen from './TopScreen.js';
+import SelectSonotaBox from './SelectSonotaBox.js';
 
 import {
-    SU_SelectBox_Box_NonSelect,
+    SU_SelectBox_Box_Select,
 } from '../actions_su/selectbox.js';
 
 
@@ -21,7 +21,7 @@ const mapDispatchToProps = (dispatch, props) => {
     };
 }
 
-// mergeProps
+// mergeProps 
 const mergeProps = (state, dispatch, props) => {
     return {
         // xxx: yyy,
@@ -29,17 +29,18 @@ const mergeProps = (state, dispatch, props) => {
         //     .....
         //     dispatch.dispatch(SU_Xxxxxx_Xxxxx_Xxxx());
         // },
-        onBaseClick: () => {
-            dispatch.dispatch(SU_SelectBox_Box_NonSelect());
+        ...props,
+        onClickBox: (payload) => {
+            dispatch.dispatch(SU_SelectBox_Box_Select(payload));
         },
     };
 }
 
 // connect
-const TopScreenMap = connect(
+const SelectSonotaBoxMap = connect(
     mapStateToProps,
     mapDispatchToProps,
     mergeProps
-)(TopScreen);
+)(SelectSonotaBox);
 
-export default TopScreenMap;
+export default SelectSonotaBoxMap;

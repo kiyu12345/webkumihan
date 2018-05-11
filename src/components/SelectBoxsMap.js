@@ -2,9 +2,9 @@ import { connect } from 'react-redux';
 
 import SelectBoxs from './SelectBoxs.js';
 
-import {
-    SU_FocusBox_Box_Select,
-} from '../actions_su/focusbox.js';
+// import {
+//     SU_SelectBox_Box_Select,
+// } from '../actions_su/selectbox.js';
 
 
 // mapStateToProps
@@ -29,7 +29,7 @@ const mergeProps = (state, dispatch, props) => {
         //     .....
         //     dispatch.dispatch(SU_Xxxxxx_Xxxxx_Xxxx());
         // },
-        ...props,
+        // ...props,
         boxs: state.boxs,
         focusbox: state.focusbox,
     };

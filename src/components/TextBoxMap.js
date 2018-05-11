@@ -2,10 +2,6 @@ import { connect } from 'react-redux';
 
 import TextBox from './TextBox.js';
 
-import {
-    SU_FocusBox_Box_Select,
-} from '../actions_su/focusbox.js';
-
 
 // mapStateToProps
 const mapStateToProps = (state, props) => {
@@ -30,9 +26,6 @@ const mergeProps = (state, dispatch, props) => {
         //     dispatch.dispatch(SU_Xxxxxx_Xxxxx_Xxxx());
         // },
         ...props,
-        onClickBox: (payload) => {
-            dispatch.dispatch(SU_FocusBox_Box_Select(payload));
-        },
     };
 }
 

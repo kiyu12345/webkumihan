@@ -1,6 +1,8 @@
-// import {
-//     SAGA_NANI_DOUSHITA,
-// } from '../actions_saga/xxxxx.js';
+import { Zahyo } from '../libs/zahyo.js';
+
+import {
+    SAGA_SELECTBOX_EDITBOX_MOVEEND,
+} from '../actions_saga/selectbox.js';
 
 // ====================
 // editboxデータ
@@ -19,7 +21,7 @@
 // ====================
 export const boxs = (state = [
     {
-        id: 'editbox001',
+        id: 'box001',
         type: 'text',
         x1: 200,
         y1: 100,
@@ -27,7 +29,27 @@ export const boxs = (state = [
         y2: 200,
         group: 'test',
         no: 1,
-    }
+    },
+    {
+        id: 'box002',
+        type: 'text',
+        x1: 100,
+        y1: 300,
+        x2: 200,
+        y2: 500,
+        group: 'test',
+        no: 2,
+    },
+    {
+        id: 'box003',
+        type: 'text',
+        x1: 300,
+        y1: 400,
+        x2: 400,
+        y2: 600,
+        group: 'test2',
+        no: 1,
+    },
 ], action) => {
     switch (action.type) {
     // case SAGA_DATAREAD_START:
@@ -38,6 +60,26 @@ export const boxs = (state = [
     //
     // case SAGA_DATAREAD_ERROR:
     //     return 'error';
+    case SAGA_SELECTBOX_EDITBOX_MOVEEND:
+        let boxs = state.slice();
+
+        for (let i = 0; i < boxs.length; i++) {
+            if (boxs[i].id == action.payload.id) {
+                const z = Zahyo.changeRect1(boxs[i].x1,
+                                            boxs[i].y1,
+                                            boxs[i].x2,
+                                            boxs[i].y2);
+                
+                boxs[i].x1 = action.payload.x;
+                boxs[i].y1 = action.payload.y;
+                boxs[i].x2 = action.payload.x + z.w;
+                boxs[i].y2 = action.payload.y + z.h;
+
+                break;
+            }
+        }
+
+        return boxs;
 
     default:
         return state;

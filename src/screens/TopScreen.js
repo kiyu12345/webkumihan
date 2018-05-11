@@ -4,12 +4,14 @@ import ViewBox from '../components/ViewBox.js';
 
 const styles = {
     container: {
-        padding: '20px',
         fontSize: '20px',
         fontWeight: 'bold',
         color: 'black',
         backgroundColor: 'skyblue',
         textAlign: 'center',
+        width: 'calc(100% - 40px)',
+        height: 'calc(100vh - 40px)',
+        padding: '20px',
     },
 };
 
@@ -25,12 +27,7 @@ export default class TopScreen extends React.Component {
                 style={styles.container}
                 onClick={(e) => this.onBaseClick(e)}
             >
-                <ViewBox
-                    style={{
-                        width: '500px',
-                        height: '750px',
-                    }}
-                />
+                <ViewBox />
             </div>
         );
     }
