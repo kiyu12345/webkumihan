@@ -1,10 +1,6 @@
 import { connect } from 'react-redux';
 
-import TopScreen from './TopScreen.js';
-
-import {
-    SU_SelectBox_Box_NonSelect,
-} from '../actions_su/selectbox.js';
+import SvgImage from './SvgImage.js';
 
 
 // mapStateToProps
@@ -21,7 +17,7 @@ const mapDispatchToProps = (dispatch, props) => {
     };
 }
 
-// mergeProps
+// mergeProps 
 const mergeProps = (state, dispatch, props) => {
     return {
         // xxx: yyy,
@@ -29,18 +25,17 @@ const mergeProps = (state, dispatch, props) => {
         //     .....
         //     dispatch.dispatch(SU_Xxxxxx_Xxxxx_Xxxx());
         // },
-        toolboxs: state.toolboxs,
-        onBaseClick: () => {
-            dispatch.dispatch(SU_SelectBox_Box_NonSelect());
-        },
+        width: props.width,
+        height: props.height,
+        scale: state.scale,
     };
 }
 
 // connect
-const TopScreenMap = connect(
+const SvgImageMap = connect(
     mapStateToProps,
     mapDispatchToProps,
     mergeProps
-)(TopScreen);
+)(SvgImage);
 
-export default TopScreenMap;
+export default SvgImageMap;

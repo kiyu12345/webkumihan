@@ -14,14 +14,18 @@ export default class SvgImage extends React.Component {
     render() {
         return (
             <svg
-                width={this.props.width}
-                height={this.props.height}
+                width={this.props.width * this.props.scale / 100}
+                height={this.props.height * this.props.scale / 100}
                 viewBox={`0 0 ${this.props.width} ${this.props.height}`}
                 style={styles.container}
             >
 
                 {/* グリッドの描画 */}
-                <Grid width={this.props.width} height={this.props.height} />
+                <Grid
+                    width={this.props.width}
+                    height={this.props.height}
+                    scale={this.props.scale}
+                />
 
                 {/* ボックスの描画 */}
                 <BoxsMap />

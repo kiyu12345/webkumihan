@@ -1,10 +1,10 @@
 import { connect } from 'react-redux';
 
-import TopScreen from './TopScreen.js';
+import ToolBox from './ToolBox.js';
 
 import {
-    SU_SelectBox_Box_NonSelect,
-} from '../actions_su/selectbox.js';
+    SU_ToolBox_MoveEnd,
+} from '../actions_su/toolbox.js';
 
 
 // mapStateToProps
@@ -21,7 +21,7 @@ const mapDispatchToProps = (dispatch, props) => {
     };
 }
 
-// mergeProps
+// mergeProps 
 const mergeProps = (state, dispatch, props) => {
     return {
         // xxx: yyy,
@@ -29,18 +29,19 @@ const mergeProps = (state, dispatch, props) => {
         //     .....
         //     dispatch.dispatch(SU_Xxxxxx_Xxxxx_Xxxx());
         // },
-        toolboxs: state.toolboxs,
-        onBaseClick: () => {
-            dispatch.dispatch(SU_SelectBox_Box_NonSelect());
+        ...props,
+
+        endMoveBox: (payload) => {
+            dispatch.dispatch(SU_ToolBox_MoveEnd(payload));
         },
     };
 }
 
 // connect
-const TopScreenMap = connect(
+const ToolBoxMap = connect(
     mapStateToProps,
     mapDispatchToProps,
     mergeProps
-)(TopScreen);
+)(ToolBox);
 
-export default TopScreenMap;
+export default ToolBoxMap;

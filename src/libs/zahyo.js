@@ -1,6 +1,17 @@
 // 座標系のライブラリ
 
 export const Zahyo = {
+    windowArea: () => {
+        let ret;
+
+        ret = {
+            w: document.documentElement.clientWidth,
+            h: document.documentElement.clientHeight,
+        };
+
+        return ret;
+    },
+
     changeRect1: (x1, y1, x2, y2) => {
         let rect = {};
 

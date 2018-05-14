@@ -5,7 +5,7 @@
 export const Define = {
     // ベースSVGイメージサイズ
     svgimagesize: {
-        width:  1200,
-        height: 1700,
+        width:  842,
+        height: 1192,
     },
 };

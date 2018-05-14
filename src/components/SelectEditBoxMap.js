@@ -29,13 +29,8 @@ const mergeProps = (state, dispatch, props) => {
         //     .....
         //     dispatch.dispatch(SU_Xxxxxx_Xxxxx_Xxxx());
         // },
-        id: props.id,
-        x1: props.x1,
-        y1: props.y1,
-        x2: props.x2,
-        y2: props.y2,
-        group: props.group,
-        no: props.no,
+        ...props,
+        scale: state.scale,
 
         endMoveBox: (payload) => {
             dispatch.dispatch(SU_SelectBox_EditBox_MoveEnd(payload));

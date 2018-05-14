@@ -1,6 +1,6 @@
 import React from 'react';
 
-import SvgImage from './SvgImage.js';
+import SvgImageMap from './SvgImageMap.js';
 
 import { Define } from '../define.js';
 
@@ -8,9 +8,9 @@ const styles = {
     container: {
         overflow: 'scroll',
         backgroundColor: '#ddd',
-        border: '2px solid red',
-        width: '800px',
-        height: 'calc(100vh - 40px)',
+        // border: '2px solid red',
+        width: '100%',
+        height: '100vh',
     }
 }
 
@@ -49,7 +49,7 @@ export default class ViewBox extends React.Component {
                     ...this.props.style,
                 }}
             >
-                <SvgImage
+                <SvgImageMap
                     width={Define.svgimagesize.width}
                     height={Define.svgimagesize.height}
                 />

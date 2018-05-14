@@ -4,18 +4,25 @@ const styles = {
 
 };
 
+const col_1 = '#f9f9f9';
+const col_2 = '#efeff9';
+const col_3 = '#f9efef';
+
 export default class Grid extends React.Component {
 
     yokokei() {
         let html = [];
 
         for (let i = 0; i <= this.props.height; i += 10) {
-            let lw = 1;
+            let lw = 1 * 100 / this.props.scale;
+            let col = col_1;
             if (i % 50 == 0) {
-                lw = 2;
+                lw = 2 * 100 / this.props.scale;
+                col = col_2;
             }
             if (i % 100 == 0) {
-                lw = 3;
+                lw = 3 * 100/ this.props.scale;
+                col = col_3;
             }
 
             html.push(
@@ -25,6 +32,7 @@ export default class Grid extends React.Component {
                     x2={this.props.width}
                     y2={i}
                     strokeWidth={lw}
+                    stroke={col}
                 />
             );
         }
@@ -35,13 +43,17 @@ export default class Grid extends React.Component {
     tatekei() {
         let html = [];
 
-        for (let i = 0; i <= this.props.width; i += 10) {
-            let lw = 1;
-            if (i % 50 == 0) {
-                lw = 2;
+        let j = 0;
+        for (let i = this.props.width; i > 0; i -= 10) {
+            let lw = 1 * 100 / this.props.scale;
+            let col = col_1;
+            if (j % 50 == 0) {
+                lw = 2 * 100 / this.props.scale;
+                col = col_2;
             }
-            if (i % 100 == 0) {
-                lw = 3;
+            if (j % 100 == 0) {
+                lw = 3 * 100 / this.props.scale;
+                col = col_3;
             }
 
             html.push(
@@ -51,8 +63,11 @@ export default class Grid extends React.Component {
                     x2={i}
                     y2={this.props.height}
                     strokeWidth={lw}
+                    stroke={col}
                 />
             );
+
+            j += 10;
         }
 
         return html;
@@ -60,7 +75,7 @@ export default class Grid extends React.Component {
 
     render() {
         return (
-            <g stroke="#f9f9f9">
+            <g>
                    {this.yokokei()}
                    {this.tatekei()}
             </g>

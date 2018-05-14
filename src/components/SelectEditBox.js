@@ -56,8 +56,8 @@ export default class SelectEditBox extends React.Component {
         document.addEventListener('mouseup',   this.mouseUp, false);
 
         // マウスダウンしたカーソル位置をセットする
-		this.mousepos.x = e.pageX;
-		this.mousepos.y = e.pageY;
+		this.mousepos.x = e.pageX * 100 / this.props.scale;
+		this.mousepos.y = e.pageY * 100 / this.props.scale;
     }
 
     mouseMove(e) {
@@ -65,8 +65,8 @@ export default class SelectEditBox extends React.Component {
         e.preventDefault();     // ブラウザ標準機能のイベントを抑止する
         
         // マウスムーブ後のカーソル位置を得る
-		const moveX = e.pageX;
-		const moveY = e.pageY;
+		const moveX = e.pageX * 100 / this.props.scale;
+		const moveY = e.pageY * 100 / this.props.scale;
 
 		// 当ボックスの新たな座標を求める
 		let x = this.boxorgpos.x + (moveX - this.mousepos.x);
@@ -135,7 +135,7 @@ export default class SelectEditBox extends React.Component {
                         fillOpacity: '0.3',
                         // fill: 'none',
                         stroke: 'blue',
-                        strokeWidth: 2,
+                        strokeWidth: 2 * 100 / this.props.scale,
                     }}
 
                     onClick={(e) => {
