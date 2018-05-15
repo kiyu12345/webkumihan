@@ -31,8 +31,10 @@ export const Saga_SelectBox_EditBox_MoveEnd = (payload) => {
         type: SAGA_SELECTBOX_EDITBOX_MOVEEND,
         payload: {
             id: payload.id,
-            x:  payload.x,
-            y:  payload.y,
+            x1: payload.x1,
+            y1: payload.y1,
+            x2: payload.x2,
+            y2: payload.y2,
         },
     };
 }

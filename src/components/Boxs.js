@@ -2,6 +2,7 @@ import React from 'react';
 
 import TextBoxMap from './TextBoxMap.js';
 
+import { Define } from '../define.js';
 import { Zahyo } from '../libs/zahyo.js';
 
 const styles = {
@@ -13,7 +14,12 @@ export default class Boxs extends React.Component {
         return (
             <g id={this.props.id}>
                 {this.props.boxs.map((obj) => {
-                    const z = Zahyo.changeRect1(obj.x1, obj.y1, obj.x2, obj.y2);
+                    const z = Zahyo.ruToluRectToArea(obj.x1,
+                                                     obj.y1,
+                                                     obj.x2,
+                                                     obj.y2,
+                                                     Define.svgimagesize.width,
+                                                     Define.svgimagesize.height);
                     
                     switch (obj.type) {
                     case 'text':

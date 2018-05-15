@@ -5,15 +5,15 @@ import {
 } from '../actions_saga/selectbox.js';
 
 // ====================
-// editboxデータ
+// ボックスデータ
 //      [
 //          {
 //              id: ID,
 //              type: 'text':テキストボックス 'image':画像ボックス
-//              x1: エディットボックスの左上座標 X
-//              y1: エディットボックスの左上座標 Y
-//              x2: エディットボックスの右下座標 X
-//              y2: エディットボックスの右下座標 Y
+//              x1: ボックスの右上座標 X（右上基点）
+//              y1: ボックスの右上座標 Y（右上基点）
+//              x2: ボックスの左下座標 X（右上基点）
+//              y2: ボックスの左下座標 Y（右上基点）
 //              group: グループ名
 //              no: グループ内の番号
 //          }
@@ -52,28 +52,16 @@ export const boxs = (state = [
     },
 ], action) => {
     switch (action.type) {
-    // case SAGA_DATAREAD_START:
-    //     return 'working';
-    //
-    // case SAGA_DATAREAD_SUCCESS:
-    //     return 'success';
-    //
-    // case SAGA_DATAREAD_ERROR:
-    //     return 'error';
     case SAGA_SELECTBOX_EDITBOX_MOVEEND:
         let boxs = state.slice();
 
         for (let i = 0; i < boxs.length; i++) {
             if (boxs[i].id == action.payload.id) {
-                const z = Zahyo.changeRect1(boxs[i].x1,
-                                            boxs[i].y1,
-                                            boxs[i].x2,
-                                            boxs[i].y2);
-                
-                boxs[i].x1 = action.payload.x;
-                boxs[i].y1 = action.payload.y;
-                boxs[i].x2 = action.payload.x + z.w;
-                boxs[i].y2 = action.payload.y + z.h;
+console.log(action.payload);
+                boxs[i].x1 = action.payload.x1;
+                boxs[i].y1 = action.payload.y1;
+                boxs[i].x2 = action.payload.x2;
+                boxs[i].y2 = action.payload.y2;
 
                 break;
             }

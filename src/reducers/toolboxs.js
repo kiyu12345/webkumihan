@@ -29,7 +29,6 @@ export const toolboxs = (state = [
         view: 'true',
     },
 ], action) => {
-console.log('reducer');
     switch (action.type) {
     case SAGA_TOOLBOX_MOVEEND:
         let toolboxs = state.slice();

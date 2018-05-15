@@ -3,12 +3,15 @@ import React from 'react';
 const styles = {
     container: {
         textAlign: 'left',
+        fontSize: '10pt',
     },
     per: {
         textAlign: 'left',
         marginBottom: '10px',
     },
     button: {
+        width: '50px',
+        height: '20px',
         margin: '0 5px',
     },
 };

@@ -10,6 +10,7 @@ const styles = {
     },
     title: {
         width: 'calc(100% - 20px)',
+        height: '20px',
         padding: '5px 10px',
         fontSize: '10pt',
         color: '#333',

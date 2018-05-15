@@ -1,5 +1,7 @@
 import React from 'react';
 
+import HandleUMap from './HandleUMap.js';
+
 import { Define } from '../define.js';
 import { Zahyo }  from '../libs/zahyo.js';
 
@@ -12,9 +14,15 @@ export default class SelectEditBox extends React.Component {
         super(props);
 
         // 当ボックスの元（移動前）の左上座標
+        const k = Zahyo.ruToluRect(props.x1,
+                                   props.y1,
+                                   props.x2,
+                                   props.y2,
+                                   Define.svgimagesize.width,
+                                   Define.svgimagesize.height);
         this.boxorgpos = {
-            x: props.x1,
-            y: props.y1,
+            x: k.x1,
+            y: k.y1,
         };
 
 		// マウスダウン位置
@@ -24,11 +32,12 @@ export default class SelectEditBox extends React.Component {
         };
         
         // 編集ボックスの左上座標と幅高さをセット
-        const z = Zahyo.changeRect1(props.x1,
-                                    props.y1,
-                                    props.x2,
-                                    props.y2);
-
+        const z = Zahyo.ruToluRectToArea(props.x1,
+                                         props.y1,
+                                         props.x2,
+                                         props.y2,
+                                         Define.svgimagesize.width,
+                                         Define.svgimagesize.height);
         this.state = {
             x: z.x,
             y: z.y,
@@ -41,9 +50,16 @@ export default class SelectEditBox extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
+        const k = Zahyo.ruToluRect(nextProps.x1,
+                                   nextProps.y1,
+                                   nextProps.x2,
+                                   nextProps.y2,
+                                   Define.svgimagesize.width,
+                                   Define.svgimagesize.height);
+
         this.boxorgpos = {
-            x: nextProps.x1,
-            y: nextProps.y1,
+            x: k.x1,
+            y: k.y1,
         };        
     }
 
@@ -70,15 +86,18 @@ export default class SelectEditBox extends React.Component {
 
 		// 当ボックスの新たな座標を求める
 		let x = this.boxorgpos.x + (moveX - this.mousepos.x);
-		let y = this.boxorgpos.y + (moveY - this.mousepos.y);
+        let y = this.boxorgpos.y + (moveY - this.mousepos.y);
+
+        // グリッドスナップ処理
+        [x, y] = this.gridsnap(x, y);
         
 		// ベースSVGイメージの端に当ボックスが行った場合の座標変換
-		const [nx, ny] = this.boxmovestop(x, y);
+		[x, y] = this.boxmovestop(x, y, this.state.w, this.state.h);
 
         // 画像の座標を更新して描画し直す
         this.setState({
-            x: nx,
-            y: ny,
+            x: x,
+            y: y,
         });
     }
 
@@ -90,37 +109,138 @@ export default class SelectEditBox extends React.Component {
         document.removeEventListener('mousemove', this.mouseMove);
         document.removeEventListener('mouseup',   this.mouseUp);
 
-        // 移動終了処理
+        // 移動終了処理（右上基点の座標を渡す）
+        const z = Zahyo.luToruAreaToRect(this.state.x,
+                                         this.state.y,
+                                         this.state.w,
+                                         this.state.h,
+                                         Define.svgimagesize.width,
+                                         Define.svgimagesize.height);
         this.props.endMoveBox({
             id: this.props.id,
-            x:  this.state.x,
-            y:  this.state.y,
+            x1: z.x1,
+            y1: z.y1,
+            x2: z.x2,
+            y2: z.y2,
         });
+    }
+
+    //
+    // グリッドスナップ処理
+    //
+    gridsnap(x, y) {
+        // 右上基点の座標に変換する
+        let ru_x = Zahyo.luToruX(x, Define.svgimagesize.width);
+        let ru_y = Zahyo.luToruY(y, Define.svgimagesize.height);
+
+        // X座標をグリッド幅で割って、余りが0の場合は、X座標決定
+        let amari, sho, minX, maxX;
+        amari = ru_x % Define.grid.width;
+        if (amari == 0) {
+            // X座標は決定
+        } else {
+            // グリッドの小さい方のX座標を求める
+            sho = Math.floor(ru_x / Define.grid.width);
+            minX = sho * Define.grid.width;
+            // グリッドの大きい方のX座標を求める
+            maxX = (sho + 1) * Define.grid.width;
+
+            // 余りが、グリッドの半分より大きければ大きい方、小さければ小さい方
+            if (amari >= (Define.grid.width / 2)) {
+                ru_x = maxX;
+            } else {
+                ru_x = minX;
+            }
+        }
+
+        // Y座標をグリッド高さで割って、余りが0の場合は、Y座標決定
+        let minY, maxY;
+        amari = ru_y % Define.grid.height;
+        if (amari == 0) {
+            // Y座標は決定
+        } else {
+            // グリッドの小さい方のY座標を求める
+            sho = Math.floor(ru_y / Define.grid.height);
+            minY = sho * Define.grid.height;
+            // グリッドの大きい方のX座標を求める
+            maxY = (sho + 1) * Define.grid.height;
+
+            // 余りが、グリッドの半分より大きければ大きい方、小さければ小さい方
+            if (amari >= (Define.grid.height / 2)) {
+                ru_y = maxY;
+            } else {
+                ru_y = minY;
+            }
+        }
+
+        // 左上基点の座標に変換する
+        x = Zahyo.ruToluX(ru_x, Define.svgimagesize.width);
+        y = Zahyo.ruToluY(ru_y, Define.svgimagesize.height);
+
+        return [x, y];
     }
 
     //
 	// ボックスがベースSVGイメージの外に出ないようにする
 	//
-	boxmovestop(x, y) {
-        // ボックスの幅と高さを得る
-        const w = this.state.w;
-        const h = this.state.h;
+	boxmovestop(x, y, w, h) {
+        // 右上基点のarea座標に変換する
+        const area = Zahyo.luToruArea(x, y, w, h, Define.svgimagesize.width, Define.svgimagesize.height);
 
-		if (x <= 0) {
-			x = 0;
-		} else if (x + w >= Define.svgimagesize.width) {
-			x = Define.svgimagesize.width - w;
+        // SVGイメージの一番左側のグリッドの座標を得る
+        let sho, grid_lx, grid_dy;
+        sho = Math.floor(Define.svgimagesize.width / Define.grid.width);
+        grid_lx = Define.grid.width * sho;
+        // SVGイメージの一番下側のグリッドの座標を得る
+        sho = Math.floor(Define.svgimagesize.height / Define.grid.height);
+        grid_dy = Define.grid.height * sho;
+
+		if (area.x <= 0) {
+			area.x = 0;
+		} else if (area.x + w >= grid_lx) {
+			area.x = grid_lx - area.w;
         }
         
-		if (y <= 0) {
-			y = 0;
-		} else if (y + h >= Define.svgimagesize.height) {
-			y = Define.svgimagesize.height - h;
+		if (area.y <= 0) {
+			area.y = 0;
+		} else if (area.y + h >= grid_dy) {
+			area.y = grid_dy - area.h;
 		}
 
-		return [x, y];
+        // 左上基点の座標に変換する
+        const z = Zahyo.ruToluArea(area.x, area.y, area.w, area.h, Define.svgimagesize.width, Define.svgimagesize.height);
+
+        return [z.x, z.y];
 	}
 
+    // ハンドルのMove時の更新処理
+    handleMove(x, y, w, h) {
+        this.setState({
+            x: x,
+            y: y,
+            w: w,
+            h: h,
+        });
+    }
+
+    // ハンドルのマウスアップ時の更新処理
+    handleMouseUp() {
+        // 移動終了処理（右上基点の座標を渡す）
+        const z = Zahyo.luToruAreaToRect(this.state.x,
+            this.state.y,
+            this.state.w,
+            this.state.h,
+            Define.svgimagesize.width,
+            Define.svgimagesize.height);
+
+        this.props.endMoveBox({
+            id: this.props.id,
+            x1: z.x1,
+            y1: z.y1,
+            x2: z.x2,
+            y2: z.y2,
+        });        
+    }
 
     render() {
         return (
@@ -143,6 +263,18 @@ export default class SelectEditBox extends React.Component {
                         e.preventDefault();     // ブラウザ標準機能のイベントを抑止する
                     }}
                     onMouseDown={(e) => this.mouseDown(e)}
+                />
+
+                <HandleUMap
+                    x={this.state.x}
+                    y={this.state.y}
+                    w={this.state.w}
+                    h={this.state.h}
+
+                    gridsnap={(x, y) => this.gridsnap(x, y)}
+                    boxmovestop={(x, y, w, h) => this.boxmovestop(x, y, w, h)}
+                    handleMove={(x, y, w, h) => this.handleMove(x, y, w, h)}
+                    handleMouseUp={() => this.handleMouseUp()}
                 />
             </g> 
         )

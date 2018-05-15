@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Zahyo } from '../libs/zahyo.js';
+import { Define } from '../define.js';
 
 const style = {
 
@@ -24,10 +25,12 @@ export default class SelectGroupBox extends React.Component {
 
     
     render() {
-        const z = Zahyo.changeRect1(this.props.x1,
-                                    this.props.y1,
-                                    this.props.x2,
-                                    this.props.y2);
+        const z = Zahyo.ruToluRectToArea(this.props.x1,
+                                         this.props.y1,
+                                         this.props.x2,
+                                         this.props.y2,
+                                         Define.svgimagesize.width,
+                                         Define.svgimagesize.height);
 
         return (
             <g>
