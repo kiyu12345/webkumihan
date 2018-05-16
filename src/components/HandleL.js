@@ -6,7 +6,7 @@ const styles = {
 
 }
 
-export default class HandleU extends React.Component {
+export default class HandleL extends React.Component {
     constructor(props) {
         super(props);
         
@@ -20,8 +20,8 @@ export default class HandleU extends React.Component {
 
         // ハンドルの元（移動前）の中心座標
         this.handleorgpos = {
-            x: props.x + (props.w / 2),
-            y: props.y,
+            x: props.x,
+            y: props.y + (props.h / 2),
         };
 
 		// マウスダウン位置
@@ -50,14 +50,14 @@ export default class HandleU extends React.Component {
             };
 
             this.handleorgpos = {
-                x: nextProps.x + (nextProps.w / 2),
-                y: nextProps.y,
+                x: nextProps.x,
+                y: nextProps.y + (nextProps.h / 2),
             };
         }
         
         this.setState({
-            x: nextProps.x + (nextProps.w / 2),
-            y: nextProps.y,
+            x: nextProps.x,
+            y: nextProps.y + (nextProps.h / 2),
         });
     }
 
@@ -85,14 +85,14 @@ export default class HandleU extends React.Component {
         e.preventDefault();     // ブラウザ標準機能のイベントを抑止する
         
         // マウスムーブ後のカーソル位置を得る
-		// const moveX = e.pageX * 100 / this.props.scale;
-		const moveY = e.pageY * 100 / this.props.scale;
+		const moveX = e.pageX * 100 / this.props.scale;
+		// const moveY = e.pageY * 100 / this.props.scale;
 
 		// 当ハンドルの新たな座標を求める
-        // let x = this.handleorgpos.x + (moveX - this.mousepos.x);
-        let x = this.handleorgpos.x;
-        let y = this.handleorgpos.y + (moveY - this.mousepos.y);
-        // let y = this.handleorgpos.y;
+        let x = this.handleorgpos.x + (moveX - this.mousepos.x);
+        // let x = this.handleorgpos.x;
+        // let y = this.handleorgpos.y + (moveY - this.mousepos.y);
+        let y = this.handleorgpos.y;
 
         // ボックスが1グリッド分より小さくならないようにする
         [x, y] = this.checkgrid1block(x, y);
@@ -105,10 +105,10 @@ export default class HandleU extends React.Component {
 
         // エディットボックス更新処理
         this.props.handleMove(
-            this.boxorgpos.x,
-            y,
-            this.boxorgpos.w,
-            this.boxorgpos.y - y + this.boxorgpos.h,
+            x,
+            this.boxorgpos.y,
+            this.boxorgpos.x - x + this.boxorgpos.w,
+            this.boxorgpos.h,
         );
     }
 
@@ -126,10 +126,10 @@ export default class HandleU extends React.Component {
     }
 
     checkgrid1block(x, y) {
-        const y2 = this.boxorgpos.y + this.boxorgpos.h;
+        const x2 = this.boxorgpos.x + this.boxorgpos.w;
 
-        if (y > y2 - Define.grid.height) {
-            y = y2 - Define.grid.height;
+        if (x > x2 - Define.grid.width) {
+            x = y2 - Define.grid.width;
         }
 
         return [x, y];
@@ -151,8 +151,7 @@ export default class HandleU extends React.Component {
                 }}
 
                 onClick={(e) => {
-                    e.stopPropagation();    // このイベントをこのレイヤーで止める。下レイヤーにある要素にイベントを起こさない
-                    e.preventDefault();     // ブラウザ標準機能のイベントを抑止する
+                    // return false;
                 }}
                 onMouseDown={(e) => this.mouseDown(e)}
             />

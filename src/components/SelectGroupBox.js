@@ -3,24 +3,32 @@ import React from 'react';
 import { Zahyo } from '../libs/zahyo.js';
 import { Define } from '../define.js';
 
-const style = {
+const styles = {
 
 };
 
 export default class SelectGroupBox extends React.Component {
     constructor(props) {
         super(props);
+
+        this.boxClick = this.boxClick.bind(this);
     }
-    
+
+    componentDidMount() {
+        document.getElementById(`${this.props.boxid}_selectbox`).addEventListener('click', this.boxClick, false);
+    }
+
     boxClick(e) {
         e.stopPropagation();    // このイベントをこのレイヤーで止める。下レイヤーにある要素にイベントを起こさない
         e.preventDefault();     // ブラウザ標準機能のイベントを抑止する
 
         this.props.onClickBox({
-            id:    this.props.id,
+            id:    this.props.boxid,
             group: this.props.group,
             no:    this.props.no,
         });
+
+        return false;
     }
 
     
@@ -35,6 +43,7 @@ export default class SelectGroupBox extends React.Component {
         return (
             <g>
                 <rect
+                    id={`${this.props.boxid}_selectbox`}
                     x={z.x}
                     y={z.y}
                     width={z.w}
@@ -48,7 +57,7 @@ export default class SelectGroupBox extends React.Component {
                         stroke: 'none',
                     }}
 
-                    onClick={(e) => this.boxClick(e)}
+                    // onMouseUp={(e) => this.boxClick(e)}
                 />
             </g> 
         )

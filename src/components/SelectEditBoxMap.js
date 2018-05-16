@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import SelectEditBox from './SelectEditBox.js';
 
 import {
+    SU_SelectBox_Box_NonSelect,
     SU_SelectBox_EditBox_MoveEnd,
 } from '../actions_su/selectbox.js';
-
 
 // mapStateToProps
 const mapStateToProps = (state, props) => {
@@ -35,6 +35,11 @@ const mergeProps = (state, dispatch, props) => {
         endMoveBox: (payload) => {
             dispatch.dispatch(SU_SelectBox_EditBox_MoveEnd(payload));
         },
+
+        onClickBase: () => {
+console.log('Non Select');
+            dispatch.dispatch(SU_SelectBox_Box_NonSelect());
+        }
     };
 }
 

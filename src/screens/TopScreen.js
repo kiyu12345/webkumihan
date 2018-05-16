@@ -18,11 +18,6 @@ const styles = {
 };
 
 export default class TopScreen extends React.Component {
-    onBaseClick(e) {
-        e.stopPropagation();
-        this.props.onBaseClick();
-    }
-
     toolBoxs() {
         let toolboxs = [];
 
@@ -52,7 +47,6 @@ export default class TopScreen extends React.Component {
         return (
             <div
                 style={styles.container}
-                onClick={(e) => this.onBaseClick(e)}
             >
                 {/* SVGイメージボックス */}
                 <ViewBox />

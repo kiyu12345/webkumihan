@@ -30,9 +30,6 @@ const mergeProps = (state, dispatch, props) => {
         //     dispatch.dispatch(SU_Xxxxxx_Xxxxx_Xxxx());
         // },
         toolboxs: state.toolboxs,
-        onBaseClick: () => {
-            dispatch.dispatch(SU_SelectBox_Box_NonSelect());
-        },
     };
 }
 
