@@ -15,7 +15,7 @@ export default class SelectSonotaBox extends React.Component {
     }
 
     componentDidMount() {
-        document.getElementById(`${this.props.boxid}_selectbox`).addEventListener('click', this.boxClick, false);
+        document.getElementById(`${this.props.id}_selectbox`).addEventListener('click', this.boxClick, false);
     }
 
     boxClick(e) {
@@ -23,7 +23,7 @@ export default class SelectSonotaBox extends React.Component {
         e.preventDefault();     // ブラウザ標準機能のイベントを抑止する
 
         this.props.onClickBox({
-            id:    this.props.boxid,
+            id:    this.props.id,
             group: this.props.group,
             no:    this.props.no,
         });
@@ -40,21 +40,17 @@ export default class SelectSonotaBox extends React.Component {
                                          Define.svgimagesize.width,
                                          Define.svgimagesize.height);
         
-        let fill = 'black';
-        if (this.props.grouptype == 'same') {
-            fill = 'blue';
-        }
         return (
             <g>
                 <rect
-                    id={`${this.props.boxid}_selectbox`}
+                    id={`${this.props.id}_selectbox`}
                     x={z.x}
                     y={z.y}
                     width={z.w}
                     height={z.h}
                     style={{
-                        fill: fill,
-                        fillOpacity: '0.3',
+                        fill: 'black',
+                        fillOpacity: '0.0',
                         //fill: 'none',
                         //stroke: 'blue',
                         //strokeWidth: 2,

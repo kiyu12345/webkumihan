@@ -23,32 +23,42 @@ export const boxs = (state = [
     {
         id: 'box001',
         type: 'text',
-        x1: 200,
+        x1: 100,
         y1: 100,
-        x2: 400,
-        y2: 200,
+        x2: 200,
+        y2: 300,
         group: 'test',
         no: 1,
     },
     {
         id: 'box002',
         type: 'text',
-        x1: 100,
-        y1: 300,
-        x2: 200,
-        y2: 500,
-        group: 'test',
+        x1: 300,
+        y1: 100,
+        x2: 400,
+        y2: 300,
+        group: 'test2',
         no: 2,
     },
     {
         id: 'box003',
         type: 'text',
-        x1: 300,
-        y1: 400,
-        x2: 400,
-        y2: 600,
-        group: 'test2',
-        no: 1,
+        x1: 500,
+        y1: 100,
+        x2: 600,
+        y2: 300,
+        group: 'test',
+        no: 2,
+    },
+    {
+        id: 'box004',
+        type: 'text',
+        x1: 700,
+        y1: 100,
+        x2: 800,
+        y2: 300,
+        group: 'test3',
+        no: 2,
     },
 ], action) => {
     switch (action.type) {
@@ -57,7 +67,6 @@ export const boxs = (state = [
 
         for (let i = 0; i < boxs.length; i++) {
             if (boxs[i].id == action.payload.id) {
-console.log(action.payload);
                 boxs[i].x1 = action.payload.x1;
                 boxs[i].y1 = action.payload.y1;
                 boxs[i].x2 = action.payload.x2;

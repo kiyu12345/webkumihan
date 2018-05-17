@@ -120,6 +120,14 @@ export default class HandleU extends React.Component {
         document.removeEventListener('mousemove', this.mouseMove);
         document.removeEventListener('mouseup',   this.mouseUp);
 
+        // documentへのclickイベントをキャンセルする
+        var captureClick = (e) => {
+            e.stopPropagation();
+            document.removeEventListener('click', captureClick, true);
+        }
+        document.addEventListener('click', captureClick, true);
+
+        // ハンドルMouseUp処理
         this.props.handleMouseUp();
 
         return false;

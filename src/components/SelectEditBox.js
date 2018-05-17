@@ -6,7 +6,7 @@ import HandleLMap from './HandleLMap.js';
 import { Define } from '../define.js';
 import { Zahyo }  from '../libs/zahyo.js';
 
-const style = {
+const styles = {
 
 };
 
@@ -56,40 +56,50 @@ export default class SelectEditBox extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        const k = Zahyo.ruToluRect(nextProps.x1,
-                                   nextProps.y1,
-                                   nextProps.x2,
-                                   nextProps.y2,
-                                   Define.svgimagesize.width,
-                                   Define.svgimagesize.height);
+        const area = Zahyo.ruToluRectToArea(nextProps.x1,
+                                            nextProps.y1,
+                                            nextProps.x2,
+                                            nextProps.y2,
+                                            Define.svgimagesize.width,
+                                            Define.svgimagesize.height);
 
         this.boxorgpos = {
-            x: k.x1,
-            y: k.y1,
+            x: area.x,
+            y: area.y,
         };
+
+        this.setState({
+            x: area.x,
+            y: area.y,
+            w: area.w,
+            h: area.h,
+            handle_refresh: true,
+        });
     }
 
     componentWillUnmount() {
         this.removeBaseClickEvent();
     }
-
+    
     // ベースクリックのイベント登録処理
     addBaseClickEvent() {
-        document.addEventListener('mouseup', this.baseClick, false);
+        document.addEventListener('click', this.baseClick, false);
     }
     // ベースクリックのイベント削除処理
     removeBaseClickEvent() {
-        document.removeEventListener('mouseup', this.baseClick);
+        document.removeEventListener('click', this.baseClick);
     }
 
     baseClick(e) {
-        // e.stopPropagation();    // このイベントをこのレイヤーで止める。下レイヤーにある要素にイベントを起こさない
+        e.stopPropagation();    // このイベントをこのレイヤーで止める。下レイヤーにある要素にイベントを起こさない
         e.preventDefault();     // ブラウザ標準機能のイベントを抑止する
 
         // ベースクリックのイベントを削除する
         this.removeBaseClickEvent();
 
         this.props.onClickBase();
+
+        return false;
     }
 
     mouseDown(e) {
@@ -142,6 +152,13 @@ export default class SelectEditBox extends React.Component {
         document.removeEventListener('mousemove', this.mouseMove);
         document.removeEventListener('mouseup',   this.mouseUp);
 
+        // documentへのclickイベントをキャンセルする
+        var captureClick = (e) => {
+            e.stopPropagation();
+            document.removeEventListener('click', captureClick, true);
+        }
+        document.addEventListener('click', captureClick, true);
+
         // ベースクリックのイベントを登録する
         this.addBaseClickEvent();
 
@@ -153,7 +170,7 @@ export default class SelectEditBox extends React.Component {
                                          Define.svgimagesize.width,
                                          Define.svgimagesize.height);
         this.props.endMoveBox({
-            id: this.props.boxid,
+            id: this.props.id,
             x1: z.x1,
             y1: z.y1,
             x2: z.x2,
@@ -284,7 +301,7 @@ export default class SelectEditBox extends React.Component {
         });
 
         this.props.endMoveBox({
-            id: this.props.boxid,
+            id: this.props.id,
             x1: z.x1,
             y1: z.y1,
             x2: z.x2,
@@ -296,7 +313,7 @@ export default class SelectEditBox extends React.Component {
         return (
             <g>
                 <rect
-                    id={`${this.props.boxid}_selectbox`}
+                    id={`${this.props.id}_selectbox`}
                     x={this.state.x}
                     y={this.state.y}
                     width={this.state.w}
