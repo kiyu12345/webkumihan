@@ -37,7 +37,6 @@ const mergeProps = (state, dispatch, props) => {
         },
 
         onClickBase: () => {
-console.log('Non Select');
             dispatch.dispatch(SU_SelectBox_Box_NonSelect());
         }
     };

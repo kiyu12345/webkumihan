@@ -9,7 +9,7 @@ const styles = {
 export default class HandleL extends React.Component {
     constructor(props) {
         super(props);
-        
+ 
         // 移動前のエディットボックスarea情報
         this.boxorgpos = {
             x: props.x,
@@ -100,8 +100,8 @@ export default class HandleL extends React.Component {
         // グリッドスナップ処理
         [x, y] = this.props.gridsnap(x, y);
         
-		// ベースSVGイメージの端に当ボックスが行った場合の座標変換
-		[x, y] = this.props.boxmovestop(x, y, this.props.w, this.props.h);
+		// ベースSVGイメージの端にハンドルが行った場合の座標変換
+		[x, y] = this.props.handlestop(x, y);
 
         // エディットボックス更新処理
         this.props.handleMove(
@@ -120,6 +120,14 @@ export default class HandleL extends React.Component {
         document.removeEventListener('mousemove', this.mouseMove);
         document.removeEventListener('mouseup',   this.mouseUp);
 
+        // documentへのclickイベントをキャンセルする
+        var captureClick = (e) => {
+            e.stopPropagation();
+            document.removeEventListener('click', captureClick, true);
+        }
+        document.addEventListener('click', captureClick, true);
+
+        // ハンドルMouseUp処理
         this.props.handleMouseUp();
 
         return false;
@@ -129,7 +137,7 @@ export default class HandleL extends React.Component {
         const x2 = this.boxorgpos.x + this.boxorgpos.w;
 
         if (x > x2 - Define.grid.width) {
-            x = y2 - Define.grid.width;
+            x = x2 - Define.grid.width;
         }
 
         return [x, y];

@@ -2,6 +2,8 @@ import React from 'react';
 
 import HandleUMap from './HandleUMap.js';
 import HandleLMap from './HandleLMap.js';
+import HandleRMap from './HandleRMap.js';
+import HandleDMap from './HandleDMap.js';
 
 import { Define } from '../define.js';
 import { Zahyo }  from '../libs/zahyo.js';
@@ -266,6 +268,39 @@ export default class SelectEditBox extends React.Component {
         return [z.x, z.y];
     }
     
+    // ハンドルがベースSVGイメージの外に出ないようにする
+    handlestop(x, y) {
+        // 右上基点の座標に変換する
+        let rx = Zahyo.luToruX(x, Define.svgimagesize.width);
+        let ry = Zahyo.luToruY(y, Define.svgimagesize.height);
+
+        // SVGイメージの一番左側のグリッドの座標を得る
+        let sho, grid_lx, grid_dy;
+        sho = Math.floor(Define.svgimagesize.width / Define.grid.width);
+        grid_lx = Define.grid.width * sho;
+        // SVGイメージの一番下側のグリッドの座標を得る
+        sho = Math.floor(Define.svgimagesize.height / Define.grid.height);
+        grid_dy = Define.grid.height * sho;
+
+		if (rx <= 0) {
+			rx = 0;
+		} else if (rx >= grid_lx) {
+			rx = grid_lx;
+        }
+        
+		if (ry <= 0) {
+			ry = 0;
+		} else if (ry >= grid_dy) {
+			ry = grid_dy;
+		}
+
+        // 左上基点の座標に変換する
+        x = Zahyo.ruToluX(rx, Define.svgimagesize.width);
+        y = Zahyo.ruToluY(ry, Define.svgimagesize.height);
+
+        return [x, y];
+    }
+
     // ハンドルのマウスダウン時の処理
     handleMouseDown() {
         // ベースクリックイベントを削除する
@@ -342,12 +377,12 @@ export default class SelectEditBox extends React.Component {
                     handleRefresh={this.state.handle_refresh}
 
                     gridsnap={(x, y) => this.gridsnap(x, y)}
-                    boxmovestop={(x, y, w, h) => this.boxmovestop(x, y, w, h)}
+                    handlestop={(x, y, w, h) => this.handlestop(x, y, w, h)}
                     handleMouseDown={() => this.handleMouseDown()}
                     handleMove={(x, y, w, h) => this.handleMove(x, y, w, h)}
                     handleMouseUp={() => this.handleMouseUp()}
                 />
-                {/* <HandleLMap
+                <HandleLMap
                     x={this.state.x}
                     y={this.state.y}
                     w={this.state.w}
@@ -356,11 +391,39 @@ export default class SelectEditBox extends React.Component {
                     handleRefresh={this.state.handle_refresh}
 
                     gridsnap={(x, y) => this.gridsnap(x, y)}
-                    boxmovestop={(x, y, w, h) => this.boxmovestop(x, y, w, h)}
+                    handlestop={(x, y, w, h) => this.handlestop(x, y, w, h)}
                     handleMouseDown={() => this.handleMouseDown()}
                     handleMove={(x, y, w, h) => this.handleMove(x, y, w, h)}
                     handleMouseUp={() => this.handleMouseUp()}
-                /> */}
+                />
+                <HandleRMap
+                    x={this.state.x}
+                    y={this.state.y}
+                    w={this.state.w}
+                    h={this.state.h}
+
+                    handleRefresh={this.state.handle_refresh}
+
+                    gridsnap={(x, y) => this.gridsnap(x, y)}
+                    handlestop={(x, y, w, h) => this.handlestop(x, y, w, h)}
+                    handleMouseDown={() => this.handleMouseDown()}
+                    handleMove={(x, y, w, h) => this.handleMove(x, y, w, h)}
+                    handleMouseUp={() => this.handleMouseUp()}
+                />
+                <HandleDMap
+                    x={this.state.x}
+                    y={this.state.y}
+                    w={this.state.w}
+                    h={this.state.h}
+
+                    handleRefresh={this.state.handle_refresh}
+
+                    gridsnap={(x, y) => this.gridsnap(x, y)}
+                    handlestop={(x, y, w, h) => this.handlestop(x, y, w, h)}
+                    handleMouseDown={() => this.handleMouseDown()}
+                    handleMove={(x, y, w, h) => this.handleMove(x, y, w, h)}
+                    handleMouseUp={() => this.handleMouseUp()}
+                />
             </g> 
         )
     }

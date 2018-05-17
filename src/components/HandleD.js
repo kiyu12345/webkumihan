@@ -6,7 +6,7 @@ const styles = {
 
 }
 
-export default class HandleU extends React.Component {
+export default class HandleD extends React.Component {
     constructor(props) {
         super(props);
         
@@ -21,7 +21,7 @@ export default class HandleU extends React.Component {
         // ハンドルの元（移動前）の中心座標
         this.handleorgpos = {
             x: props.x + (props.w / 2),
-            y: props.y,
+            y: props.y + props.h,
         };
 
 		// マウスダウン位置
@@ -51,13 +51,13 @@ export default class HandleU extends React.Component {
 
             this.handleorgpos = {
                 x: nextProps.x + (nextProps.w / 2),
-                y: nextProps.y,
+                y: nextProps.y + nextProps.h,
             };
         }
         
         this.setState({
             x: nextProps.x + (nextProps.w / 2),
-            y: nextProps.y,
+            y: nextProps.y + nextProps.h,
         });
     }
 
@@ -106,9 +106,9 @@ export default class HandleU extends React.Component {
         // エディットボックス更新処理
         this.props.handleMove(
             this.boxorgpos.x,
-            y,
+            this.boxorgpos.y,
             this.boxorgpos.w,
-            this.boxorgpos.y - y + this.boxorgpos.h,
+            y - this.boxorgpos.y,
         );
     }
 
@@ -134,10 +134,10 @@ export default class HandleU extends React.Component {
     }
 
     checkgrid1block(x, y) {
-        const y2 = this.boxorgpos.y + this.boxorgpos.h;
+        const y2 = this.boxorgpos.y;
 
-        if (y > y2 - Define.grid.height) {
-            y = y2 - Define.grid.height;
+        if (y < y2 + Define.grid.height) {
+            y = y2 + Define.grid.height;
         }
 
         return [x, y];

@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import HandleL from './HandleL.js';
+import HandleD from './HandleD.js';
 
 // mapStateToProps
 const mapStateToProps = (state, props) => {
@@ -20,9 +20,9 @@ const mapDispatchToProps = (dispatch, props) => {
 const mergeProps = (state, dispatch, props) => {
     return {
         // xxx: yyy,
-        // onHandleL: (xxx) => {
+        // onHandleD: (xxx) => {
         //     .....
-        //     dispatch.dispatch(SU_HandleLxx_HandleLx_HandleL());
+        //     dispatch.dispatch(SU_HandleDxx_HandleDx_HandleD());
         // },
         ...props,
         scale: state.scale,
@@ -30,10 +30,10 @@ const mergeProps = (state, dispatch, props) => {
 }
 
 // connect
-const HandleLMap = connect(
+const HandleDMap = connect(
     mapStateToProps,
     mapDispatchToProps,
     mergeProps
-)(HandleL);
+)(HandleD);
 
-export default HandleLMap;
+export default HandleDMap;
