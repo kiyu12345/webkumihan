@@ -13,25 +13,29 @@ export default class Boxs extends React.Component {
     render() {
         return (
             <g id={this.props.id}>
-                {this.props.boxs.map((obj) => {
-                    const z = Zahyo.ruToluRectToArea(obj.x1,
-                                                     obj.y1,
-                                                     obj.x2,
-                                                     obj.y2,
+                {this.props.boxs.map((box) => {
+                    const z = Zahyo.ruToluRectToArea(box.x1,
+                                                     box.y1,
+                                                     box.x2,
+                                                     box.y2,
                                                      Define.svgimagesize.width,
                                                      Define.svgimagesize.height);
                     
-                    switch (obj.type) {
+console.log(box);
+                    switch (box.type) {
                     case 'text':
                         return (
                             <TextBoxMap
-                                id={obj.id}
+                                id={box.id}
                                 x={z.x}
                                 y={z.y}
                                 width={z.w}
                                 height={z.h}
-                                group={obj.group}
-                                no={obj.no}
+                                group={box.group}
+                                no={box.no}
+
+                                text={box.text}
+                                textgrid={box.textgrid}
                             />
                         );
 

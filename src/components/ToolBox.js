@@ -3,28 +3,35 @@ import React from 'react';
 const styles = {
     container: {
         position: 'absolute',
-        border: '1px solid gray',
         borderRadius: '5px',
-        backgroundColor: 'lightgray',
         boxShadow: '0 0 2px gray',
     },
     title: {
-        width: 'calc(100% - 20px)',
-        height: '20px',
-        padding: '5px 10px',
-        fontSize: '10pt',
+        width: 'calc(100% - 2px - 20px)',
+        height: '18px',
+        border: '1px solid gray',
+        padding: '0px 10px',
+        fontSize: '12px',
+        lineHeight: '18px',
         color: '#333',
         borderRadius: '5px 5px 0 0',
         textAlign: 'left',
         backgroundColor: '#a1bde8',
+        userSelect: 'none',
+
     },
     body: {
-        padding: '5px',
-        borderRAdius: '0 0 5px 5px',
-        borderTop: '1px solid gray',
-        fontSize: '10pt',
+        width: 'calc(100% - 2px - 20px)',
+        padding: '0px 10px',
+        borderRadius: '0 0 5px 5px',
+        borderLeft: '1px solid gray',
+        borderRight: '1px solid gray',
+        borderBottom: '1px solid gray',
+        fontSize: '14px',
         textAlign: 'left',
-    }
+        backgroundColor: '#f3f3f5',
+        userSelect: 'none',
+    },
 };
 
 export default class ToolBox extends React.Component {
@@ -142,7 +149,11 @@ export default class ToolBox extends React.Component {
                     width:  `${this.props.w}px`,
                     height: `${this.props.h}px`,
                 }}
-                onClick={(e) => e.stopPropagation()}
+                onClick={(e) => {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    return false;
+                }}
             >
                 <div
                     style={styles.title}
@@ -151,7 +162,10 @@ export default class ToolBox extends React.Component {
                     {this.props.title}
                 </div>
 
-                <div style={styles.body}>
+                <div style={{
+                    ...styles.body,
+                    height: `calc(${this.props.h}px - 20px`,
+                }}>
                     { this.props.children }
                 </div>
             </div>

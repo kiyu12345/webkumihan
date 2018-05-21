@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { Zahyo } from '../libs/zahyo.js';
+
 const styles = {
     container: {
         backgroundColor: 'yellow',
@@ -21,9 +23,49 @@ export default class TextBox extends React.Component {
                 style={{
                     stroke: 'none',
                     fill: 'lightyellow',
+                    opacity: '0.5',
                 }}
             />
         )
+    }
+
+    textgrid() {
+        let ary = [];
+        let x, y;
+
+        for (let i = 0; i < this.props.textgrid.length; i++) {
+            let cj, cg, x, y, size_x, size_y;
+            cj = this.props.textgrid[i][0];
+            cg = this.props.textgrid[i][1];
+
+            if (this.props.text.kumihoko == 'tate') {
+                x = Zahyo.ruToluX(cg, this.props.width);
+                y = Zahyo.ruToluY(cj, this.props.height);
+                size_x = this.props.text.size_g;
+                size_y = this.props.text.size_j;
+            } else {
+                x = cj;
+                y = cg;
+                size_x = this.props.text.size_j;
+                size_y = this.props.text.size_g;
+            }
+
+            ary.push(
+                <rect
+                    x={x - (size_x / 2)}
+                    y={y - (size_y / 2)}
+                    width={size_x}
+                    height={size_y}
+                    style={{
+                        stroke: 'lightgray',
+                        strokeWidth: '1',
+                        fill: 'none',
+                    }}
+                />
+            )
+        }
+
+        return ary;
     }
 
     render() {
@@ -35,8 +77,13 @@ export default class TextBox extends React.Component {
                 height={this.props.height}
                 style={styles.container}
             >
+                {/* テキストボックスの背景 */}
                 {this.box()}
-                <text x="0" y="20" fill="#000">あ</text>
+
+                {/* <text x="0" y="20" fill="#000">あ</text> */}
+
+                {/* テキストグリッド */}
+                {this.textgrid()}
             </g>
         );
     }

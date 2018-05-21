@@ -4,6 +4,8 @@ import ViewBox from '../components/ViewBox.js';
 // import { Dialog } from 'material-ui';
 import ToolBoxMap from '../components/ToolBoxMap.js';
 import ToolBoxScaleMap from '../components/ToolBoxScaleMap.js';
+import ToolBoxBoxDataMap from '../components/ToolBoxBoxDataMap.js';
+import ToolBoxTextDataMap from '../components/ToolBoxTextDataMap.js';
 
 const styles = {
     container: {
@@ -34,6 +36,36 @@ export default class TopScreen extends React.Component {
                         title="拡大縮小"
                     >
                         <ToolBoxScaleMap />
+                    </ToolBoxMap>
+                );
+                break;
+
+            case 'boxdata':   // ボックス情報ツールボックス
+                toolboxs.push(
+                    <ToolBoxMap
+                        id={this.props.toolboxs[i].id}
+                        x={this.props.toolboxs[i].x}
+                        y={this.props.toolboxs[i].y}
+                        w={this.props.toolboxs[i].w}
+                        h={this.props.toolboxs[i].h}
+                        title="ボックス情報"
+                    >
+                        <ToolBoxBoxDataMap />
+                    </ToolBoxMap>
+                );
+                break;
+
+            case 'textdata':   // テキスト情報ツールボックス
+                toolboxs.push(
+                    <ToolBoxMap
+                        id={this.props.toolboxs[i].id}
+                        x={this.props.toolboxs[i].x}
+                        y={this.props.toolboxs[i].y}
+                        w={this.props.toolboxs[i].w}
+                        h={this.props.toolboxs[i].h}
+                        title="テキスト情報"
+                    >
+                        <ToolBoxTextDataMap />
                     </ToolBoxMap>
                 );
                 break;

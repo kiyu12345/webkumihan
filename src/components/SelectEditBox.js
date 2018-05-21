@@ -85,11 +85,11 @@ export default class SelectEditBox extends React.Component {
     
     // ベースクリックのイベント登録処理
     addBaseClickEvent() {
-        document.addEventListener('click', this.baseClick, false);
+        document.getElementById('viewbox').addEventListener('click', this.baseClick, false);
     }
     // ベースクリックのイベント削除処理
     removeBaseClickEvent() {
-        document.removeEventListener('click', this.baseClick);
+        document.getElementById('viewbox').removeEventListener('click', this.baseClick);
     }
 
     baseClick(e) {
@@ -335,7 +335,7 @@ export default class SelectEditBox extends React.Component {
             handle_refresh: true,
         });
 
-        this.props.endMoveBox({
+        this.props.endChangeSizeBox({
             id: this.props.id,
             x1: z.x1,
             y1: z.y1,

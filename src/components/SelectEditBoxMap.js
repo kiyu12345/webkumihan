@@ -5,6 +5,7 @@ import SelectEditBox from './SelectEditBox.js';
 import {
     SU_SelectBox_Box_NonSelect,
     SU_SelectBox_EditBox_MoveEnd,
+    SU_SelectBox_EditBox_ChangeSize,
 } from '../actions_su/selectbox.js';
 
 // mapStateToProps
@@ -35,10 +36,14 @@ const mergeProps = (state, dispatch, props) => {
         endMoveBox: (payload) => {
             dispatch.dispatch(SU_SelectBox_EditBox_MoveEnd(payload));
         },
+        endChangeSizeBox: (payload) => {
+            dispatch.dispatch(SU_SelectBox_EditBox_ChangeSize(payload));
+        },
 
         onClickBase: () => {
             dispatch.dispatch(SU_SelectBox_Box_NonSelect());
         }
+
     };
 }
 

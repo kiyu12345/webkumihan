@@ -3,16 +3,24 @@ import React from 'react';
 const styles = {
     container: {
         textAlign: 'left',
-        fontSize: '10pt',
     },
     per: {
+        width: '40px',
+        fontSize: '12px',
         textAlign: 'left',
-        marginBottom: '10px',
+        lineHeight: '20px',
     },
     button: {
-        width: '50px',
-        height: '20px',
-        margin: '0 5px',
+        marginTop: '2px',
+        width: '38px',
+        height: '14px',
+        textAlign: 'center',
+        fontSize: '12px',
+        lineHeight: '14px',
+        border: '1px solid #333',
+        borderRadius: '2px',
+        backgroundColor: 'lightgreen',
+        userSelect: 'none',
     },
 };
 
@@ -22,25 +30,41 @@ export default class ToolBoxScale extends React.Component {
             <div
                 style={styles.container}
             >
-                <div style={styles.per}>{this.props.scale} %</div>
-                <button
-                    style={styles.button}
-                    onClick={() => this.props.onClickMinButton()}
-                >
-                    縮小
-                </button>
-                <button
-                    style={styles.button}
-                    onClick={() => this.props.onClickMaxButton()}
-                >
-                    拡大
-                </button>
-                <button
-                    style={styles.button}
+                <div style={{
+                    ...styles.per,
+                    float: 'left',
+                }}>
+                    {this.props.scale} %
+                </div>
+                <div
+                    style={{
+                        ...styles.button,
+                        float: 'right',
+                    }}
                     onClick={() => this.props.onClick100PerButton()}
                 >
                     100%
-                </button>
+                </div>
+                <div
+                    style={{
+                        ...styles.button,
+                        float: 'right',
+                        marginRight: '5px',
+                    }}
+                    onClick={() => this.props.onClickMaxButton()}
+                >
+                    拡大
+                </div>
+                <div
+                    style={{
+                        ...styles.button,
+                        float: 'right',
+                        marginRight: '5px',
+                    }}
+                    onClick={() => this.props.onClickMinButton()}
+                >
+                    縮小
+                </div>
             </div>
         )
     }
