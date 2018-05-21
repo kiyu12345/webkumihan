@@ -19,6 +19,9 @@ const styles = {
         backgroundColor: 'lightgreen',
         borderRadius: '2px',
     },
+    input: {
+        height: '14px',
+    },
 };
 
 export default class ToolBoxScale extends React.Component {
@@ -83,14 +86,14 @@ export default class ToolBoxScale extends React.Component {
                     S<input
                         type="text"
                         value={this.state.padding_js}
-                        style={{width: '25px'}}
+                        style={{...styles.input, width: '25px'}}
                         onChange={(e) => this.setState({padding_js: parseInt(e.target.value)})} 
                         />
                     &nbsp;
                     E<input
                         type="text"
                         value={this.state.padding_je}
-                        style={{width: '25px'}}
+                        style={{...styles.input, width: '25px'}}
                         onChange={(e) => this.setState({padding_je: parseInt(e.target.value)})}
                     />
                 </div>
@@ -103,14 +106,14 @@ export default class ToolBoxScale extends React.Component {
                     S<input
                         type="text"
                         value={this.state.padding_gs}
-                        style={{width: '25px'}}
+                        style={{...styles.input, width: '25px'}}
                         onChange={(e) => this.setState({padding_gs: parseInt(e.target.value)})} 
                         />
                     &nbsp;
                     E<input
                         type="text"
                         value={this.state.padding_ge}
-                        style={{width: '25px'}}
+                        style={{...styles.input, width: '25px'}}
                         onChange={(e) => this.setState({padding_ge: parseInt(e.target.value)})}
                     />
                 </div>
@@ -122,14 +125,14 @@ export default class ToolBoxScale extends React.Component {
                     組方向 <input
                                 type="text"
                                 value={this.state.kumihoko}
-                                style={{width: '50px'}}
+                                style={{...styles.input, width: '50px'}}
                                 onChange={(e) => this.setState({kumihoko: e.target.value})}
                     />
                     &nbsp;
                     行間 <input
                                 type="text"
                                 value={this.state.gyokan}
-                                style={{width: '30px'}}
+                                style={{...styles.input, width: '30px'}}
                                 onChange={(e) => this.setState({gyokan: parseInt(e.target.value)})}
                     />
                 </div>
@@ -141,7 +144,7 @@ export default class ToolBoxScale extends React.Component {
                     文字サイズ（字詰）<input
                                         type="text"
                                         value={this.state.size_j}
-                                        style={{width: '30px'}}
+                                        style={{...styles.input, width: '30px'}}
                                         onChange={(e) => this.setState({size_j: parseInt(e.target.value)})}
                     />
                 </div>
@@ -153,7 +156,7 @@ export default class ToolBoxScale extends React.Component {
                     文字サイズ（行送）<input
                                 type="text"
                                 value={this.state.size_g}
-                                style={{width: '30px'}}
+                                style={{...styles.input, width: '30px'}}
                                 onChange={(e) => this.setState({size_g: parseInt(e.target.value)})}
                     />
                 </div>

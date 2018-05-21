@@ -19,6 +19,9 @@ const styles = {
         backgroundColor: 'lightgreen',
         borderRadius: '2px',
     },
+    input: {
+        height: '14px',
+    },
 };
 
 export default class ToolBoxBoxData extends React.Component {
@@ -71,14 +74,14 @@ export default class ToolBoxBoxData extends React.Component {
                     ｸﾞﾙｰﾌﾟ名 <input
                                 type="text"
                                 value={this.state.group}
-                                style={{width: '50px'}}
+                                style={{...styles.input, width: '50px'}}
                                 onChange={(e) => this.setState({group: e.target.value})}
                             />
                     &nbsp;
                     No.<input
                             type="text"
                             value={this.state.no}
-                            style={{width: '20px'}}
+                            style={{...styles.input, width: '20px'}}
                             onChange={(e) => this.setState({no: parseInt(e.target.value)})}
                         />
                 </div>

@@ -3,6 +3,10 @@ import {
     SAGA_SELECTBOX_BOX_SELECT,
 } from '../actions_saga/selectbox.js';
 
+import {
+    SAGA_TOOLBOXBOXDATA_BOXDATA_CHANGE,
+} from '../actions_saga/toolboxboxdata.js';
+
 // ====================
 // boxフォーカス情報
 //      {
@@ -25,6 +29,13 @@ export const focusbox = (state = {id: '', group: '', no: 0}, action) => {
             id:    action.payload.id,
             group: action.payload.group,
             no:    action.payload.no,
+        };
+
+    case SAGA_TOOLBOXBOXDATA_BOXDATA_CHANGE:    // ボックス情報ツールボックスで更新ボタンが押された場合
+        return {
+            id:    action.payload.box.id,
+            group: action.payload.box.group,
+            no:    action.payload.box.no,
         };
 
     default:

@@ -4,6 +4,11 @@ import {
     SAGA_TOOLBOX_MOVEEND,
 } from '../actions_saga/toolbox.js';
 
+import {
+    SAGA_SELECTBOX_BOX_SELECT,
+    SAGA_SELECTBOX_BOX_NONSELECT,
+} from '../actions_saga/selectbox.js';
+
 // ====================
 // ツールボックスデータ
 //      [
@@ -44,17 +49,44 @@ export const toolboxs = (state = [
         y: 0,
         w: 200,
         h: 160,
-        view: 'true',
+        view: 'false',
     },
 ], action) => {
+    let toolboxs;
+
     switch (action.type) {
     case SAGA_TOOLBOX_MOVEEND:
-        let toolboxs = state.slice();
+        toolboxs = state.slice();
 
         for (let i = 0; i < toolboxs.length; i++) {
             if (toolboxs[i].id == action.payload.id) {
                 toolboxs[i].x = action.payload.x;
                 toolboxs[i].y = action.payload.y;
+                break;
+            }
+        }
+
+        return toolboxs;
+
+    case SAGA_SELECTBOX_BOX_SELECT:   // ボックスを選択した場合
+        toolboxs = state.slice();
+
+        console.log(action);
+        for (let i = 0; i < toolboxs.length; i++) {
+            if (toolboxs[i].type == 'textdata' && action.payload.type == 'text') {
+                toolboxs[i].view = 'true';
+                break;
+            }
+        }
+
+        return toolboxs;
+
+    case SAGA_SELECTBOX_BOX_NONSELECT:   // ボックスの選択を解除した場合
+        toolboxs = state.slice();
+
+        for (let i = 0; i < toolboxs.length; i++) {
+            if (toolboxs[i].type == 'textdata') {
+                toolboxs[i].view = 'false';
                 break;
             }
         }

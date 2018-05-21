@@ -20,6 +20,7 @@ export default class SelectBoxs extends React.Component {
             selectboxs.push(
                 <SelectSonotaBoxMap
                     id={this.props.boxs[i].id}
+                    type={this.props.boxs[i].type}
                     x1={this.props.boxs[i].x1}
                     y1={this.props.boxs[i].y1}
                     x2={this.props.boxs[i].x2}
@@ -43,6 +44,7 @@ export default class SelectBoxs extends React.Component {
                 editbox = (
                     <SelectEditBoxMap
                         id={this.props.boxs[i].id}
+                        type={this.props.boxs[i].type}
                         x1={this.props.boxs[i].x1}
                         y1={this.props.boxs[i].y1}
                         x2={this.props.boxs[i].x2}
@@ -60,6 +62,7 @@ export default class SelectBoxs extends React.Component {
                 selectboxs.push(
                     <SelectGroupBoxMap
                         id={this.props.boxs[i].id}
+                        type={this.props.boxs[i].type}
                         x1={this.props.boxs[i].x1}
                         y1={this.props.boxs[i].y1}
                         x2={this.props.boxs[i].x2}
@@ -76,6 +79,7 @@ export default class SelectBoxs extends React.Component {
             selectboxs.push(
                 <SelectSonotaBoxMap
                     id={this.props.boxs[i].id}
+                    type={this.props.boxs[i].type}
                     x1={this.props.boxs[i].x1}
                     y1={this.props.boxs[i].y1}
                     x2={this.props.boxs[i].x2}

@@ -24,6 +24,7 @@ export default class SelectSonotaBox extends React.Component {
 
         this.props.onClickBox({
             id:    this.props.id,
+            type:  this.props.type,
             group: this.props.group,
             no:    this.props.no,
         });

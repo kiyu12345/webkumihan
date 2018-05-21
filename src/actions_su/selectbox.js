@@ -10,6 +10,7 @@ export const SU_SelectBox_Box_NonSelect = (payload = {}) => {
         type: SU_SELECTBOX_BOX_NONSELECT,
         payload: {
             id:    null,
+            type:  '',
             group: '',
             no:    0,
         },
@@ -21,6 +22,7 @@ export const SU_SelectBox_Box_Select = (payload = {}) => {
         type: SU_SELECTBOX_BOX_SELECT,
         payload: {
             id:    payload.id,
+            type:  payload.type,
             group: payload.group,
             no:    payload.no,
         },

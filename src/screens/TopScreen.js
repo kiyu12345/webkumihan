@@ -26,6 +26,9 @@ export default class TopScreen extends React.Component {
         for (let i = 0; i < this.props.toolboxs.length; i++) {
             switch (this.props.toolboxs[i].type) {
             case 'scale':   // 拡大縮小ツールボックス
+                if (this.props.toolboxs[i].view == 'false') {
+                    break;
+                }
                 toolboxs.push(
                     <ToolBoxMap
                         id={this.props.toolboxs[i].id}
@@ -41,6 +44,9 @@ export default class TopScreen extends React.Component {
                 break;
 
             case 'boxdata':   // ボックス情報ツールボックス
+                if (this.props.toolboxs[i].view == 'false') {
+                    break;
+                }
                 toolboxs.push(
                     <ToolBoxMap
                         id={this.props.toolboxs[i].id}
@@ -56,6 +62,9 @@ export default class TopScreen extends React.Component {
                 break;
 
             case 'textdata':   // テキスト情報ツールボックス
+                if (this.props.toolboxs[i].view == 'false') {
+                    break;
+                }
                 toolboxs.push(
                     <ToolBoxMap
                         id={this.props.toolboxs[i].id}
