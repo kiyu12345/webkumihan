@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { String } from '../libs/string.js';
+
 const styles = {
     container: {
         textAlign: 'left',
@@ -20,11 +22,11 @@ const styles = {
         borderRadius: '2px',
     },
     input: {
-        height: '14px',
+        height: '9px',
     },
 };
 
-export default class ToolBoxScale extends React.Component {
+export default class ToolBoxTextData extends React.Component {
     constructor(props) {
         super(props);
 
@@ -55,6 +57,18 @@ export default class ToolBoxScale extends React.Component {
 
     clickUpdateButton() {
         let box = this.props.box;
+
+        if (this.state.padding_js == ''
+         || this.state.padding_je == ''
+         || this.state.padding_gs == ''
+         || this.state.padding_ge == ''
+         || this.state.kumihoko == ''
+         || this.state.size_j == ''
+         || this.state.size_g == ''
+         || this.state.gyokan == '') {
+             alert('全ての項目を入力してください');
+             return;
+         }
 
         box.id = this.props.box.id;
         box.text.padding_js = this.state.padding_js;
@@ -94,7 +108,7 @@ export default class ToolBoxScale extends React.Component {
                         type="text"
                         value={this.state.padding_je}
                         style={{...styles.input, width: '25px'}}
-                        onChange={(e) => this.setState({padding_je: parseInt(e.target.value)})}
+                        onChange={(e) => this.setState({padding_je: String.toNumeric(e.target.value)})}
                     />
                 </div>
                 <div
@@ -107,14 +121,14 @@ export default class ToolBoxScale extends React.Component {
                         type="text"
                         value={this.state.padding_gs}
                         style={{...styles.input, width: '25px'}}
-                        onChange={(e) => this.setState({padding_gs: parseInt(e.target.value)})} 
+                        onChange={(e) => this.setState({padding_gs: String.toNumeric(e.target.value)})} 
                         />
                     &nbsp;
                     E<input
                         type="text"
                         value={this.state.padding_ge}
                         style={{...styles.input, width: '25px'}}
-                        onChange={(e) => this.setState({padding_ge: parseInt(e.target.value)})}
+                        onChange={(e) => this.setState({padding_ge: String.toNumeric(e.target.value)})}
                     />
                 </div>
                 <div
@@ -133,7 +147,7 @@ export default class ToolBoxScale extends React.Component {
                                 type="text"
                                 value={this.state.gyokan}
                                 style={{...styles.input, width: '30px'}}
-                                onChange={(e) => this.setState({gyokan: parseInt(e.target.value)})}
+                                onChange={(e) => this.setState({gyokan: String.toNumeric(e.target.value)})}
                     />
                 </div>
                 <div
@@ -145,7 +159,7 @@ export default class ToolBoxScale extends React.Component {
                                         type="text"
                                         value={this.state.size_j}
                                         style={{...styles.input, width: '30px'}}
-                                        onChange={(e) => this.setState({size_j: parseInt(e.target.value)})}
+                                        onChange={(e) => this.setState({size_j: String.toNumeric(e.target.value)})}
                     />
                 </div>
                 <div
@@ -157,7 +171,7 @@ export default class ToolBoxScale extends React.Component {
                                 type="text"
                                 value={this.state.size_g}
                                 style={{...styles.input, width: '30px'}}
-                                onChange={(e) => this.setState({size_g: parseInt(e.target.value)})}
+                                onChange={(e) => this.setState({size_g: String.toNumeric(e.target.value)})}
                     />
                 </div>
                 <div

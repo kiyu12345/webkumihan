@@ -21,7 +21,6 @@ export default class Boxs extends React.Component {
                                                      Define.svgimagesize.width,
                                                      Define.svgimagesize.height);
                     
-console.log(box);
                     switch (box.type) {
                     case 'text':
                         return (

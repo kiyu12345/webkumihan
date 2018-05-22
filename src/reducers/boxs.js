@@ -9,10 +9,11 @@ import {
 
 import {
     SAGA_TOOLBOXBOXDATA_BOXDATA_CHANGE,
+    SAGA_TOOLBOXBOXDATA_BOXDATA_CREATE,
 } from '../actions_saga/toolboxboxdata.js';
 
 import {
-    SAGA_TOOLBOXTEXTDATA_TEXTDATA_CHANGE,
+    SAGA_TOOLBOXTEXTDATA_TEXTDATA_UPDATE,
 } from '../actions_saga/toolboxtextdata.js';
 
 // ====================
@@ -200,7 +201,7 @@ export const boxs = (state = [
 
         return boxs;
 
-    case SAGA_TOOLBOXTEXTDATA_TEXTDATA_CHANGE:
+    case SAGA_TOOLBOXTEXTDATA_TEXTDATA_UPDATE:
         boxs = state.slice();
 
         for (let i = 0; i < boxs.length; i++) {
@@ -239,6 +240,56 @@ export const boxs = (state = [
 
         return boxs;
 
+    case SAGA_TOOLBOXBOXDATA_BOXDATA_CREATE:
+        boxs = state.slice();
+
+        let box;
+        box = {
+            id: action.payload.box.id,
+            type: action.payload.box.type,
+            x1: 100,
+            y1: 100,
+            x2: 200,
+            y2: 200,
+            group: action.payload.box.group,
+            no: action.payload.box.no,
+            text: {
+                kumihoko: 'tate',
+                padding_js: 10,
+                padding_je: 10,
+                padding_gs: 10,
+                padding_ge: 10,
+                size_j: 10,
+                size_g: 10,
+                gyokan: 5,
+            },
+        };
+
+        // テキストグリッド
+        if (box.text.kumihoko == 'tate') {
+            areasize_j = box.y2 - box.y1;
+            areasize_g = box.x2 - box.x1;
+        } else {
+            areasize_j = box.x2 - box.x1;
+            areasize_g = box.y2 - box.y1;
+        }
+        const textgrid = TextGrid.getTextGridAry(
+            areasize_j,  // エリアサイズ（字詰め方向）
+            areasize_g,  // エリアサイズ（行送り方向）
+            box.text.padding_js,  // パディング値（字詰め方向 開始）
+            box.text.padding_je,  // パディング値（字詰め方向 終了）
+            box.text.padding_gs,  // パディング値（行送り方向 開始）
+            box.text.padding_ge,  // パディング値（行送り方向 終了）
+            box.text.size_j,  // テキストサイズ（字詰め方向）
+            box.text.size_g,  // テキストサイズ（行送り方向）
+            box.text.gyokan  // 行間
+        );
+        box.textgrid = textgrid;
+
+        // 追加する
+        boxs.push(box);
+
+        return boxs;
 
     default:
         return state;

@@ -368,6 +368,20 @@ export default class SelectEditBox extends React.Component {
                     onMouseDown={(e) => this.mouseDown(e)}
                 />
 
+                {/* グループNo */}
+                <text
+                    x={this.state.x + 5}
+                    y={this.state.y + 20}
+                    style={{
+                        fontSize: 15,
+                        stroke: 'none',
+                        fill: 'white',
+                        fillOpacity: '0.7',
+                    }}
+                >
+                    {this.props.no}
+                </text>
+
                 <HandleUMap
                     x={this.state.x}
                     y={this.state.y}

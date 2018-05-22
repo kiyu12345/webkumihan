@@ -60,6 +60,20 @@ export default class SelectGroupBox extends React.Component {
 
                     // onMouseUp={(e) => this.boxClick(e)}
                 />
+
+                {/* グループNo */}
+                <text
+                    x={z.x + 5}
+                    y={z.y + 20}
+                    style={{
+                        fontSize: 15,
+                        stroke: 'none',
+                        fill: 'white',
+                        fillOpacity: '0.7',
+                    }}
+                >
+                    {this.props.no}
+                </text>
             </g> 
         )
     }

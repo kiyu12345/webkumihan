@@ -39,7 +39,7 @@ export const toolboxs = (state = [
         x: 0,
         y: 0,
         w: 200,
-        h: 100,
+        h: 120,
         view: 'true',
     },
     {
@@ -50,6 +50,15 @@ export const toolboxs = (state = [
         w: 200,
         h: 160,
         view: 'false',
+    },
+    {
+        id: 'toolbox004',
+        type: 'sozai',
+        x: 0,
+        y: 0,
+        w: 200,
+        h: 400,
+        view: 'true',
     },
 ], action) => {
     let toolboxs;
