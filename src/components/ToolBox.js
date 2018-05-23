@@ -128,8 +128,8 @@ export default class ToolBox extends React.Component {
             x = 0;
         }
 
-        if (y + this.props.h >= window_h) {
-            y = window_h - this.props.h;
+        if (y + 20 >= window_h) {
+            y = window_h - 20;
         }
         if (y <= 0) {
             y = 0;

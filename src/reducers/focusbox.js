@@ -4,7 +4,8 @@ import {
 } from '../actions_saga/selectbox.js';
 
 import {
-    SAGA_TOOLBOXBOXDATA_BOXDATA_CHANGE,
+    SAGA_TOOLBOXBOXDATA_BOXDATA_UPDATE,
+    SAGA_TOOLBOXBOXDATA_BOXDATA_DELETE,
     SAGA_TOOLBOXBOXDATA_BOXDATA_CREATE,
 } from '../actions_saga/toolboxboxdata.js';
 
@@ -34,12 +35,20 @@ export const focusbox = (state = {id: '', group: '', no: 0}, action) => {
             no:    action.payload.no,
         };
 
-    case SAGA_TOOLBOXBOXDATA_BOXDATA_CHANGE:    // ボックス情報ツールボックスで更新ボタンが押された場合
+    case SAGA_TOOLBOXBOXDATA_BOXDATA_UPDATE:    // ボックス情報を更新した場合
         return {
             id:    action.payload.box.id,
             type:  action.payload.box.type,
             group: action.payload.box.group,
             no:    action.payload.box.no,
+        };
+
+    case SAGA_TOOLBOXBOXDATA_BOXDATA_DELETE:    // ボックスを削除した場合
+        return {
+            id: '',
+            type: '',
+            group: '',
+            no: 0,
         };
 
     case SAGA_TOOLBOXBOXDATA_BOXDATA_CREATE:    // ボックスを新規作成した場合

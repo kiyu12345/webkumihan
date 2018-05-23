@@ -68,6 +68,16 @@ export default class ToolBoxBoxData extends React.Component {
         });
     }
 
+    clickDeleteButton() {
+        if (confirm('ボックスを削除します。よろしいですか？') == false) {
+            return;
+        }
+
+        this.props.onClickDeleteButton({
+            id: this.state.id,
+        });
+    }
+
     clickCreateButton() {
         let box = this.props.box;
 
@@ -105,7 +115,17 @@ export default class ToolBoxBoxData extends React.Component {
                         ...styles.line
                     }}
                 >
-                    ボックスID: <span style={{fontWeight: 'bold', color: 'blue'}}>{this.props.box.id}</span>
+                    ボックスID:
+                    <span
+                        style={{
+                            width: '9px',
+                            height: '9px',
+                            backgroundColor: 'lightgray',
+                        }}
+                        onClick={(e) => this.clickDeleteButton()}
+                    >✕</span>
+                    &nbsp;
+                    <span style={{fontWeight: 'bold', color: 'blue'}}>{this.props.box.id}</span>
                 </div>
                 <div
                     style={{

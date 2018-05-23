@@ -1,10 +1,9 @@
 import { Zahyo } from '../libs/zahyo.js';
 
-import { TextGrid } from '../libs/textgrid.js';
-
 import {
     SAGA_TOOLBOXSOZAI_SOZAI_UPDATE,
     SAGA_TOOLBOXSOZAI_SOZAI_DELETE,
+    SAGA_TOOLBOXSOZAI_SOZAI_CREATE,
 } from '../actions_saga/toolboxsozai.js';
 
 // ====================
@@ -67,6 +66,20 @@ export const sozai = (state = [
                 break;
             }
         }
+
+        return lists;
+
+    case SAGA_TOOLBOXSOZAI_SOZAI_CREATE:
+        lists = state.slice();
+
+        sozai = {
+            id: action.payload.id,
+            type: action.payload.type,
+            text: action.payload.text,
+            image: action.payload.image,
+        };
+
+        lists.push(sozai);
 
         return lists;
 

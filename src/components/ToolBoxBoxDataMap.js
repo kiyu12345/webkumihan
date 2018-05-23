@@ -6,6 +6,7 @@ import { Zahyo } from '../libs/zahyo.js';
 
 import {
     SU_ToolBoxBoxData_UpdateButton_Click,
+    SU_ToolBoxBoxData_DeleteButton_Click,
     SU_ToolBoxBoxData_CreateButton_Click,
 } from '../actions_su/toolboxboxdata.js';
 
@@ -72,12 +73,14 @@ const mergeProps = (state, dispatch, props) => {
         onClickUpdateButton: (payload) => {
             dispatch.dispatch(SU_ToolBoxBoxData_UpdateButton_Click(payload));
         },
+        onClickDeleteButton: (payload) => {
+            dispatch.dispatch(SU_ToolBoxBoxData_DeleteButton_Click(payload));
+        },
         onClickCreateButton: (payload) => {
             dispatch.dispatch(SU_ToolBoxBoxData_CreateButton_Click(payload));
         },
 
         checkKizonId: (id) => {
-console.log(state.boxs);
             for (let i = 0; i < state.boxs.length; i++) {
                 if (state.boxs[i].id == id) {
                     return true;

@@ -49,7 +49,7 @@ export const toolboxs = (state = [
         y: 0,
         w: 200,
         h: 160,
-        view: 'false',
+        view: 'true',
     },
     {
         id: 'toolbox004',
@@ -58,6 +58,15 @@ export const toolboxs = (state = [
         y: 0,
         w: 200,
         h: 400,
+        view: 'true',
+    },
+    {
+        id: 'toolbox005',
+        type: 'link',
+        x: 0,
+        y: 0,
+        w: 200,
+        h: 470,
         view: 'true',
     },
 ], action) => {
@@ -83,7 +92,7 @@ export const toolboxs = (state = [
         console.log(action);
         for (let i = 0; i < toolboxs.length; i++) {
             if (toolboxs[i].type == 'textdata' && action.payload.type == 'text') {
-                toolboxs[i].view = 'true';
+                // toolboxs[i].view = 'true';
                 break;
             }
         }
@@ -95,7 +104,7 @@ export const toolboxs = (state = [
 
         for (let i = 0; i < toolboxs.length; i++) {
             if (toolboxs[i].type == 'textdata') {
-                toolboxs[i].view = 'false';
+                // toolboxs[i].view = 'false';
                 break;
             }
         }

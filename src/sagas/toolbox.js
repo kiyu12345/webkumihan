@@ -9,10 +9,12 @@ import {
 
 import {
     SU_TOOLBOXBOXDATA_UPDATEBUTTON_CLICK,
+    SU_TOOLBOXBOXDATA_DELETEBUTTON_CLICK,
     SU_TOOLBOXBOXDATA_CREATEBUTTON_CLICK,
 } from '../actions_su/toolboxboxdata.js';
 import {
-    Saga_ToolBoxBoxData_BoxData_Change,
+    Saga_ToolBoxBoxData_BoxData_Update,
+    Saga_ToolBoxBoxData_BoxData_Delete,
     Saga_ToolBoxBoxData_BoxData_Create,
 } from '../actions_saga/toolboxboxdata.js';
 
@@ -26,11 +28,22 @@ import {
 import {
     SU_TOOLBOXSOZAI_UPDATEBUTTON_CLICK,
     SU_TOOLBOXSOZAI_DELETEBUTTON_CLICK,
+    SU_TOOLBOXSOZAI_CREATEBUTTON_CLICK,
 } from '../actions_su/toolboxsozai.js';
 import {
     Saga_ToolBoxSozai_Sozai_Update,
     Saga_ToolBoxSozai_Sozai_Delete,
+    Saga_ToolBoxSozai_Sozai_Create,
 } from '../actions_saga/toolboxsozai.js';
+
+import {
+    SU_TOOLBOXLINK_CREATEBUTTON_CLICK,
+    SU_TOOLBOXLINK_DELETEBUTTON_CLICK,
+} from '../actions_su/toolboxlink.js';
+import {
+    Saga_ToolBoxLink_Link_Create,
+    Saga_ToolBoxLink_Link_Delete,
+} from '../actions_saga/toolboxlink.js';
 
 
 import { Zahyo } from '../libs/zahyo.js';
@@ -75,6 +88,28 @@ export default function* toolbox() {
             yield put(Saga_ToolBox_MoveEnd(payload));
 
             break;
+
+        case 'sozai':   // 素材リストツールボックス
+            payload = {
+                id: toolboxs[i].id,
+                x: Zahyo.windowArea().w - toolboxs[i].w - 20 - 200 - 5,
+                y: 5,
+            };
+
+            yield put(Saga_ToolBox_MoveEnd(payload));
+
+            break;
+
+        case 'link':    // リンクリストツールボックス
+            payload = {
+                id: toolboxs[i].id,
+                x: Zahyo.windowArea().w - toolboxs[i].w - 20 - 200 - 5 - 200 - 5,
+                y: 5,
+            };
+
+            yield put(Saga_ToolBox_MoveEnd(payload));
+
+            break;
         }
     }
 
@@ -85,7 +120,10 @@ export default function* toolbox() {
     });
 
     yield takeEvery(SU_TOOLBOXBOXDATA_UPDATEBUTTON_CLICK, function* (action) {
-        yield put(Saga_ToolBoxBoxData_BoxData_Change(action.payload));
+        yield put(Saga_ToolBoxBoxData_BoxData_Update(action.payload));
+    });
+    yield takeEvery(SU_TOOLBOXBOXDATA_DELETEBUTTON_CLICK, function* (action) {
+        yield put(Saga_ToolBoxBoxData_BoxData_Delete(action.payload));
     });
     yield takeEvery(SU_TOOLBOXBOXDATA_CREATEBUTTON_CLICK, function* (action) {
         yield put(Saga_ToolBoxBoxData_BoxData_Create(action.payload));
@@ -100,5 +138,15 @@ export default function* toolbox() {
     });
     yield takeEvery(SU_TOOLBOXSOZAI_DELETEBUTTON_CLICK, function* (action) {
         yield put(Saga_ToolBoxSozai_Sozai_Delete(action.payload));
+    });
+    yield takeEvery(SU_TOOLBOXSOZAI_CREATEBUTTON_CLICK, function* (action) {
+        yield put(Saga_ToolBoxSozai_Sozai_Create(action.payload));
+    });
+
+    yield takeEvery(SU_TOOLBOXLINK_CREATEBUTTON_CLICK, function* (action) {
+        yield put(Saga_ToolBoxLink_Link_Create(action.payload));
+    });
+    yield takeEvery(SU_TOOLBOXLINK_DELETEBUTTON_CLICK, function* (action) {
+        yield put(Saga_ToolBoxLink_Link_Delete(action.payload));
     });
 }

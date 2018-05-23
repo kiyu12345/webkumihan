@@ -7,6 +7,7 @@ import { Zahyo } from '../libs/zahyo.js';
 import {
     SU_ToolBoxSozai_UpdateButton_Click,
     SU_ToolBoxSozai_DeleteButton_Click,
+    SU_ToolBoxSozai_CreateButton_Click,
 } from '../actions_su/toolboxsozai.js';
 
 
@@ -26,7 +27,6 @@ const mapDispatchToProps = (dispatch, props) => {
 
 // mergeProps 
 const mergeProps = (state, dispatch, props) => {
-console.log(state);
     return {
         // xxx: yyy,
         // onXxxx: (xxx) => {
@@ -40,6 +40,19 @@ console.log(state);
         },
         onClickDeleteButton: (payload) => {
             dispatch.dispatch(SU_ToolBoxSozai_DeleteButton_Click(payload));
+        },
+        onClickCreateButton: (payload) => {
+            dispatch.dispatch(SU_ToolBoxSozai_CreateButton_Click(payload));
+        },
+
+        checkSozaiExist: (id) => {
+            for (let i = 0; i < state.sozai.length; i++) {
+                if (state.sozai[i].id == id) {
+                    return true;
+                }
+            }
+
+            return false;
         },
     };
 }

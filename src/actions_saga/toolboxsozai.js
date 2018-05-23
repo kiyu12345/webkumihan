@@ -1,5 +1,6 @@
 export const SAGA_TOOLBOXSOZAI_SOZAI_UPDATE = 'SAGA_TOOLBOXSOZAI_SOZAI_UPDATE';
 export const SAGA_TOOLBOXSOZAI_SOZAI_DELETE = 'SAGA_TOOLBOXSOZAI_SOZAI_DELETE';
+export const SAGA_TOOLBOXSOZAI_SOZAI_CREATE = 'SAGA_TOOLBOXSOZAI_SOZAI_CREATE';
 
 
 export const Saga_ToolBoxSozai_Sozai_Update = (payload = {}) => {
@@ -20,3 +21,14 @@ export const Saga_ToolBoxSozai_Sozai_Delete = (payload = {}) => {
     };
 }
 
+export const Saga_ToolBoxSozai_Sozai_Create = (payload = {}) => {
+    return {
+        type: SAGA_TOOLBOXSOZAI_SOZAI_CREATE,
+        payload: {
+            id: payload.id,
+            type: payload.type,
+            text: payload.text,
+            image: payload.image,
+        },
+    };
+}

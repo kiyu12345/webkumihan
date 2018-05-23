@@ -28,9 +28,10 @@ const styles = {
     listbox: {
         width: '100%',
         height: '115px',
-        paddingTop: '5px',
+        // paddingTop: '5px',
         overflowY: 'scroll',
-        // outline: '1px solid red',
+        outline: '1px solid #a8a8a8',
+        backgroundColor: 'white',
     },
     textbox: {
         width: '174px',
@@ -59,29 +60,18 @@ export default class ToolBoxSozai extends React.Component {
 
         this.state = {
             id: '',
+            newid: '',
             type: '',
             text: '',
             image: '',
         };
     }
-
-    componentDidMount() {
-        document.getElementById('toolboxsozai').addEventListener('click', (e) => {
-            this.setState({
-                id: '',
-                type: '',
-                text: '',
-                image: '',
-            });
-
-            return false;
-        });
-    }
-    
+   
     componentWillReceiveProps(nextProps) {
-        if (this.button == 'delete') {
+        if (this.button == 'delete' || this.button == 'create') {
             this.setState({
                 id: '',
+                newid: '',
                 type: '',
                 text: '',
                 image: '',
@@ -89,22 +79,33 @@ export default class ToolBoxSozai extends React.Component {
         }
     }
 
-    clickList(e, sozai) {
-        e.stopPropagation();
-        e.preventDefault();
+    clickList(sozai) {
+        let s = {};
+
+        if (this.state.id == sozai.id) {
+            s = {
+                id: '',
+                newid: '',
+                type: '',
+                text: '',
+                image: '',
+            };
+        } else {
+            s = {
+                id: sozai.id,
+                newid: '',
+                type: sozai.type,
+                text: sozai.text,
+                image: sozai.image,
+            };
+        }
 
         this.setState({
-            id: sozai.id,
-            type: sozai.type,
-            text: sozai.text,
-            image: sozai.image,
+            ...s,
         });
     }
 
-    clickUpdateButton(e) {
-        e.stopPropagation();
-        e.preventDefault();
-
+    clickUpdateButton() {
         let sozai = {
             id: this.state.id,
             type: this.state.type,
@@ -119,10 +120,7 @@ export default class ToolBoxSozai extends React.Component {
         this.button = 'update';
     }
 
-    clickDeleteButton(e, id) {
-        e.stopPropagation();
-        e.preventDefault();
-
+    clickDeleteButton(id) {
         if (confirm('削除します。よろしいですか？') == false) {
             return;
         }
@@ -132,6 +130,28 @@ export default class ToolBoxSozai extends React.Component {
         });
 
         this.button = 'delete';
+    }
+
+    clickCreateButton() {
+        if (this.state.newid == ''
+         || this.state.type == '') {
+             alert('素材IDおよびタイプを入力してください');
+             return;
+        }
+
+        if (this.props.checkSozaiExist(this.state.newid)) {
+            alert('この素材IDは既に存在しています');
+            return;
+        }
+
+        this.props.onClickCreateButton({
+            id: this.state.newid,
+            type: this.state.type,
+            text: this.state.text,
+            image: this.state.image,
+        });
+
+        this.button = 'create';
     }
 
     sozailist() {
@@ -158,7 +178,7 @@ export default class ToolBoxSozai extends React.Component {
                             backgroundColor: color,
                         }}
                         onClick={(e) => {
-                            this.clickList(e, rec);
+                            this.clickList(rec);
                         }}
                     >
                         <span
@@ -167,7 +187,7 @@ export default class ToolBoxSozai extends React.Component {
                                 height: '9px',
                                 backgroundColor: 'lightgray',
                             }}
-                            onClick={(e) => this.clickDeleteButton(e, rec.id)}
+                            onClick={(e) => this.clickDeleteButton(rec.id)}
                         >✕</span> {rec.id}
                     </div>
                 );
@@ -188,8 +208,10 @@ export default class ToolBoxSozai extends React.Component {
                                 type="text"
                                 style={{
                                     ...styles.input,
-                                    width: '50px',
+                                    width: '80px',
                                 }}
+                                value={this.state.newid}
+                                onChange={(e) => this.setState({newid: e.target.value})}
                             />
                 </div>,
                 <div
@@ -201,8 +223,10 @@ export default class ToolBoxSozai extends React.Component {
                                 type="text"
                                 style={{
                                     ...styles.input,
-                                    width: '50px',
+                                    width: '80px',
                                 }}
+                                value={this.state.type}
+                                onChange={(e) => this.setState({type: e.target.value})}
                             />
                 </div>
             ];
@@ -267,6 +291,8 @@ export default class ToolBoxSozai extends React.Component {
                 id="toolboxsozai"
                 style={styles.container}
             >
+                <div style={{height: '5px'}}/>
+                
                 <div
                     style={{
                         ...styles.listbox,
@@ -279,6 +305,7 @@ export default class ToolBoxSozai extends React.Component {
                 {this.idtype()}
                 
                 <textarea
+                    id="toolboxsozaitextarea"
                     value={this.state.text}
                     style={{
                         ...styles.textbox,

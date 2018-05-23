@@ -7,6 +7,7 @@ import ToolBoxScaleMap from '../components/ToolBoxScaleMap.js';
 import ToolBoxBoxDataMap from '../components/ToolBoxBoxDataMap.js';
 import ToolBoxTextDataMap from '../components/ToolBoxTextDataMap.js';
 import ToolBoxSozaiMap from '../components/ToolBoxSozaiMap.js';
+import ToolBoxLinkMap from '../components/ToolBoxLinkMap.js';
 
 const styles = {
     container: {
@@ -73,7 +74,7 @@ export default class TopScreen extends React.Component {
                         y={this.props.toolboxs[i].y}
                         w={this.props.toolboxs[i].w}
                         h={this.props.toolboxs[i].h}
-                        title="テキスト情報"
+                        title="ﾎﾞｯｸｽﾃｷｽﾄ情報"
                     >
                         <ToolBoxTextDataMap />
                     </ToolBoxMap>
@@ -94,6 +95,24 @@ export default class TopScreen extends React.Component {
                         title="素材リスト"
                     >
                         <ToolBoxSozaiMap />
+                    </ToolBoxMap>
+                );
+                break;
+
+            case 'link':    // リンクリストツールボックス
+                if (this.props.toolboxs[i].view == 'false') {
+                    break;
+                }
+                toolboxs.push(
+                    <ToolBoxMap
+                        id={this.props.toolboxs[i].id}
+                        x={this.props.toolboxs[i].x}
+                        y={this.props.toolboxs[i].y}
+                        w={this.props.toolboxs[i].w}
+                        h={this.props.toolboxs[i].h}
+                        title="リンクリスト"
+                    >
+                        <ToolBoxLinkMap />
                     </ToolBoxMap>
                 );
                 break;

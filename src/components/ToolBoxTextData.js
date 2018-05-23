@@ -101,7 +101,7 @@ export default class ToolBoxTextData extends React.Component {
                         type="text"
                         value={this.state.padding_js}
                         style={{...styles.input, width: '25px'}}
-                        onChange={(e) => this.setState({padding_js: parseInt(e.target.value)})} 
+                        onChange={(e) => this.setState({padding_js: String.toNumeric(e.target.value)})} 
                         />
                     &nbsp;
                     E<input

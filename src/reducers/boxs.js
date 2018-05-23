@@ -8,7 +8,8 @@ import {
 } from '../actions_saga/selectbox.js';
 
 import {
-    SAGA_TOOLBOXBOXDATA_BOXDATA_CHANGE,
+    SAGA_TOOLBOXBOXDATA_BOXDATA_UPDATE,
+    SAGA_TOOLBOXBOXDATA_BOXDATA_DELETE,
     SAGA_TOOLBOXBOXDATA_BOXDATA_CREATE,
 } from '../actions_saga/toolboxboxdata.js';
 
@@ -187,7 +188,7 @@ export const boxs = (state = [
 
         return boxs;
 
-    case SAGA_TOOLBOXBOXDATA_BOXDATA_CHANGE:
+    case SAGA_TOOLBOXBOXDATA_BOXDATA_UPDATE:
         boxs = state.slice();
 
         for (let i = 0; i < boxs.length; i++) {
@@ -239,6 +240,18 @@ export const boxs = (state = [
         }
 
         return boxs;
+
+    case SAGA_TOOLBOXBOXDATA_BOXDATA_DELETE:
+        boxs = state.slice();
+
+        for (let i = 0; i < boxs.length; i++) {
+            if (boxs[i].id == action.payload.id) {
+                boxs.splice(i, 1);
+                break;
+            }
+        }
+
+        return boxs;       
 
     case SAGA_TOOLBOXBOXDATA_BOXDATA_CREATE:
         boxs = state.slice();
