@@ -47,6 +47,7 @@ import {
 
 
 import { Zahyo } from '../libs/zahyo.js';
+import { Text } from '../libs/text.js';
 
 
 export default function* toolbox() {
@@ -149,4 +150,50 @@ export default function* toolbox() {
     yield takeEvery(SU_TOOLBOXLINK_DELETEBUTTON_CLICK, function* (action) {
         yield put(Saga_ToolBoxLink_Link_Delete(action.payload));
     });
+
+
+yield takeEvery(SU_TOOLBOXSOZAI_UPDATEBUTTON_CLICK, function* (action) {
+    const sozai = yield select((state) => state.sozai);
+    const boxs  = yield select((state) => state.boxs);
+
+    const mojiObjAry = Text.createMojiObjAry(action.payload.sozai.text);
+
+    const box_id = 'box001';
+    const sozai_id = 'sozai001';
+
+    let box;
+    for (let i = 0; i < boxs.length; i++) {
+        if (boxs[i].id == box_id) {
+            box = boxs[i];
+            break;
+        }
+    }
+    console.log(box);
+    console.log(action);
+
+    let start = 0;
+
+    let end = Text.getJidumeMojiNagashiIndex(
+        mojiObjAry,
+        start,
+        box.y2 - box.y1,
+        box.text.padding_js,
+        box.text.padding_je,
+        box.text.size_j
+    );
+    console.log(end);
+
+    let mojiObjAry2 = mojiObjAry.slice(start, end + 1);
+
+    let jidumeAry = Text.getJidumeAry(
+        mojiObjAry2,
+        box.y2 - box.y1,
+        box.text.padding_js,
+        box.text.padding_je,
+        box.text.size_j
+    );
+    console.log(jidumeAry);
+
+});
+
 }
