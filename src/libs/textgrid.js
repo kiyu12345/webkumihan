@@ -23,15 +23,17 @@ export const TextGrid = {
     //       ....
     //   ]    
     //
-    getTextGridAry: (areasize_j,
-                     areasize_g,
-                     padding_js,
-                     padding_je,
-                     padding_gs,
-                     padding_ge,
-                     size_j,
-                     size_g,
-                     gyokan) => {
+    getTextGridAry: (
+        areasize_j,
+        areasize_g,
+        padding_js,
+        padding_je,
+        padding_gs,
+        padding_ge,
+        size_j,
+        size_g,
+        gyokan
+    ) => {
         let gridary = [];
 
         // 行送り方向の文字グリッド座標配列を得る

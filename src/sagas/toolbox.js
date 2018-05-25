@@ -173,7 +173,7 @@ yield takeEvery(SU_TOOLBOXSOZAI_UPDATEBUTTON_CLICK, function* (action) {
 
     let start = 0;
 
-    let end = Text.getJidumeMojiNagashiIndex(
+    let [index, normalgyo] = Text.getJidumeMojiNagashiIndex(
         mojiObjAry,
         start,
         box.y2 - box.y1,
@@ -181,19 +181,73 @@ yield takeEvery(SU_TOOLBOXSOZAI_UPDATEBUTTON_CLICK, function* (action) {
         box.text.padding_je,
         box.text.size_j
     );
-    console.log(end);
+    console.log(index);
+    console.log(normalgyo);
 
-    let mojiObjAry2 = mojiObjAry.slice(start, end + 1);
+    // let mojiObjAry2 = mojiObjAry.slice(start, index + 1);
 
-    let jidumeAry = Text.getJidumeAry(
-        mojiObjAry2,
+    let jidumeAry;
+    if (normalgyo == true) {
+        jidumeAry = Text.getJidumeAry(
+            mojiObjAry,
+            start,
+            index,
+            box.y2 - box.y1,
+            box.text.padding_js,
+            box.text.padding_je,
+            box.text.size_j
+        );
+    } else {
+        jidumeAry = Text.getJidumeArySoroeNashi(
+            mojiObjAry,
+            start,
+            index,
+            box.text.padding_js,
+            box.text.size_j
+        );
+    }
+    console.log(jidumeAry);
+
+    // start = 6;
+    let indexAry = Text.getZenGyoIndexAry(
+        mojiObjAry,
+        start,
         box.y2 - box.y1,
         box.text.padding_js,
         box.text.padding_je,
         box.text.size_j
     );
-    console.log(jidumeAry);
+    console.log(indexAry);
 
+    let gyookuriAry = Text.getGyookuriAry(
+        mojiObjAry,
+        start,
+        box.y2 - box.y1,
+        box.x2 - box.x1,
+        box.text.padding_js,
+        box.text.padding_je,
+        box.text.padding_gs,
+        box.text.padding_ge,
+        box.text.size_g,
+        box.text.gyokan
+    );
+    console.log(gyookuriAry);
+
+    let [nagashiAry, endindex] = Text.getNagashiCenterAry(
+        mojiObjAry,
+        start,
+        box.y2 - box.y1,
+        box.x2 - box.x1,
+        box.text.padding_js,
+        box.text.padding_je,
+        box.text.padding_gs,
+        box.text.padding_ge,
+        box.text.size_j,
+        box.text.size_g,
+        box.text.gyokan
+    );
+    console.log(nagashiAry);
+    console.log(endindex);
 });
 
 }
