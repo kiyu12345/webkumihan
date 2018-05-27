@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { String } from '../libs/string.js';
+import { Box } from '../libs/box.js';
 
 const styles = {
     container: {
@@ -78,6 +79,10 @@ export default class ToolBoxList extends React.Component {
     }
    
     componentWillReceiveProps(nextProps) {
+        this.setState({
+            box_id: '',
+            sozai_id: '',
+        });
     }
 
     clickBoxList(box_id) {
@@ -157,8 +162,8 @@ export default class ToolBoxList extends React.Component {
         let html = [];
 
         for (let i = 0; i < this.props.boxs.length; i++) {
-            // ボックスのグループNoが 1 以外は無視
-            if (this.props.boxs[i].no != 1) {
+            // ボックスのグループNoが先頭以外は無視
+            if (Box.getFirstBoxId(this.props.boxs, this.props.boxs[i].id) != this.props.boxs[i].id) {
                 continue;
             }
 
