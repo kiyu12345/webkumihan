@@ -35,6 +35,7 @@ export default class Boxs extends React.Component {
 
                                 text={box.text}
                                 textgrid={box.textgrid}
+                                textResult={box.textResult}
                             />
                         );
 

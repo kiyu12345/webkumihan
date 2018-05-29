@@ -17,6 +17,15 @@ import {
     SAGA_TOOLBOXTEXTDATA_TEXTDATA_UPDATE,
 } from '../actions_saga/toolboxtextdata.js';
 
+import {
+    SAGA_TOOLBOXSOZAI_SOZAI_DELETE,
+    SAGA_SOZAI_DELETE,
+} from '../actions_saga/toolboxsozai.js';
+
+import {
+    SAGA_NAGASHIRESULT_CREATE,
+} from '../actions_saga/nagashi.js';
+
 // ====================
 // ボックスデータ
 //      [
@@ -30,14 +39,27 @@ import {
 //              group: グループ名
 //              no: グループ内の番号
 //
-//              textgrid: {
-//                  jidume_padding: 字詰め方向パディング値
-//                  gyookuri_padding: 行送り方向パディング値
-//                  jidume_gridsize: グリッドサイズ（字詰め方向）
-//                  gyookuri_gridsize: グリッドサイズ（行送り方向）
+//              text: {
+//                  kumihoko: 'tate':縦 'yoko':横
+//                  padding_js: パディング値（字詰方向 開始）
+//                  padding_je: パディング地（字詰方向 終了）
+//                  padding_gs: パディング値（行送方向 開始）
+//                  padding_ge: パディング値（行送方向 終了）
+//                  size_j: 文字サイズ（字詰方向）
+//                  size_g: 文字サイズ（行送方向）
 //                  gyokan: 行間サイズ    
 //              }
-//              textgridAry: [[x,y]...] 文字グリッド中心座標配列
+//              textgrid: [[x,y]...] 文字グリッド中心座標配列
+//              textResult: [
+//                              {
+//                                  moji: 'あ'   文字
+//                                  size_j: 文字サイズ（0:デフォルトサイズ）
+//                                  size_g: 文字サイズ（0:デフォルトサイズ）
+//                                  j: 中心座標（字詰方向）
+//                                  g: 中心座標（行送方向）
+//                              },
+//                              ......
+//                          ]
 //          }
 //      ]
 // ====================
@@ -63,6 +85,7 @@ export const boxs = (state = [
             gyokan: 5,
         },
         textgrid: [],
+        textResult: [],
     },
     {
         id: 'box002',
@@ -85,6 +108,7 @@ export const boxs = (state = [
             gyokan: 5,
         },
         textgrid: [],
+        textResult: [],
     },
     {
         id: 'box003',
@@ -107,6 +131,7 @@ export const boxs = (state = [
             gyokan: 5,
         },
         textgrid: [],
+        textResult: [],
     },
     {
         id: 'box004',
@@ -129,6 +154,7 @@ export const boxs = (state = [
             gyokan: 5,
         },
         textgrid: [],
+        textResult: [],
     },
 ], action) => {
     let boxs;
@@ -301,6 +327,29 @@ export const boxs = (state = [
 
         // 追加する
         boxs.push(box);
+
+        return boxs;
+
+    case SAGA_NAGASHIRESULT_CREATE:
+        boxs = state.slice();
+
+        for (let i = 0; i < boxs.length; i++) {
+            if (boxs[i].id == action.payload.box_id) {
+                boxs[i].textResult = action.payload.nagashiResult;
+                break;
+            }
+        }
+
+        return boxs;
+
+    case SAGA_SOZAI_DELETE:
+        boxs = state.slice();
+
+        for (let i = 0; i < boxs.length; i++) {
+            if (boxs[i].group == action.payload.group) {
+                boxs[i].textResult = [];
+            }
+        }
 
         return boxs;
 

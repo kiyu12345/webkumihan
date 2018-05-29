@@ -163,7 +163,8 @@ export default class ToolBoxList extends React.Component {
 
         for (let i = 0; i < this.props.boxs.length; i++) {
             // ボックスのグループNoが先頭以外は無視
-            if (Box.getFirstBoxId(this.props.boxs, this.props.boxs[i].id) != this.props.boxs[i].id) {
+            const no_ary = Box.getGroupNoAry(this.props.boxs, this.props.boxs[i].group);
+            if (no_ary[0] != this.props.boxs[i].no) {
                 continue;
             }
 

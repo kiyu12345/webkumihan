@@ -62,11 +62,71 @@ export default class TextBox extends React.Component {
                         fill: 'none',
                     }}
                 />
-            )
+            );
         }
 
         return ary;
     }
+
+    text() {
+        let ary = [];
+        let x, y;
+
+console.log(this.props.textResult);
+
+        for (let i = 0; i < this.props.textResult.length; i++) {
+            let cj, cg, x, y, size_x, size_y;
+            cj = this.props.textResult[i].j;
+            cg = this.props.textResult[i].g;
+
+            if (this.props.text.kumihoko == 'tate') {
+                if (this.props.textResult[i].size_g == 0) {
+                    size_x = this.props.text.size_g;
+                } else {
+                    size_x = this.props.textResult[i].size_g;
+                }
+                if (this.props.textResult[i].size_j == 0) {
+                    size_y = this.props.text.size_j;
+                } else {
+                    size_y = this.props.textResult[i].size_j;
+                }
+
+                x = Zahyo.ruToluX(cg, this.props.width);
+                y = Zahyo.ruToluY(cj, this.props.height);
+            } else {
+                if (this.props.textResult[i].size_j == 0) {
+                    size_x = this.props.text.size_j;
+                } else {
+                    size_x = this.props.textResult[i].size_j;
+                }
+                if (this.props.textResult[i].size_g == 0) {
+                    size_y = this.props.text.size_g;
+                } else {
+                    size_y = this.props.textResult[i].size_g;
+                }
+
+                x = cj;
+                y = cg;
+            }
+
+            ary.push(
+                <text
+                    x={x - (size_x / 2)}
+                    y={y + (size_y / 2)}
+                    style={{
+                        fontSize: size_x,
+                        stroke: 'none',
+                        fill: 'black',
+                    }}
+                >
+                    {this.props.textResult[i].moji}
+                </text>
+            );
+        }
+
+        return ary;
+    }
+
 
     render() {
         return (
@@ -84,6 +144,9 @@ export default class TextBox extends React.Component {
 
                 {/* テキストグリッド */}
                 {this.textgrid()}
+
+                {/* テキスト */}
+                {this.text()}
             </g>
         );
     }

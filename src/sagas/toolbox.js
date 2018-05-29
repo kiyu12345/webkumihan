@@ -1,4 +1,4 @@
-import { takeEvery, put, select } from 'redux-saga/effects';
+import { takeEvery, put, select, fork } from 'redux-saga/effects';
 
 import {
     SU_TOOLBOX_MOVEEND,
@@ -34,6 +34,7 @@ import {
     Saga_ToolBoxSozai_Sozai_Update,
     Saga_ToolBoxSozai_Sozai_Delete,
     Saga_ToolBoxSozai_Sozai_Create,
+    Saga_Sozai_Delete,
 } from '../actions_saga/toolboxsozai.js';
 
 import {
@@ -45,9 +46,16 @@ import {
     Saga_ToolBoxLink_Link_Delete,
 } from '../actions_saga/toolboxlink.js';
 
+import {
+    Saga_NagashiResult_Create,
+} from '../actions_saga/nagashi.js';
+
+import { nagashiExec, nagashiExecSozai } from './nagashi.js';
 
 import { Zahyo } from '../libs/zahyo.js';
 import { Text } from '../libs/text.js';
+import { Box } from '../libs/box.js';
+import { Sozai } from '../libs/sozai.js';
 
 
 export default function* toolbox() {
@@ -136,8 +144,23 @@ export default function* toolbox() {
 
     yield takeEvery(SU_TOOLBOXSOZAI_UPDATEBUTTON_CLICK, function* (action) {
         yield put(Saga_ToolBoxSozai_Sozai_Update(action.payload));
+
+        // 流し処理を行う
+        yield fork(nagashiExecSozai, action.payload.sozai.id);
     });
     yield takeEvery(SU_TOOLBOXSOZAI_DELETEBUTTON_CLICK, function* (action) {
+        // 削除しようとしている素材がリンクリストにある場合、
+        // そのリンクされているボックスのグループを得てディスパッチする
+        const boxs  = yield select((state) => state.boxs);
+        const links = yield select((state) => state.links);
+        const group = Box.getLinkGroup(boxs, links, action.payload.id);
+        if (group != '') {
+            const payload = {
+                group: group,
+            }
+            yield put(Saga_Sozai_Delete(payload));
+        }
+
         yield put(Saga_ToolBoxSozai_Sozai_Delete(action.payload));
     });
     yield takeEvery(SU_TOOLBOXSOZAI_CREATEBUTTON_CLICK, function* (action) {
@@ -146,108 +169,11 @@ export default function* toolbox() {
 
     yield takeEvery(SU_TOOLBOXLINK_CREATEBUTTON_CLICK, function* (action) {
         yield put(Saga_ToolBoxLink_Link_Create(action.payload));
+
+        // 流し処理を行う
+        yield fork(nagashiExec, action.payload.box_id, action.payload.sozai_id);
     });
     yield takeEvery(SU_TOOLBOXLINK_DELETEBUTTON_CLICK, function* (action) {
         yield put(Saga_ToolBoxLink_Link_Delete(action.payload));
     });
-
-
-yield takeEvery(SU_TOOLBOXSOZAI_UPDATEBUTTON_CLICK, function* (action) {
-    const sozai = yield select((state) => state.sozai);
-    const boxs  = yield select((state) => state.boxs);
-
-    const mojiObjAry = Text.createMojiObjAry(action.payload.sozai.text);
-
-    const box_id = 'box001';
-    const sozai_id = 'sozai001';
-
-    let box;
-    for (let i = 0; i < boxs.length; i++) {
-        if (boxs[i].id == box_id) {
-            box = boxs[i];
-            break;
-        }
-    }
-    console.log(box);
-    console.log(action);
-
-    let start = 0;
-
-    let [index, normalgyo] = Text.getJidumeMojiNagashiIndex(
-        mojiObjAry,
-        start,
-        box.y2 - box.y1,
-        box.text.padding_js,
-        box.text.padding_je,
-        box.text.size_j
-    );
-    console.log(index);
-    console.log(normalgyo);
-
-    // let mojiObjAry2 = mojiObjAry.slice(start, index + 1);
-
-    let jidumeAry;
-    if (normalgyo == true) {
-        jidumeAry = Text.getJidumeAry(
-            mojiObjAry,
-            start,
-            index,
-            box.y2 - box.y1,
-            box.text.padding_js,
-            box.text.padding_je,
-            box.text.size_j
-        );
-    } else {
-        jidumeAry = Text.getJidumeArySoroeNashi(
-            mojiObjAry,
-            start,
-            index,
-            box.text.padding_js,
-            box.text.size_j
-        );
-    }
-    console.log(jidumeAry);
-
-    // start = 6;
-    let indexAry = Text.getZenGyoIndexAry(
-        mojiObjAry,
-        start,
-        box.y2 - box.y1,
-        box.text.padding_js,
-        box.text.padding_je,
-        box.text.size_j
-    );
-    console.log(indexAry);
-
-    let gyookuriAry = Text.getGyookuriAry(
-        mojiObjAry,
-        start,
-        box.y2 - box.y1,
-        box.x2 - box.x1,
-        box.text.padding_js,
-        box.text.padding_je,
-        box.text.padding_gs,
-        box.text.padding_ge,
-        box.text.size_g,
-        box.text.gyokan
-    );
-    console.log(gyookuriAry);
-
-    let [nagashiAry, endindex] = Text.getNagashiCenterAry(
-        mojiObjAry,
-        start,
-        box.y2 - box.y1,
-        box.x2 - box.x1,
-        box.text.padding_js,
-        box.text.padding_je,
-        box.text.padding_gs,
-        box.text.padding_ge,
-        box.text.size_j,
-        box.text.size_g,
-        box.text.gyokan
-    );
-    console.log(nagashiAry);
-    console.log(endindex);
-});
-
 }

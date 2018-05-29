@@ -1,10 +1,31 @@
-import { __esModule } from "react-redux/lib/components/connectAdvanced";
-
 //
 // ボックス関連
 //
 
 export const Box = {
+    //
+    // ボックスIDから、ボックスレコードを返す
+    //
+    // [IN]
+    //   boxs: ボックス情報
+    //   id: ボックスID
+    //
+    // [OUT]
+    //   rec: ボックスレコード
+    //
+    getBox: (boxs, id) => {
+        let box = '';
+
+        for (let i = 0; i < boxs.length; i++) {
+            if (boxs[i].id == id) {
+                box = boxs[i];
+                break;
+            }
+        }
+
+        return box;
+    },
+
     //
     // ボックスIDから、グループ名とNoを返す
     //
@@ -49,6 +70,8 @@ export const Box = {
             }
         }
 
+        ary.sort((a, b) => a - b);
+
         return ary;
     },
 
@@ -76,46 +99,22 @@ export const Box = {
         return id;
     },
 
-    //
-    // ボックスIDから、そのボックスグループの先頭NoのボックスIDを返す
-    //
-    // [IN]
-    //   boxs: ボックス情報
-    //   id: ボックスID
-    //
-    // [OUT]
-    //   id: ボックスID
-    //
-    getFirstBoxId: (boxs, id) => {
-        let [group, no] = Box.getGroupAndNo(boxs, id);
-        let ary = Box.getGroupNoAry(boxs, group);
+    getLinkGroup: (boxs, links, sozai_id) => {
+        let group = '';
+        let no;
 
-        ary.sort((a, b) => a - b);
-
-        let ret_id = Box.getBoxId(boxs, group, ary[0]);
-
-        return ret_id;
-    },
-
-    //
-    // 指定グループの指定番目になるボックスのIDを返す
-    //
-    // [IN]
-    //   boxs: ボックス情報
-    //   group: グループ名
-    //   n: 何番目か 0〜
-    //
-    // [OUT]
-    //   id: ボックスID
-    //   -1: ボックスがない
-    //
-    getGroupBoxId: (boxs, group, n) => {
-        let ary = Box.getGroupNoAry(boxs, group);
-        
-        if (n + 1 > ary.length) {
-            return -1;
+        let box_id = '';
+        for (let i = 0; i < links.length; i++) {
+            if (links[i].sozai_id == sozai_id) {
+                box_id = links[i].box_id;
+                break;
+            }
         }
 
-        return Box.getBoxId(boxs, group, ary[n]);
-    },
+        if (box_id != '') {
+            [group, no] = Box.getGroupAndNo(boxs, box_id);
+        }
+
+        return group;
+    }
 }

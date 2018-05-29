@@ -537,5 +537,53 @@ export const Text = {
         }
 
         return [centerAry, end_index];
+    },
+
+    //
+    // 文字流し結果情報（オブジェクトの配列）を返す
+    //
+    // [IN]
+    //   centerAry: 文字中心座標配列
+    //   mojiObjAry: 文字オブジェクト配列（１つの素材全体のもの）
+    //   start: 開始インデックス
+    //
+    // [OUT]
+    //   流し結果配列
+    //      [
+    //          {
+    //               moji: 'あ'   文字
+    //               size_j: 文字サイズ（0:デフォルトサイズ）
+    //               size_g: 文字サイズ（0:デフォルトサイズ）
+    //               j: 中心座標（字詰方向）
+    //               g: 中心座標（行送方向）
+    //          },
+    //          ......
+    //      ]
+    //
+    nagashiResult: (
+        centerAry,
+        mojiObjAry,
+        start
+    ) => {
+        let nagashiAry = [];
+        let obj = {};
+
+        let moji_i = start;
+
+        for (let i = 0; i < centerAry.length; i++) {
+            obj = {
+                moji: mojiObjAry[moji_i].moji,
+                size_j: mojiObjAry[moji_i].size_j,
+                size_g: mojiObjAry[moji_i].size_g,
+                j: centerAry[i][0],
+                g: centerAry[i][1],
+            };
+
+            nagashiAry.push(obj);
+
+            moji_i++;
+        }
+
+        return nagashiAry;
     }
 }
