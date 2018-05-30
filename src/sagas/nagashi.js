@@ -8,12 +8,11 @@ import { Text } from '../libs/text.js';
 import { Box } from '../libs/box.js';
 import { Sozai } from '../libs/sozai.js';
 
-export function* nagashiExec(box_id, sozai_id) {
+export function* nagashiExec(group, sozai_id) {
     // ボックス情報を得る
     const boxs = yield select((state) => state.boxs);
 
     // 指定のボックスのグループの最初のボックスレコードを得る
-    const [group, no] = Box.getGroupAndNo(boxs, box_id);
     const no_ary = Box.getGroupNoAry(boxs, group);
     const first_box_id = Box.getBoxId(boxs, group, no_ary[0]);
     const box = Box.getBox(boxs, first_box_id);
@@ -34,12 +33,12 @@ export function* nagashiExec(box_id, sozai_id) {
 
             // エリア情報を求める
             let areasize_j, areasize_g;
-            if (box.text.kumihoko == 'tate') {
-                areasize_j = box.y2 - box.y1;
-                areasize_g = box.x2 - box.x1;
+            if (box_rec.text.kumihoko == 'tate') {
+                areasize_j = box_rec.y2 - box_rec.y1;
+                areasize_g = box_rec.x2 - box_rec.x1;
             } else {
-                areasize_j = box.x2 - box.x1;
-                areasize_g = box.y2 - box.y1;
+                areasize_j = box_rec.x2 - box_rec.x1;
+                areasize_g = box_rec.y2 - box_rec.y1;
             }
 
             // ボックスエリアにテキストを流したときの文字の中心座標配列を得る
@@ -99,25 +98,59 @@ console.log('文字が余った');
     }
 }
 
-export function* nagashiExecSozai(sozai_id) {
-console.log(sozai_id);
-    // 指定の素材IDがリンクリストに含まれていれば、対応するボックスIDを得る
+export function* nagashiExecGroup(group) {
+    // 指定のグループ名がリンクリストに含まれていれば、対応する素材IDを得る
     const links = yield select((state) => state.links);
-    let box_id = '';
+
+    let sozai_id = '';
     for (let i = 0; i < links.length; i++) {
-        if (links[i].sozai_id == sozai_id) {
-            box_id = links[i].box_id;
+        if (links[i].group == group) {
+            sozai_id = links[i].sozai_id;
             break;
         }
     }
 
-    if (box_id == '') {
+    if (sozai_id == '') {
         return;
     }
 
-console.log(box_id);
-console.log(sozai_id);
+    yield fork(nagashiExec, group, sozai_id);
+}
 
-    yield fork(nagashiExec, box_id, sozai_id);
+export function* nagashiExecBox(box_id) {
+    // 指定のボックスのグループ名がリンクリストに含まれていれば、対応する素材IDを得る
+    const boxs  = yield select((state) => state.boxs);
+
+    const [group, no] = Box.getGroupAndNo(boxs, box_id);
+
+    yield fork(nagashiExecGroup, group);
 } 
+
+export function* nagashiExecSozai(sozai_id) {
+    // 指定の素材IDがリンクリストに含まれていれば、対応するグループ名を得る
+    const links = yield select((state) => state.links);
+    
+    let group = '';
+    for (let i = 0; i < links.length; i++) {
+        if (links[i].sozai_id == sozai_id) {
+            group = links[i].group;
+            break;
+        }
+    }
+
+    if (group == '') {
+        return;
+    }
+
+    yield fork(nagashiExec, group, sozai_id);
+} 
+
+export function* nagashiExecAll() {
+    // リンクリストを得る
+    const links = yield select((state) => state.links);
+
+    for (let i = 0; i < links.length; i++) {
+        yield fork(nagashiExec, links[i].group, links[i].sozai_id);
+    }
+}
 

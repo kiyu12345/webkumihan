@@ -8,12 +8,13 @@ import {
 import {
     SAGA_TOOLBOXSOZAI_SOZAI_DELETE,
 } from '../actions_saga/toolboxsozai.js';
+import { SAGA_TOOLBOXBOXDATA_BOXDATA_DELETE } from '../actions_saga/toolboxboxdata.js';
 
 // ====================
 // リンクデータ
 //      [
 //          {
-//              box_id: ボックスID（グループNoが 1 のもののみ）
+//              group: グループ名
 //              sozai_id: 素材ID
 //
 //              text: [
@@ -29,13 +30,7 @@ import {
 //          .....
 //      ]
 // ====================
-export const links = (state = [
-    {
-        box_id: 'box001',
-        sozai_id: 'sozai001',
-        text: [],
-    },
-], action) => {
+export const links = (state = [], action) => {
     let lists;
     let link;
 
@@ -44,7 +39,7 @@ export const links = (state = [
         lists = state.slice();
 
         link = {
-            box_id: action.payload.box_id,
+            group: action.payload.group,
             sozai_id: action.payload.sozai_id,
         };
 
@@ -56,7 +51,7 @@ export const links = (state = [
         lists = state.slice();
 
         for (let i = 0; i < lists.length; i++) {
-            if (lists[i].box_id == action.payload.box_id) {
+            if (lists[i].group == action.payload.group) {
                 lists.splice(i, 1);
                 break;
             }

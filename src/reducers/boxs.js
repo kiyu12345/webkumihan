@@ -19,11 +19,11 @@ import {
 
 import {
     SAGA_TOOLBOXSOZAI_SOZAI_DELETE,
-    SAGA_SOZAI_DELETE,
 } from '../actions_saga/toolboxsozai.js';
 
 import {
     SAGA_NAGASHIRESULT_CREATE,
+    SAGA_NAGASHI_REMOVE,
 } from '../actions_saga/nagashi.js';
 
 // ====================
@@ -67,12 +67,12 @@ export const boxs = (state = [
     {
         id: 'box001',
         type: 'text',
+        group: '記事A',
+        no: 1,
         x1: 100,
         y1: 100,
         x2: 200,
         y2: 300,
-        group: 'test',
-        no: 1,
 
         text: {
             kumihoko: 'tate',
@@ -90,12 +90,12 @@ export const boxs = (state = [
     {
         id: 'box002',
         type: 'text',
+        group: '記事B',
+        no: 1,
         x1: 300,
         y1: 100,
         x2: 400,
         y2: 300,
-        group: 'test2',
-        no: 1,
 
         text: {
             kumihoko: 'tate',
@@ -113,12 +113,12 @@ export const boxs = (state = [
     {
         id: 'box003',
         type: 'text',
+        group: '記事A',
+        no: 2,
         x1: 500,
         y1: 100,
         x2: 600,
         y2: 300,
-        group: 'test',
-        no: 2,
 
         text: {
             kumihoko: 'tate',
@@ -136,12 +136,12 @@ export const boxs = (state = [
     {
         id: 'box004',
         type: 'text',
+        group: '記事C',
+        no: 1,
         x1: 700,
         y1: 100,
         x2: 800,
         y2: 300,
-        group: 'test3',
-        no: 1,
 
         text: {
             kumihoko: 'tate',
@@ -342,7 +342,7 @@ export const boxs = (state = [
 
         return boxs;
 
-    case SAGA_SOZAI_DELETE:
+    case SAGA_NAGASHI_REMOVE:
         boxs = state.slice();
 
         for (let i = 0; i < boxs.length; i++) {

@@ -6,6 +6,7 @@ import {
     SAGA_TOOLBOXSOZAI_SOZAI_UPDATE,
     SAGA_TOOLBOXSOZAI_SOZAI_DELETE,
     SAGA_TOOLBOXSOZAI_SOZAI_CREATE,
+    SAGA_TOOLBOXSOZAI_SOZAI_SELECT,
 } from '../actions_saga/toolboxsozai.js';
 
 // ====================
@@ -23,35 +24,60 @@ import {
 // ====================
 export const sozai = (state = [
     {
-        id: 'sozai001',
+        id: '素材A',
         type: 'text',
         text: 'あいうえおかきくけこ',
         mojiObjAry: [],
         image: '',
+
+        select: '',
     },
     {
-        id: 'sozai002',
+        id: '素材B',
         type: 'text',
         text: 'かきくけこさしすせそ',
         mojiObjAry: [],
         image: '',
+
+        select: '',
     },
     {
-        id: 'sozai003',
+        id: '素材C',
         type: 'text',
         text: 'さしすせそたちつてと',
         mojiObjAry: [],
         image: '',
+
+        select: '',
     },
 ], action) => {
     let lists;
     let sozai;
 
     switch (action.type) {
+    case SAGA_TOOLBOXSOZAI_SOZAI_SELECT:
+        lists = state.slice();
+
+        for (let i = 0; i < lists.length; i++) {
+            if (lists[i].id == action.payload.id) {
+                if (lists[i].select == '') {
+                    lists[i].select = 'on';
+                } else {
+                    lists[i].select = '';
+                }
+            } else {
+                lists[i].select = '';
+            }
+        }
+
+        return lists;
+
     case SAGA_TOOLBOXSOZAI_SOZAI_UPDATE:
         lists = state.slice();
 
         for (let i = 0; i < lists.length; i++) {
+            // lists[i].select = '';
+
             if (lists[i].id == action.payload.sozai.id) {
                 lists[i].type = action.payload.sozai.type;
                 lists[i].text = action.payload.sozai.text;
@@ -60,17 +86,21 @@ export const sozai = (state = [
                 lists[i].mojiObjAry = Text.createMojiObjAry(action.payload.sozai.text);
 
                 lists[i].image = action.payload.sozai.image;
+                
+                // lists[i].select = 'on';
 
                 break;
             }
         }
 
-console.log(lists);
-
         return lists;
 
     case SAGA_TOOLBOXSOZAI_SOZAI_DELETE:
         lists = state.slice();
+
+        for (let i = 0; i < lists.length; i++) {
+            lists[i].select = '';
+        }
 
         for (let i = 0; i < lists.length; i++) {
             if (lists[i].id == action.payload.id) {
@@ -84,6 +114,10 @@ console.log(lists);
     case SAGA_TOOLBOXSOZAI_SOZAI_CREATE:
         lists = state.slice();
 
+        for (let i = 0; i < lists.length; i++) {
+            lists[i].select = '';
+        }
+
         sozai = {
             id: action.payload.id,
             type: action.payload.type,
@@ -93,6 +127,8 @@ console.log(lists);
             mojiObjAry: Text.createMojiObjAry(action.payload.text),
 
             image: action.payload.image,
+
+            select: 'on',
         };
 
         lists.push(sozai);

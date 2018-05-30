@@ -73,29 +73,29 @@ export default class ToolBoxList extends React.Component {
         super(props);
 
         this.state = {
-            box_id: '',
+            group: '',
             sozai_id: '',
         };
     }
    
     componentWillReceiveProps(nextProps) {
         this.setState({
-            box_id: '',
+            group: '',
             sozai_id: '',
         });
     }
 
-    clickBoxList(box_id) {
+    clickBoxList(group) {
         let id;
 
-        if (this.state.box_id == box_id) {
+        if (this.state.group == group) {
             id = '';
         } else {
-            id = box_id;
+            id = group;
         }
 
         this.setState({
-            box_id: id,
+            group: id,
         });
     }
 
@@ -114,31 +114,31 @@ export default class ToolBoxList extends React.Component {
     }
 
     clickCreateButton() {
-        if (this.state.box_id == ''
+        if (this.state.group == ''
          || this.state.sozai_id == '') {
              return;
          }
 
         this.props.onClickCreateButton({
-            box_id: this.state.box_id,
+            group: this.state.group,
             sozai_id: this.state.sozai_id,
         });
     }
 
-    clickDeleteButton(box_id) {
+    clickDeleteButton(group) {
         if (confirm('削除します。よろしいですか？') == false) {
             return;
         }
 
         this.props.onClickDeleteButton({
-            box_id: box_id,
+            group: group,
         });
     }
 
-    // ボックスIDがリンクリストに含まれているかどうかを返す
-    isIncludeLinkListBoxId(box_id) {
+    // グループ名がリンクリストに含まれているかどうかを返す
+    isIncludeLinkListGroup(group) {
         for (let i = 0; i < this.props.links.length; i++) {
-            if (this.props.links[i].box_id == box_id) {
+            if (this.props.links[i].group == group) {
                 return true;
             }
         }
@@ -157,31 +157,28 @@ export default class ToolBoxList extends React.Component {
         return false;        
     }
 
-    boxlist() {
+    grouplist() {
         let list = [];
         let html = [];
 
-        for (let i = 0; i < this.props.boxs.length; i++) {
-            // ボックスのグループNoが先頭以外は無視
-            const no_ary = Box.getGroupNoAry(this.props.boxs, this.props.boxs[i].group);
-            if (no_ary[0] != this.props.boxs[i].no) {
-                continue;
-            }
+        // ボックスのグループ名のリスト（配列）を得る
+        const group_ary = Box.getGroupAry(this.props.boxs);
 
+        for (let i = 0; i < group_ary.length; i++) {
             // リンクリストに追加されているものは無視
-            if (this.isIncludeLinkListBoxId(this.props.boxs[i].id) == true) {
+            if (this.isIncludeLinkListGroup(group_ary[i]) == true) {
                 continue;
             }
 
             // ボックスリストとして追加する
             list.push({
-                box_id: this.props.boxs[i].id,
+                group: group_ary[i],
             });
         }
 
         for (let i = 0; i < list.length; i++) {
             let bgcolor;
-            if (this.state.box_id == list[i].box_id) {
+            if (this.state.group == list[i].group) {
                 bgcolor = 'red';
             } else {
                 bgcolor = 'lightyellow';
@@ -193,9 +190,9 @@ export default class ToolBoxList extends React.Component {
                         ...styles.list,
                         backgroundColor: bgcolor,
                     }}
-                    onClick={(e) => this.clickBoxList(list[i].box_id)}
+                    onClick={(e) => this.clickBoxList(list[i].group)}
                 >
-                    {list[i].box_id}
+                    {list[i].group}
                 </div>
             );
         }
@@ -259,10 +256,10 @@ export default class ToolBoxList extends React.Component {
                             height: '9px',
                             backgroundColor: 'lightgray',
                         }}
-                        onClick={(e) => this.clickDeleteButton(this.props.links[i].box_id)}
+                        onClick={(e) => this.clickDeleteButton(this.props.links[i].group)}
                     >✕</span>
                     &nbsp;
-                    {this.props.links[i].box_id}<br/>
+                    {this.props.links[i].group}<br/>
                     <span style={{width: '9px', height: '9px'}}>　</span>
                     &nbsp;
                     {this.props.links[i].sozai_id}
@@ -285,14 +282,14 @@ export default class ToolBoxList extends React.Component {
                         color: 'blue',
                     }}
                 >
-                    ボックスリスト
+                    グループリスト
                 </div>
                 <div
                     style={{
                         ...styles.boxlistbox,
                     }}
                 >
-                    {this.boxlist()}
+                    {this.grouplist()}
                 </div>
 
                 <div

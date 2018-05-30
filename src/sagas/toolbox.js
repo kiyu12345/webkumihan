@@ -29,12 +29,13 @@ import {
     SU_TOOLBOXSOZAI_UPDATEBUTTON_CLICK,
     SU_TOOLBOXSOZAI_DELETEBUTTON_CLICK,
     SU_TOOLBOXSOZAI_CREATEBUTTON_CLICK,
+    SU_TOOLBOXSOZAI_SOZAI_SELECT,
 } from '../actions_su/toolboxsozai.js';
 import {
     Saga_ToolBoxSozai_Sozai_Update,
     Saga_ToolBoxSozai_Sozai_Delete,
     Saga_ToolBoxSozai_Sozai_Create,
-    Saga_Sozai_Delete,
+    Saga_ToolBoxSozai_Sozai_Select,
 } from '../actions_saga/toolboxsozai.js';
 
 import {
@@ -48,9 +49,16 @@ import {
 
 import {
     Saga_NagashiResult_Create,
+    Saga_Nagashi_Remove,
 } from '../actions_saga/nagashi.js';
 
-import { nagashiExec, nagashiExecSozai } from './nagashi.js';
+import {
+    nagashiExec,
+    nagashiExecGroup,
+    nagashiExecBox,
+    nagashiExecSozai,
+    nagashiExecAll,
+} from './nagashi.js';
 
 import { Zahyo } from '../libs/zahyo.js';
 import { Text } from '../libs/text.js';
@@ -59,6 +67,20 @@ import { Sozai } from '../libs/sozai.js';
 
 
 export default function* toolbox() {
+    // 素材の初期処理
+    const sozai = yield select((state) => state.sozai);
+    for (let i = 0; i < sozai.length; i++) {
+        const payload = {
+            sozai: {
+                id: sozai[i].id,
+                type: sozai[i].type,
+                text: sozai[i].text,
+                image: sozai[i].image,
+            },
+        };
+        yield put(Saga_ToolBoxSozai_Sozai_Update(payload));
+    }
+
     // ツールボックスを初期位置にセットする
     const toolboxs = yield select((state) => state.toolboxs);
     let payload = {};
@@ -130,9 +152,31 @@ export default function* toolbox() {
 
     yield takeEvery(SU_TOOLBOXBOXDATA_UPDATEBUTTON_CLICK, function* (action) {
         yield put(Saga_ToolBoxBoxData_BoxData_Update(action.payload));
+
+        // すべてを流し直す
+        yield fork(nagashiExecAll);
     });
     yield takeEvery(SU_TOOLBOXBOXDATA_DELETEBUTTON_CLICK, function* (action) {
+        // 削除しようとしているボックスのグループ名を得る
+        let boxs = yield select((state) => state.boxs);
+        const [group, no] = Box.getGroupAndNo(boxs, action.payload.id);
+
+        // ボックスを削除
         yield put(Saga_ToolBoxBoxData_BoxData_Delete(action.payload));
+
+        // ボックスリスト内に削除したボックスのグループ名が存在しなければ、
+        // リンクリストも削除する
+        boxs = yield select((state) => state.boxs);
+        const groups = Box.getGroupAry(boxs);
+        if (groups.indexOf(group) < 0) {
+            const payload = {
+                group: group,
+            };
+            yield put(Saga_ToolBoxLink_Link_Delete(payload));
+        } else {
+            // 存在したら、流し直す
+            yield fork(nagashiExecGroup, group);
+        }
     });
     yield takeEvery(SU_TOOLBOXBOXDATA_CREATEBUTTON_CLICK, function* (action) {
         yield put(Saga_ToolBoxBoxData_BoxData_Create(action.payload));
@@ -140,6 +184,9 @@ export default function* toolbox() {
 
     yield takeEvery(SU_TOOLBOXTEXTDATA_UPDATEBUTTON_CLICK, function* (action) {
         yield put(Saga_ToolBoxTextData_TextData_Update(action.payload));
+
+        // 流しを更新
+        yield fork(nagashiExecBox, action.payload.box.id);
     });
 
     yield takeEvery(SU_TOOLBOXSOZAI_UPDATEBUTTON_CLICK, function* (action) {
@@ -158,7 +205,7 @@ export default function* toolbox() {
             const payload = {
                 group: group,
             }
-            yield put(Saga_Sozai_Delete(payload));
+            yield put(Saga_Nagashi_Remove(payload));
         }
 
         yield put(Saga_ToolBoxSozai_Sozai_Delete(action.payload));
@@ -166,14 +213,20 @@ export default function* toolbox() {
     yield takeEvery(SU_TOOLBOXSOZAI_CREATEBUTTON_CLICK, function* (action) {
         yield put(Saga_ToolBoxSozai_Sozai_Create(action.payload));
     });
+    yield takeEvery(SU_TOOLBOXSOZAI_SOZAI_SELECT, function* (action) {
+        yield put(Saga_ToolBoxSozai_Sozai_Select(action.payload));
+    });
 
     yield takeEvery(SU_TOOLBOXLINK_CREATEBUTTON_CLICK, function* (action) {
         yield put(Saga_ToolBoxLink_Link_Create(action.payload));
 
         // 流し処理を行う
-        yield fork(nagashiExec, action.payload.box_id, action.payload.sozai_id);
+        yield fork(nagashiExec, action.payload.group, action.payload.sozai_id);
     });
     yield takeEvery(SU_TOOLBOXLINK_DELETEBUTTON_CLICK, function* (action) {
+        // リンクを削除しようとしているグループを得てディスパッチする
+        yield put(Saga_Nagashi_Remove(action.payload));
+
         yield put(Saga_ToolBoxLink_Link_Delete(action.payload));
     });
 }

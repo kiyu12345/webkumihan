@@ -1,3 +1,5 @@
+import { LibArray } from "./array";
+
 //
 // ボックス関連
 //
@@ -49,6 +51,25 @@ export const Box = {
         }
 
         return [group, no]
+    },
+
+    //
+    // ボックスリストの全グループのグループ名配列を返す
+    //
+    // [IN]
+    //   boxs: ボックス情報
+    //
+    // [OUT]
+    //   [group, group, group, ...]  <--- グループ名の配列
+    //
+    getGroupAry: (boxs) => {
+        let ary = [];
+
+        for (let i = 0; i < boxs.length; i++) {
+            ary = LibArray.setArrayUnique(ary, boxs[i].group);
+        }
+
+        return ary;
     },
 
     //

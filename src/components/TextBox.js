@@ -112,7 +112,7 @@ console.log(this.props.textResult);
             ary.push(
                 <text
                     x={x - (size_x / 2)}
-                    y={y + (size_y / 2)}
+                    y={y + (size_y / 2) - (size_y * 12.5 / 100.0)}
                     style={{
                         fontSize: size_x,
                         stroke: 'none',
