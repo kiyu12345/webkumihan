@@ -81,7 +81,9 @@ const mergeProps = (state, dispatch, props) => {
         },
 
         checkKizonId: (id) => {
+console.log('ok1');
             for (let i = 0; i < state.boxs.length; i++) {
+console.log('ok2');
                 if (state.boxs[i].id == id) {
                     return true;
                 }

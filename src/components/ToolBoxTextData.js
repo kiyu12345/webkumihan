@@ -58,14 +58,14 @@ export default class ToolBoxTextData extends React.Component {
     clickUpdateButton() {
         let box = this.props.box;
 
-        if (this.state.padding_js == ''
-         || this.state.padding_je == ''
-         || this.state.padding_gs == ''
-         || this.state.padding_ge == ''
-         || this.state.kumihoko == ''
-         || this.state.size_j == ''
-         || this.state.size_g == ''
-         || this.state.gyokan == '') {
+        if (this.state.padding_js === ''
+         || this.state.padding_je === ''
+         || this.state.padding_gs === ''
+         || this.state.padding_ge === ''
+         || this.state.kumihoko === ''
+         || this.state.size_j === ''
+         || this.state.size_g === ''
+         || this.state.gyokan === '') {
              alert('全ての項目を入力してください');
              return;
          }

@@ -50,10 +50,10 @@ export default class ToolBoxBoxData extends React.Component {
     clickUpdateButton() {
         let box = this.props.box;
 
-        if (this.props.box.id == ''
-         || this.props.box.type == ''
-         || this.state.group == ''
-         || this.state.no == '') {
+        if (this.props.box.id === ''
+         || this.props.box.type === ''
+         || this.state.group === ''
+         || this.state.no === '') {
              alert('全ての項目を入力してください');
              return;
          }
@@ -81,19 +81,19 @@ export default class ToolBoxBoxData extends React.Component {
     clickCreateButton() {
         let box = this.props.box;
 
-        if (this.state.id == ''
-         || this.state.type == ''
-         || this.state.group == ''
-         || this.state.no == '') {
-             alert('全ての項目を入力してください');
-             return;
-         }
+        if (this.state.id === ''
+         || this.state.type === ''
+         || this.state.group === ''
+         || this.state.no === '') {
+            alert('全ての項目を入力してください');
+            return;
+        }
 
-         // IDが既存の場合は、作成できない
-         if (this.props.checkKizonId(this.state.id)) {
-             alert('このボックスIDは既に存在します');
-             return;
-         }
+        // IDが既存の場合は、作成できない
+        if (this.props.checkKizonId(this.state.id)) {
+            alert('このボックスIDは既に存在します');
+            return;
+        }
 
         box.id = this.state.id;
         box.type = this.state.type;

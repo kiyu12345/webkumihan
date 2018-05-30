@@ -324,6 +324,7 @@ export const boxs = (state = [
             box.text.gyokan  // 行間
         );
         box.textgrid = textgrid;
+        box.textResult = [];
 
         // 追加する
         boxs.push(box);
