@@ -8,7 +8,7 @@ import {
     SU_ToolBoxSozai_UpdateButton_Click,
     SU_ToolBoxSozai_DeleteButton_Click,
     SU_ToolBoxSozai_CreateButton_Click,
-    SU_ToolBoxSozai_Sozai_Select,
+    SU_ToolBoxSozai_Sozai_Toggle,
 } from '../actions_su/toolboxsozai.js';
 
 
@@ -38,7 +38,7 @@ const mergeProps = (state, dispatch, props) => {
         sozai: state.sozai,
 
         onClickSozaiList: (payload) => {
-            dispatch.dispatch(SU_ToolBoxSozai_Sozai_Select(payload));
+            dispatch.dispatch(SU_ToolBoxSozai_Sozai_Toggle(payload));
         },
         onClickUpdateButton: (payload) => {
             dispatch.dispatch(SU_ToolBoxSozai_UpdateButton_Click(payload));

@@ -56,7 +56,7 @@ export default class ToolBoxBoxData extends React.Component {
          || this.state.no === '') {
              alert('全ての項目を入力してください');
              return;
-         }
+        }
 
         box.id = this.props.box.id;
         box.type = this.props.box.type;
@@ -92,6 +92,11 @@ export default class ToolBoxBoxData extends React.Component {
         // IDが既存の場合は、作成できない
         if (this.props.checkKizonId(this.state.id)) {
             alert('このボックスIDは既に存在します');
+            return;
+        }
+
+        if (this.state.type != 'text') {
+            alert('「タイプ」は text と入力してください');
             return;
         }
 
@@ -142,10 +147,15 @@ export default class ToolBoxBoxData extends React.Component {
                     ｸﾞﾙｰﾌﾟ名 <input
                                 type="text"
                                 value={this.state.group}
-                                style={{...styles.input, width: '50px'}}
+                                style={{...styles.input, width: '100px'}}
                                 onChange={(e) => this.setState({group: e.target.value})}
                             />
-                    &nbsp;
+                </div>
+                <div
+                    style={{
+                        ...styles.line
+                    }}
+                >
                     No.<input
                             type="text"
                             value={this.state.no}
@@ -216,10 +226,15 @@ export default class ToolBoxBoxData extends React.Component {
                     ｸﾞﾙｰﾌﾟ名 <input
                                 type="text"
                                 value={this.state.group}
-                                style={{...styles.input, width: '50px'}}
+                                style={{...styles.input, width: '100px'}}
                                 onChange={(e) => this.setState({group: e.target.value})}
                             />
-                    &nbsp;
+                </div>
+                <div
+                    style={{
+                        ...styles.line
+                    }}
+                >
                     No.<input
                             type="text"
                             value={this.state.no}

@@ -68,7 +68,12 @@ export default class ToolBoxTextData extends React.Component {
          || this.state.gyokan === '') {
              alert('全ての項目を入力してください');
              return;
-         }
+        }
+
+        if (this.state.kumihoko != 'tate' && this.state.kumihoko != 'yoko') {
+            alert('「組方向」は、tate または yoko と入力してください');
+            return;
+        }
 
         box.id = this.props.box.id;
         box.text.padding_js = this.state.padding_js;

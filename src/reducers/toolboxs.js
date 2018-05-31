@@ -39,7 +39,7 @@ export const toolboxs = (state = [
         x: 0,
         y: 0,
         w: 200,
-        h: 120,
+        h: 140,
         view: 'true',
     },
     {

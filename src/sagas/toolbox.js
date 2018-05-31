@@ -29,13 +29,13 @@ import {
     SU_TOOLBOXSOZAI_UPDATEBUTTON_CLICK,
     SU_TOOLBOXSOZAI_DELETEBUTTON_CLICK,
     SU_TOOLBOXSOZAI_CREATEBUTTON_CLICK,
-    SU_TOOLBOXSOZAI_SOZAI_SELECT,
+    SU_TOOLBOXSOZAI_SOZAI_TOGGLE,
 } from '../actions_su/toolboxsozai.js';
 import {
     Saga_ToolBoxSozai_Sozai_Update,
     Saga_ToolBoxSozai_Sozai_Delete,
     Saga_ToolBoxSozai_Sozai_Create,
-    Saga_ToolBoxSozai_Sozai_Select,
+    Saga_ToolBoxSozai_Sozai_Toggle,
 } from '../actions_saga/toolboxsozai.js';
 
 import {
@@ -113,7 +113,7 @@ export default function* toolbox() {
             payload = {
                 id: toolboxs[i].id,
                 x: Zahyo.windowArea().w - toolboxs[i].w - 20,
-                y: 175,
+                y: 195,
             };
 
             yield put(Saga_ToolBox_MoveEnd(payload));
@@ -213,8 +213,8 @@ export default function* toolbox() {
     yield takeEvery(SU_TOOLBOXSOZAI_CREATEBUTTON_CLICK, function* (action) {
         yield put(Saga_ToolBoxSozai_Sozai_Create(action.payload));
     });
-    yield takeEvery(SU_TOOLBOXSOZAI_SOZAI_SELECT, function* (action) {
-        yield put(Saga_ToolBoxSozai_Sozai_Select(action.payload));
+    yield takeEvery(SU_TOOLBOXSOZAI_SOZAI_TOGGLE, function* (action) {
+        yield put(Saga_ToolBoxSozai_Sozai_Toggle(action.payload));
     });
 
     yield takeEvery(SU_TOOLBOXLINK_CREATEBUTTON_CLICK, function* (action) {
