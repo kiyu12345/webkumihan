@@ -60,6 +60,7 @@ export default class ToolBoxSozai extends React.Component {
 
         this.state = {
             id: '',
+            inputid: '',
             type: '',
             text: '',
             image: '',
@@ -78,6 +79,7 @@ export default class ToolBoxSozai extends React.Component {
         if (sozai == '') {
             this.setState({
                 id: '',
+                inputid: '',
                 type: '',
                 text: '',
                 image: '',
@@ -122,22 +124,31 @@ export default class ToolBoxSozai extends React.Component {
     }
 
     clickCreateButton() {
-        if (this.state.id == ''
+        if (this.state.inputid == ''
          || this.state.type == '') {
              alert('素材IDおよびタイプを入力してください');
              return;
         }
 
-        if (this.props.checkSozaiExist(this.state.id)) {
+        if (this.props.checkSozaiExist(this.state.inputid)) {
             alert('この素材IDは既に存在しています');
             return;
         }
 
+        if (this.state.type != 'text') {
+            alert('「タイプ」は text と入力してください');
+            return;
+        }
+
         this.props.onClickCreateButton({
-            id: this.state.id,
+            id: this.state.inputid,
             type: this.state.type,
             text: this.state.text,
             image: this.state.image,
+        });
+
+        this.setState({
+            inputid: '',
         });
     }
 
@@ -197,8 +208,8 @@ export default class ToolBoxSozai extends React.Component {
                                     ...styles.input,
                                     width: '80px',
                                 }}
-                                value={this.state.id}
-                                onChange={(e) => this.setState({id: e.target.value})}
+                                value={this.state.inputid}
+                                onChange={(e) => this.setState({inputid: e.target.value})}
                             />
                 </div>,
                 <div
