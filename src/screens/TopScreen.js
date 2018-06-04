@@ -8,6 +8,7 @@ import ToolBoxBoxDataMap from '../components/ToolBoxBoxDataMap.js';
 import ToolBoxTextDataMap from '../components/ToolBoxTextDataMap.js';
 import ToolBoxSozaiMap from '../components/ToolBoxSozaiMap.js';
 import ToolBoxLinkMap from '../components/ToolBoxLinkMap.js';
+import ToolBoxPresenMap from '../components/ToolBoxPresenMap.js';
 
 const styles = {
     container: {
@@ -24,6 +25,8 @@ const styles = {
 export default class TopScreen extends React.Component {
     toolBoxs() {
         let toolboxs = [];
+
+console.log(this.props.toolboxs);
 
         for (let i = 0; i < this.props.toolboxs.length; i++) {
             switch (this.props.toolboxs[i].type) {
@@ -116,9 +119,29 @@ export default class TopScreen extends React.Component {
                     </ToolBoxMap>
                 );
                 break;
+
+            case 'presen':    // プレゼン用ツールボックス
+                if (this.props.toolboxs[i].view == 'false') {
+                    break;
+                }
+                toolboxs.push(
+                    <ToolBoxMap
+                        id={this.props.toolboxs[i].id}
+                        x={this.props.toolboxs[i].x}
+                        y={this.props.toolboxs[i].y}
+                        w={this.props.toolboxs[i].w}
+                        h={this.props.toolboxs[i].h}
+                        title="プレゼン用ツール"
+                    >
+                        <ToolBoxPresenMap />
+                    </ToolBoxMap>
+                );
+                break;
+
             }
         }
 
+console.log(toolboxs);
         return toolboxs;
     }
 

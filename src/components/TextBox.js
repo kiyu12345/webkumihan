@@ -72,8 +72,6 @@ export default class TextBox extends React.Component {
         let ary = [];
         let x, y;
 
-console.log(this.props.textResult);
-
         for (let i = 0; i < this.props.textResult.length; i++) {
             let cj, cg, x, y, size_x, size_y;
             cj = this.props.textResult[i].j;
@@ -139,8 +137,6 @@ console.log(this.props.textResult);
             >
                 {/* テキストボックスの背景 */}
                 {this.box()}
-
-                {/* <text x="0" y="20" fill="#000">あ</text> */}
 
                 {/* テキストグリッド */}
                 {this.textgrid()}

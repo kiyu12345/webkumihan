@@ -63,7 +63,11 @@ export default class ToolBox extends React.Component {
         this.boxorgpos = {
             x: nextProps.x,
             y: nextProps.y,
-        };        
+        };
+        this.setState({
+            x: nextProps.x,
+            y: nextProps.y,
+        });
     }
 
     mouseDown(e) {

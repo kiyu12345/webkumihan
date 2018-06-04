@@ -2,6 +2,8 @@ import { Zahyo } from '../libs/zahyo.js';
 
 import { TextGrid } from '../libs/textgrid.js';
 
+import { PresenBox } from '../define.js';
+
 import {
     SAGA_SELECTBOX_EDITBOX_MOVEEND,
     SAGA_SELECTBOX_EDITBOX_CHANGESIZE,
@@ -25,6 +27,12 @@ import {
     SAGA_NAGASHIRESULT_CREATE,
     SAGA_NAGASHI_REMOVE,
 } from '../actions_saga/nagashi.js';
+
+
+import {
+    SAGA_LAYOUT_CALL,
+} from '../actions_saga/toolboxpresen.js';
+
 
 // ====================
 // ボックスデータ
@@ -63,82 +71,51 @@ import {
 //          }
 //      ]
 // ====================
-export const boxs = (state = [
-    {
-        id: 'box1',
-        type: 'text',
-        group: 'グループA',
-        no: 1,
-        x1: 400,
-        y1: 100,
-        x2: 700,
-        y2: 300,
-
-        text: {
-            kumihoko: 'tate',
-            padding_js: 10,
-            padding_je: 10,
-            padding_gs: 10,
-            padding_ge: 10,
-            size_j: 20,
-            size_g: 20,
-            gyokan: 5,
-        },
-        textgrid: [],
-        textResult: [],
-    },
-    {
-        id: 'box2',
-        type: 'text',
-        group: 'グループA',
-        no: 2,
-        x1: 400,
-        y1: 350,
-        x2: 700,
-        y2: 550,
-
-        text: {
-            kumihoko: 'tate',
-            padding_js: 10,
-            padding_je: 10,
-            padding_gs: 10,
-            padding_ge: 10,
-            size_j: 20,
-            size_g: 20,
-            gyokan: 5,
-        },
-        textgrid: [],
-        textResult: [],
-    },
-    {
-        id: 'box3',
-        type: 'text',
-        group: 'グループA',
-        no: 3,
-        x1: 400,
-        y1: 600,
-        x2: 700,
-        y2: 800,
-
-        text: {
-            kumihoko: 'tate',
-            padding_js: 10,
-            padding_je: 10,
-            padding_gs: 10,
-            padding_ge: 10,
-            size_j: 20,
-            size_g: 20,
-            gyokan: 5,
-        },
-        textgrid: [],
-        textResult: [],
-    },
-    
-], action) => {
+export const boxs = (state = [], action) => {
     let boxs;
     let areasize_j, areasize_g;
 
     switch (action.type) {
+    case SAGA_LAYOUT_CALL:
+        boxs = [];
+
+        for (let i = 0; i < PresenBox[action.payload.pattern].length; i++) {
+            boxs.push(PresenBox[action.payload.pattern][i]);
+        }
+
+        for (let i = 0; i < boxs.length; i++) {
+            switch (boxs[i].type) {
+            case 'text':
+                // テキストグリッド
+                if (boxs[i].text.kumihoko == 'tate') {
+                    areasize_j = boxs[i].y2 - boxs[i].y1;
+                    areasize_g = boxs[i].x2 - boxs[i].x1;
+                } else {
+                    areasize_j = boxs[i].x2 - boxs[i].x1;
+                    areasize_g = boxs[i].y2 - boxs[i].y1;
+                }
+                const textgrid = TextGrid.getTextGridAry(
+                    areasize_j,  // エリアサイズ（字詰め方向）
+                    areasize_g,  // エリアサイズ（行送り方向）
+                    boxs[i].text.padding_js,  // パディング値（字詰め方向 開始）
+                    boxs[i].text.padding_je,  // パディング値（字詰め方向 終了）
+                    boxs[i].text.padding_gs,  // パディング値（行送り方向 開始）
+                    boxs[i].text.padding_ge,  // パディング値（行送り方向 終了）
+                    boxs[i].text.size_j,  // テキストサイズ（字詰め方向）
+                    boxs[i].text.size_g,  // テキストサイズ（行送り方向）
+                    boxs[i].text.gyokan  // 行間
+                );
+                boxs[i].textgrid = textgrid;
+
+                break;
+
+            case 'image':
+                break;
+            }
+        }
+
+        return boxs;
+
     case SAGA_SELECTBOX_EDITBOX_MOVEEND:
         boxs = state.slice();
 
@@ -164,27 +141,35 @@ export const boxs = (state = [
                 boxs[i].y1 = action.payload.y1;
                 boxs[i].x2 = action.payload.x2;
                 boxs[i].y2 = action.payload.y2;
+                
+                switch (boxs[i].type) {
+                case 'text':
+                    // テキストグリッド
+                    if (boxs[i].text.kumihoko == 'tate') {
+                        areasize_j = boxs[i].y2 - boxs[i].y1;
+                        areasize_g = boxs[i].x2 - boxs[i].x1;
+                    } else {
+                        areasize_j = boxs[i].x2 - boxs[i].x1;
+                        areasize_g = boxs[i].y2 - boxs[i].y1;
+                    }
+                    const textgrid = TextGrid.getTextGridAry(
+                        areasize_j,  // エリアサイズ（字詰め方向）
+                        areasize_g,  // エリアサイズ（行送り方向）
+                        boxs[i].text.padding_js,  // パディング値（字詰め方向 開始）
+                        boxs[i].text.padding_je,  // パディング値（字詰め方向 終了）
+                        boxs[i].text.padding_gs,  // パディング値（行送り方向 開始）
+                        boxs[i].text.padding_ge,  // パディング値（行送り方向 終了）
+                        boxs[i].text.size_j,  // テキストサイズ（字詰め方向）
+                        boxs[i].text.size_g,  // テキストサイズ（行送り方向）
+                        boxs[i].text.gyokan  // 行間
+                    );
+                    boxs[i].textgrid = textgrid;
 
-                // テキストグリッド
-                if (boxs[i].text.kumihoko == 'tate') {
-                    areasize_j = boxs[i].y2 - boxs[i].y1;
-                    areasize_g = boxs[i].x2 - boxs[i].x1;
-                } else {
-                    areasize_j = boxs[i].x2 - boxs[i].x1;
-                    areasize_g = boxs[i].y2 - boxs[i].y1;
+                    break;
+
+                case 'image':
+                    break;
                 }
-                const textgrid = TextGrid.getTextGridAry(
-                    areasize_j,  // エリアサイズ（字詰め方向）
-                    areasize_g,  // エリアサイズ（行送り方向）
-                    boxs[i].text.padding_js,  // パディング値（字詰め方向 開始）
-                    boxs[i].text.padding_je,  // パディング値（字詰め方向 終了）
-                    boxs[i].text.padding_gs,  // パディング値（行送り方向 開始）
-                    boxs[i].text.padding_ge,  // パディング値（行送り方向 終了）
-                    boxs[i].text.size_j,  // テキストサイズ（字詰め方向）
-                    boxs[i].text.size_g,  // テキストサイズ（行送り方向）
-                    boxs[i].text.gyokan  // 行間
-                );
-                boxs[i].textgrid = textgrid;
 
                 break;
             }
@@ -211,33 +196,41 @@ export const boxs = (state = [
 
         for (let i = 0; i < boxs.length; i++) {
             if (boxs[i].id == action.payload.box.id) {
-                boxs[i].text.padding_js = action.payload.box.text.padding_js;
-                boxs[i].text.padding_je = action.payload.box.text.padding_je;
-                boxs[i].text.padding_gs = action.payload.box.text.padding_gs;
-                boxs[i].text.padding_ge = action.payload.box.text.padding_ge;
-                boxs[i].text.kumihoko = action.payload.box.text.kumihoko;
-                boxs[i].text.gyokan = action.payload.box.text.gyokan;
+                switch (boxs[i].type) {
+                case 'text':
+                    boxs[i].text.padding_js = action.payload.box.text.padding_js;
+                    boxs[i].text.padding_je = action.payload.box.text.padding_je;
+                    boxs[i].text.padding_gs = action.payload.box.text.padding_gs;
+                    boxs[i].text.padding_ge = action.payload.box.text.padding_ge;
+                    boxs[i].text.kumihoko = action.payload.box.text.kumihoko;
+                    boxs[i].text.gyokan = action.payload.box.text.gyokan;
 
-                // テキストグリッド
-                if (boxs[i].text.kumihoko == 'tate') {
-                    areasize_j = boxs[i].y2 - boxs[i].y1;
-                    areasize_g = boxs[i].x2 - boxs[i].x1;
-                } else {
-                    areasize_j = boxs[i].x2 - boxs[i].x1;
-                    areasize_g = boxs[i].y2 - boxs[i].y1;
+                    // テキストグリッド
+                    if (boxs[i].text.kumihoko == 'tate') {
+                        areasize_j = boxs[i].y2 - boxs[i].y1;
+                        areasize_g = boxs[i].x2 - boxs[i].x1;
+                    } else {
+                        areasize_j = boxs[i].x2 - boxs[i].x1;
+                        areasize_g = boxs[i].y2 - boxs[i].y1;
+                    }
+                    const textgrid = TextGrid.getTextGridAry(
+                        areasize_j,  // エリアサイズ（字詰め方向）
+                        areasize_g,  // エリアサイズ（行送り方向）
+                        boxs[i].text.padding_js,  // パディング値（字詰め方向 開始）
+                        boxs[i].text.padding_je,  // パディング値（字詰め方向 終了）
+                        boxs[i].text.padding_gs,  // パディング値（行送り方向 開始）
+                        boxs[i].text.padding_ge,  // パディング値（行送り方向 終了）
+                        boxs[i].text.size_j,  // テキストサイズ（字詰め方向）
+                        boxs[i].text.size_g,  // テキストサイズ（行送り方向）
+                        boxs[i].text.gyokan  // 行間
+                    );
+                    boxs[i].textgrid = textgrid;
+
+                    break;
+
+                case 'image':
+                    break;
                 }
-                const textgrid = TextGrid.getTextGridAry(
-                    areasize_j,  // エリアサイズ（字詰め方向）
-                    areasize_g,  // エリアサイズ（行送り方向）
-                    boxs[i].text.padding_js,  // パディング値（字詰め方向 開始）
-                    boxs[i].text.padding_je,  // パディング値（字詰め方向 終了）
-                    boxs[i].text.padding_gs,  // パディング値（行送り方向 開始）
-                    boxs[i].text.padding_ge,  // パディング値（行送り方向 終了）
-                    boxs[i].text.size_j,  // テキストサイズ（字詰め方向）
-                    boxs[i].text.size_g,  // テキストサイズ（行送り方向）
-                    boxs[i].text.gyokan  // 行間
-                );
-                boxs[i].textgrid = textgrid;
 
                 break;
             }
@@ -282,27 +275,29 @@ export const boxs = (state = [
             },
         };
 
-        // テキストグリッド
-        if (box.text.kumihoko == 'tate') {
-            areasize_j = box.y2 - box.y1;
-            areasize_g = box.x2 - box.x1;
-        } else {
-            areasize_j = box.x2 - box.x1;
-            areasize_g = box.y2 - box.y1;
+        if (box.type == 'text') {
+            // テキストグリッド
+            if (box.text.kumihoko == 'tate') {
+                areasize_j = box.y2 - box.y1;
+                areasize_g = box.x2 - box.x1;
+            } else {
+                areasize_j = box.x2 - box.x1;
+                areasize_g = box.y2 - box.y1;
+            }
+            const textgrid = TextGrid.getTextGridAry(
+                areasize_j,  // エリアサイズ（字詰め方向）
+                areasize_g,  // エリアサイズ（行送り方向）
+                box.text.padding_js,  // パディング値（字詰め方向 開始）
+                box.text.padding_je,  // パディング値（字詰め方向 終了）
+                box.text.padding_gs,  // パディング値（行送り方向 開始）
+                box.text.padding_ge,  // パディング値（行送り方向 終了）
+                box.text.size_j,  // テキストサイズ（字詰め方向）
+                box.text.size_g,  // テキストサイズ（行送り方向）
+                box.text.gyokan  // 行間
+            );
+            box.textgrid = textgrid;
+            box.textResult = [];
         }
-        const textgrid = TextGrid.getTextGridAry(
-            areasize_j,  // エリアサイズ（字詰め方向）
-            areasize_g,  // エリアサイズ（行送り方向）
-            box.text.padding_js,  // パディング値（字詰め方向 開始）
-            box.text.padding_je,  // パディング値（字詰め方向 終了）
-            box.text.padding_gs,  // パディング値（行送り方向 開始）
-            box.text.padding_ge,  // パディング値（行送り方向 終了）
-            box.text.size_j,  // テキストサイズ（字詰め方向）
-            box.text.size_g,  // テキストサイズ（行送り方向）
-            box.text.gyokan  // 行間
-        );
-        box.textgrid = textgrid;
-        box.textResult = [];
 
         // 追加する
         boxs.push(box);

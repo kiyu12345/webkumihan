@@ -69,6 +69,15 @@ export const toolboxs = (state = [
         h: 470,
         view: 'true',
     },
+    {
+        id: 'toolbox999',
+        type: 'presen',
+        x: 0,
+        y: 0,
+        w: 200,
+        h: 40,
+        view: 'true',
+    },
 ], action) => {
     let toolboxs;
 
@@ -89,11 +98,14 @@ export const toolboxs = (state = [
     case SAGA_SELECTBOX_BOX_SELECT:   // ボックスを選択した場合
         toolboxs = state.slice();
 
-        console.log(action);
         for (let i = 0; i < toolboxs.length; i++) {
-            if (toolboxs[i].type == 'textdata' && action.payload.type == 'text') {
-                // toolboxs[i].view = 'true';
-                break;
+            if (toolboxs[i].type == 'textdata') {
+                if (action.payload.type == 'text') {
+                    toolboxs[i].view = 'true';
+                } else {
+                    toolboxs[i].view = 'false';
+                }
+                // break;
             }
         }
 

@@ -27,6 +27,7 @@ import {
 } from './nagashi.js';
 
 import { Link } from '../libs/link.js';
+import { Box } from '../libs/box.js';
 
 
 export default function* selectbox() {
@@ -69,7 +70,18 @@ export default function* selectbox() {
     yield takeEvery(SU_SELECTBOX_EDITBOX_CHANGESIZE, function* (action) {
         yield put(Saga_SelectBox_EditBox_ChangeSize(action.payload));
 
-        // 流し直す
-        yield fork(nagashiExecBox, action.payload.id);
+        const boxs = yield select((state) => state.boxs);
+        const box = Box.getBox(boxs, action.payload.id);
+
+        switch (box.type) {
+        case 'text':
+            // 流し直す
+            yield fork(nagashiExecBox, action.payload.id);
+
+            break;
+            
+        case 'image':
+            break;
+        }
     });
 }

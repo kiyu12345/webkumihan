@@ -58,7 +58,7 @@ export const sozai = (state = [
     case SAGA_TOOLBOXSOZAI_SOZAI_TOGGLE:
         lists = state.slice();
 
-        let index;
+        let index = -1;
         let select;
 
         for (let i = 0; i < lists.length; i++) {
@@ -67,6 +67,10 @@ export const sozai = (state = [
                 select = lists[i].select;
                 break;
             }
+        }
+
+        if (index == -1) {
+            return lists;
         }
         
         for (let i = 0; i < lists.length; i++) {
@@ -109,8 +113,14 @@ export const sozai = (state = [
             lists[i].select = '';
         }
 
+console.log(lists);
+console.log(action.payload.id);
+
         for (let i = 0; i < lists.length; i++) {
+console.log(lists[i].id);
+console.log(action.payload.id);
             if (lists[i].id == action.payload.id) {
+console.log('splice');
                 lists.splice(i, 1);
                 break;
             }

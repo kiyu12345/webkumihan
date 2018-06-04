@@ -1,6 +1,7 @@
 import React from 'react';
 
 import TextBoxMap from './TextBoxMap.js';
+import ImageBoxMap from './ImageBoxMap.js';
 
 import { Define } from '../define.js';
 import { Zahyo } from '../libs/zahyo.js';
@@ -40,7 +41,17 @@ export default class Boxs extends React.Component {
                         );
 
                     case 'image':
-                        return '';
+                        return (
+                            <ImageBoxMap
+                                id={box.id}
+                                x={z.x}
+                                y={z.y}
+                                width={z.w}
+                                height={z.h}
+                                group={box.group}
+                                no={box.no}
+                            />
+                        );
                     }
                 })}
             </g>            

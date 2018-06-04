@@ -38,6 +38,19 @@ const styles = {
         height: '175px',
         marginTop: '5px',
     },
+    imagebox: {
+        display: 'table-cell',
+        width: '174px',
+        height: '175px',
+        marginTop: '5px',
+        backgroundColor: 'gray',
+        verticalAlign: 'middle',
+        textAlign: 'center',
+    },
+    img: {
+        maxWidth: '174px',
+        maxHeight: '175px',
+    },
     sozailist: {
         width: '100%',
         height: '20px',
@@ -135,16 +148,21 @@ export default class ToolBoxSozai extends React.Component {
             return;
         }
 
-        if (this.state.type != 'text') {
-            alert('「タイプ」は text と入力してください');
+        if (this.state.type != 'text' && this.state.type != 'image') {
+            alert('「タイプ」は text または image と入力してください');
             return;
+        }
+
+        let image = '';
+        if (this.state.type == 'image') {
+            image = this.state.text;
         }
 
         this.props.onClickCreateButton({
             id: this.state.inputid,
             type: this.state.type,
             text: this.state.text,
-            image: this.state.image,
+            image: image,
         });
 
         this.setState({
@@ -266,17 +284,68 @@ export default class ToolBoxSozai extends React.Component {
                 </div>
             ];
         } else {
+            if (this.state.type == 'text') {
+                html = [
+                    <div
+                        style={{
+                            ...styles.button,
+                            float: 'right',
+                        }}
+                        onClick={(e) => this.clickUpdateButton()}
+                    >
+                        更新
+                    </div>
+                ];
+            } else {
+                // 画像は「更新」ボタンはなし
+            }
+        }
+
+        return html;
+    }
+
+    sozaiarea() {
+        let html;
+        if (this.state.id == '') {
             html = [
-                <div
+                <textarea
+                    id="toolboxsozaitextarea"
+                    value={this.state.text}
                     style={{
-                        ...styles.button,
-                        float: 'right',
+                        ...styles.textbox,
                     }}
-                    onClick={(e) => this.clickUpdateButton()}
-                >
-                    更新
-                </div>
+                    onChange={(e) => this.setState({text: e.target.value})}
+                />
             ];
+        } else {
+            if (this.state.type == 'text') {
+                html = [
+                    <textarea
+                        id="toolboxsozaitextarea"
+                        value={this.state.text}
+                        style={{
+                            ...styles.textbox,
+                        }}
+                        onChange={(e) => this.setState({text: e.target.value})}
+                    />
+                ];
+            } else {
+                html = [
+                    <div
+                        id="toolboxsozaiimagearea"
+                        style={{
+                            ...styles.imagebox,
+                        }}
+                    >
+                        <img
+                            src={this.state.image}
+                            style={{
+                                ...styles.img,
+                            }}
+                        />
+                    </div>
+                ];
+            }
         }
 
         return html;
@@ -301,16 +370,9 @@ export default class ToolBoxSozai extends React.Component {
                 </div>
 
                 {this.idtype()}
-                
-                <textarea
-                    id="toolboxsozaitextarea"
-                    value={this.state.text}
-                    style={{
-                        ...styles.textbox,
-                    }}
-                    onChange={(e) => this.setState({text: e.target.value})}
-                />
 
+                {this.sozaiarea()}
+                
                 {this.newupdatebutton()}
             </div>
         )

@@ -48,6 +48,13 @@ import {
 } from '../actions_saga/toolboxlink.js';
 
 import {
+    SU_TOOLBOXPRESEN_LAYOUTCALLBUTTON_CLICK,
+} from '../actions_su/toolboxpresen.js';
+import {
+    Saga_Layout_Call,
+} from '../actions_saga/toolboxpresen.js';
+
+import {
     Saga_NagashiResult_Create,
     Saga_Nagashi_Remove,
 } from '../actions_saga/nagashi.js';
@@ -141,6 +148,17 @@ export default function* toolbox() {
             yield put(Saga_ToolBox_MoveEnd(payload));
 
             break;
+
+        case 'presen':  // プレゼン用ツールボックス
+            payload = {
+                id: toolboxs[i].id,
+                x: Zahyo.windowArea().w - toolboxs[i].w - 20,
+                y: 400,
+            };
+
+            yield put(Saga_ToolBox_MoveEnd(payload));
+
+            break;
         }
     }
 
@@ -228,5 +246,9 @@ export default function* toolbox() {
         yield put(Saga_Nagashi_Remove(action.payload));
 
         yield put(Saga_ToolBoxLink_Link_Delete(action.payload));
+    });
+
+    yield takeEvery(SU_TOOLBOXPRESEN_LAYOUTCALLBUTTON_CLICK, function* (action) {
+        yield put(Saga_Layout_Call(action.payload));
     });
 }
