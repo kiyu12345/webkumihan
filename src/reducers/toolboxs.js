@@ -75,7 +75,7 @@ export const toolboxs = (state = [
         x: 0,
         y: 0,
         w: 200,
-        h: 40,
+        h: 60,
         view: 'true',
     },
 ], action) => {
@@ -85,13 +85,19 @@ export const toolboxs = (state = [
     case SAGA_TOOLBOX_MOVEEND:
         toolboxs = state.slice();
 
-        for (let i = 0; i < toolboxs.length; i++) {
+        let i;
+        for (i = 0; i < toolboxs.length; i++) {
             if (toolboxs[i].id == action.payload.id) {
                 toolboxs[i].x = action.payload.x;
                 toolboxs[i].y = action.payload.y;
                 break;
             }
         }
+
+        // 最前面にもってくる
+        const toolbox = toolboxs.slice(i, i + 1);
+        toolboxs.splice(i, 1);
+        toolboxs = toolboxs.concat(toolbox);
 
         return toolboxs;
 

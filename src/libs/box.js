@@ -120,20 +120,25 @@ export const Box = {
         return id;
     },
 
+    //
+    // 素材IDとリンクされているボックスグループ名を返す
+    //
+    // [IN]
+    //   boxs: ボックス情報
+    //   links: リンク情報
+    //   sozai_id: 素材ID
+    //
+    // [OUT]
+    //   group: グループ名
+    //
     getLinkGroup: (boxs, links, sozai_id) => {
         let group = '';
-        let no;
 
-        let box_id = '';
         for (let i = 0; i < links.length; i++) {
             if (links[i].sozai_id == sozai_id) {
-                box_id = links[i].box_id;
+                group = links[i].group;
                 break;
             }
-        }
-
-        if (box_id != '') {
-            [group, no] = Box.getGroupAndNo(boxs, box_id);
         }
 
         return group;

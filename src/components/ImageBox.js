@@ -22,7 +22,7 @@ export default class ImageBox extends React.Component {
                 height={this.props.height}
                 style={{
                     stroke: 'none',
-                    fill: 'pink',
+                    fill: 'lightcyan',
                     opacity: '0.5',
                 }}
             />
@@ -36,7 +36,8 @@ export default class ImageBox extends React.Component {
                 y="0"
                 width={this.props.width}
                 height={this.props.height}
-                xlinkHref={'https://www.kensetsunews.com/return-file-response-if-logged-in-with-admin-authority?type=image&id=20180601_144346_32732.jpg'}
+                xlinkHref={this.props.image}
+                preserveAspectRatio={'xMidYMid slice'}
             />
         )
     }

@@ -10,6 +10,10 @@ import {
 } from '../actions_saga/toolboxsozai.js';
 import { SAGA_TOOLBOXBOXDATA_BOXDATA_DELETE } from '../actions_saga/toolboxboxdata.js';
 
+import {
+    SAGA_LAYOUT_CALL,
+} from '../actions_saga/toolboxpresen.js';
+
 // ====================
 // リンクデータ
 //      [
@@ -68,6 +72,11 @@ export const links = (state = [], action) => {
                 break;
             }
         }
+
+        return lists;
+
+    case SAGA_LAYOUT_CALL:
+        lists = [];
 
         return lists;
 

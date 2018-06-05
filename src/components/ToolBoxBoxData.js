@@ -95,9 +95,25 @@ export default class ToolBoxBoxData extends React.Component {
             return;
         }
 
-        if (this.state.type != 'text') {
-            alert('「タイプ」は text と入力してください');
+        // タイプチェック
+        if (this.state.type != 'text' && this.state.type != 'image') {
+            alert('「タイプ」は text または image と入力してください');
             return;
+        }
+
+        // グループ名とNoのチェック
+        if (this.props.isSameGroupAndNo(this.state.group, this.state.no) == true) {
+            alert('同じグループ名とグループNoのボックスが存在します');
+            return;
+        }
+
+        // 指定のグループ名でボックスを作れるかをチェック
+        // （既存のグループ名と同じグループのボックスを作成する場合、タイプが text でなければならない）
+        if (this.state.type != 'text') {
+            if (this.props.isSameGroup(this.state.group) == true) {
+                alert('同じグループ名のボックスがあります。ボックスを作成できません。')
+                return;
+            }
         }
 
         box.id = this.state.id;

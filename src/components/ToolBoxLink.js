@@ -58,13 +58,13 @@ const styles = {
         height: '40px',
         lineHeight: '20px',
         borderBottom: '1px solid gray',
-        backgroundColor: 'lightpink',
+        backgroundColor: 'lightgreen',
     },
 };
 
 const Color = {
     text: 'lightyellow',
-    image: 'pink',
+    image: 'lightcyan',
     select: 'red',
 };
 
@@ -117,7 +117,25 @@ export default class ToolBoxList extends React.Component {
         if (this.state.group == ''
          || this.state.sozai_id == '') {
              return;
-         }
+        }
+
+        // 種別（テキスト or 画像）が合っていなければ、リンクできない
+        const box_type = this.props.getTypeBoxGroup(this.state.group);
+        const sozai_type = this.props.getTypeSozai(this.state.sozai_id);
+        let check = 'ng';
+        if (box_type == 'text') {
+            if (sozai_type == 'text') {
+                check = 'ok';
+            }
+        } else if (box_type == 'image') {
+            if (sozai_type == 'image') {
+                check = 'ok';
+            }
+        }
+        if (check == 'ng') {
+            alert('ボックスのタイプと素材のタイプが異なります。リンクできません');
+            return;
+        }
 
         this.props.onClickCreateButton({
             group: this.state.group,
@@ -181,7 +199,12 @@ export default class ToolBoxList extends React.Component {
             if (this.state.group == list[i].group) {
                 bgcolor = 'red';
             } else {
-                bgcolor = 'lightyellow';
+                const type = this.props.getTypeBoxGroup(list[i].group);
+                if (type == 'text') {
+                    bgcolor = Color.text;
+                } else if (type == 'image') {
+                    bgcolor = Color.image;
+                }
             }
 
             html.push(
@@ -221,7 +244,12 @@ export default class ToolBoxList extends React.Component {
             if (this.state.sozai_id == list[i].sozai_id) {
                 bgcolor = 'red';
             } else {
-                bgcolor = 'lightyellow';
+                const type = this.props.getTypeSozai(list[i].sozai_id);
+                if (type == 'text') {
+                    bgcolor = Color.text;
+                } else if (type == 'image') {
+                    bgcolor = Color.image;
+                }
             }
 
             html.push(

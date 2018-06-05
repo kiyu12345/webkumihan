@@ -49,9 +49,11 @@ import {
 
 import {
     SU_TOOLBOXPRESEN_LAYOUTCALLBUTTON_CLICK,
+    SU_TOOLBOXPRESEN_SOZAICALLBUTTON_CLICK,
 } from '../actions_su/toolboxpresen.js';
 import {
     Saga_Layout_Call,
+    Saga_Sozai_Call,
 } from '../actions_saga/toolboxpresen.js';
 
 import {
@@ -198,6 +200,9 @@ export default function* toolbox() {
     });
     yield takeEvery(SU_TOOLBOXBOXDATA_CREATEBUTTON_CLICK, function* (action) {
         yield put(Saga_ToolBoxBoxData_BoxData_Create(action.payload));
+
+        // 流す
+        yield fork(nagashiExecBox, action.payload.box.id);
     });
 
     yield takeEvery(SU_TOOLBOXTEXTDATA_UPDATEBUTTON_CLICK, function* (action) {
@@ -250,5 +255,8 @@ export default function* toolbox() {
 
     yield takeEvery(SU_TOOLBOXPRESEN_LAYOUTCALLBUTTON_CLICK, function* (action) {
         yield put(Saga_Layout_Call(action.payload));
+    });
+    yield takeEvery(SU_TOOLBOXPRESEN_SOZAICALLBUTTON_CLICK, function* (action) {
+        yield put(Saga_Sozai_Call(action.payload));
     });
 }

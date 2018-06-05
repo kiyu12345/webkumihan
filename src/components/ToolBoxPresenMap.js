@@ -4,6 +4,7 @@ import ToolBoxPresen from './ToolBoxPresen.js';
 
 import {
     SU_ToolBoxPresen_LayoutCallButton_Click,
+    SU_ToolBoxPresen_SozaiCallButton_Click,
 } from '../actions_su/toolboxpresen.js';
 
 
@@ -40,8 +41,11 @@ const mergeProps = (state, dispatch, props) => {
         // onClick100PerButton: () => {
         //     dispatch.dispatch(SU_ToolBoxPresen_100PerButton_Click());
         // },
-        onCallLayoutA: (payload) => {
+        onCallLayout: (payload) => {
             dispatch.dispatch(SU_ToolBoxPresen_LayoutCallButton_Click(payload));
+        },
+        onCallSozai: (payload) => {
+            dispatch.dispatch(SU_ToolBoxPresen_SozaiCallButton_Click(payload));
         },
     };
 }

@@ -2,6 +2,7 @@ import { put, select, fork } from 'redux-saga/effects';
 
 import {
     Saga_NagashiResult_Create,
+    Saga_Nagashi_Image,
 } from '../actions_saga/nagashi.js';
 
 import { Text } from '../libs/text.js';
@@ -11,17 +12,17 @@ import { Sozai } from '../libs/sozai.js';
 export function* nagashiExec(group, sozai_id) {
     // ボックス情報を得る
     const boxs = yield select((state) => state.boxs);
+    // 素材情報を得る
+    const sozai = yield select((state) => state.sozai);
 
     // 指定のボックスのグループの最初のボックスレコードを得る
     const no_ary = Box.getGroupNoAry(boxs, group);
     const first_box_id = Box.getBoxId(boxs, group, no_ary[0]);
     const box = Box.getBox(boxs, first_box_id);
+    const sozai_rec = Sozai.getSozai(sozai, sozai_id);
 
-    if (box.type == 'text') {
-        // 素材レコードを得る
-        const sozai = yield select((state) => state.sozai);
-        const sozai_rec = Sozai.getSozai(sozai, sozai_id);
-
+    switch (box.type) {
+    case 'text':        // テキストボックスの場合
         let moji_index = 0;
 
         // グループNo配列で繰り返す
@@ -95,6 +96,18 @@ export function* nagashiExec(group, sozai_id) {
 console.log(end_index);
 console.log('文字が余った');
         }
+
+        break;
+
+    case 'image':               // イメージボックスの場合
+        const payload = {
+            box_id: box.id,
+            image:  sozai_rec.image,
+        };
+
+        yield put(Saga_Nagashi_Image(payload));
+
+        break;
     }
 }
 

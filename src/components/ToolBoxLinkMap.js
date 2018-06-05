@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import ToolBoxLink from './ToolBoxLink.js';
 
 import { Zahyo } from '../libs/zahyo.js';
+import { Box } from '../libs/box.js';
+import { Sozai } from '../libs/sozai.js';
 
 import {
     SU_ToolBoxLink_CreateButton_Click,
@@ -43,6 +45,19 @@ const mergeProps = (state, dispatch, props) => {
         onClickDeleteButton: (payload) => {
             dispatch.dispatch(SU_ToolBoxLink_DeleteButton_Click(payload));
         },
+
+        getTypeBoxGroup: (group) => {
+            const noAry = Box.getGroupNoAry(state.boxs, group);
+            const box_id = Box.getBoxId(state.boxs, group, noAry[0]);
+            const box = Box.getBox(state.boxs, box_id);
+
+            return box.type;
+        },
+        getTypeSozai: (sozai_id) => {
+            const sozai = Sozai.getSozai(state.sozai, sozai_id);
+
+            return sozai.type;
+        }
     };
 }
 

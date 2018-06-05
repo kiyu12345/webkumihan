@@ -50,6 +50,7 @@ export default class Boxs extends React.Component {
                                 height={z.h}
                                 group={box.group}
                                 no={box.no}
+                                image={box.image}
                             />
                         );
                     }

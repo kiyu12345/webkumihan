@@ -26,8 +26,6 @@ export default class TopScreen extends React.Component {
     toolBoxs() {
         let toolboxs = [];
 
-console.log(this.props.toolboxs);
-
         for (let i = 0; i < this.props.toolboxs.length; i++) {
             switch (this.props.toolboxs[i].type) {
             case 'scale':   // 拡大縮小ツールボックス
@@ -131,7 +129,7 @@ console.log(this.props.toolboxs);
                         y={this.props.toolboxs[i].y}
                         w={this.props.toolboxs[i].w}
                         h={this.props.toolboxs[i].h}
-                        title="プレゼン用ツール"
+                        title="プレゼン用"
                     >
                         <ToolBoxPresenMap />
                     </ToolBoxMap>
@@ -141,7 +139,6 @@ console.log(this.props.toolboxs);
             }
         }
 
-console.log(toolboxs);
         return toolboxs;
     }
 

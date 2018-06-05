@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import ToolBoxBoxData from './ToolBoxBoxData.js';
 
 import { Zahyo } from '../libs/zahyo.js';
+import { Box } from '../libs/box.js';
 
 import {
     SU_ToolBoxBoxData_UpdateButton_Click,
@@ -81,12 +82,26 @@ const mergeProps = (state, dispatch, props) => {
         },
 
         checkKizonId: (id) => {
-console.log('ok1');
             for (let i = 0; i < state.boxs.length; i++) {
-console.log('ok2');
                 if (state.boxs[i].id == id) {
                     return true;
                 }
+            }
+
+            return false;
+        },
+        isSameGroupAndNo: (group, no) => {
+            const box_id = Box.getBoxId(state.boxs, group, no);
+            if (box_id != '') {
+                return true;
+            }
+
+            return false;
+        },
+        isSameGroup: (group) => {
+            const groupNoAry = Box.getGroupNoAry(state.boxs, group);
+            if (groupNoAry.length > 0) {
+                return true;
             }
 
             return false;

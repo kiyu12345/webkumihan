@@ -26,6 +26,7 @@ import {
 import {
     SAGA_NAGASHIRESULT_CREATE,
     SAGA_NAGASHI_REMOVE,
+    SAGA_NAGASHI_IMAGE,
 } from '../actions_saga/nagashi.js';
 
 
@@ -106,6 +107,7 @@ export const boxs = (state = [], action) => {
                     boxs[i].text.gyokan  // 行間
                 );
                 boxs[i].textgrid = textgrid;
+                boxs[i].textResult = [];
 
                 break;
 
@@ -316,12 +318,25 @@ export const boxs = (state = [], action) => {
 
         return boxs;
 
+    case SAGA_NAGASHI_IMAGE:
+        boxs = state.slice();
+
+        for (let i = 0; i < boxs.length; i++) {
+            if (boxs[i].id == action.payload.box_id) {
+                boxs[i].image = action.payload.image;
+                break;
+            }
+        }
+
+        return boxs;
+
     case SAGA_NAGASHI_REMOVE:
         boxs = state.slice();
 
         for (let i = 0; i < boxs.length; i++) {
             if (boxs[i].group == action.payload.group) {
                 boxs[i].textResult = [];
+                boxs[i].image = '';
             }
         }
 
