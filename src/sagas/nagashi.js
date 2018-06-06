@@ -86,6 +86,7 @@ export function* nagashiExec(group, sozai_id) {
                 if (moji_index >= sozai_rec.mojiObjAry.length - 1) {
                     // 文字列の最後まで流した
                     // break;
+console.log('最後まで流した');
                 }
             }
         }

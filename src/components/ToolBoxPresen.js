@@ -52,6 +52,7 @@ export default class ToolBoxPresen extends React.Component {
                     style={{
                         ...styles.button,
                         float: 'left',
+                        marginLeft: '5px',
                     }}
                     onClick={() => this.props.onCallLayout({pattern: 'B'})}
                 >
@@ -72,6 +73,7 @@ export default class ToolBoxPresen extends React.Component {
                     style={{
                         ...styles.button2,
                         float: 'left',
+                        marginLeft: '5px',
                     }}
                     onClick={() => this.props.onCallSozai({pattern: 'B'})}
                 >

@@ -501,8 +501,19 @@ export const Text = {
 
         let jidumeAry;
 
+        const zenGyoIndexAryLen = zenGyoIndexAry.length;
+        const gyookuriAryLen = gyookuriAry.length;
+
+        // 残りの行数と当エリアの行数の少ない方を得る
+        let count = 0;
+        if (zenGyoIndexAryLen < gyookuriAryLen) {
+            count = zenGyoIndexAryLen;
+        } else {
+            count = gyookuriAryLen;
+        }
+
         let g, j;
-        for (g = 0; g < gyookuriAry.length; g++) {
+        for (g = 0; g < count; g++) {
             if (zenGyoIndexAry[g].normalgyo == 0) {
                 jidumeAry = Text.getJidumeAry(
                     mojiObjAry,

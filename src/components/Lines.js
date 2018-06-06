@@ -35,12 +35,12 @@ export default class Lines extends React.Component {
                         );
 
                     case 'line':
-                        const lz = Zahyo.ruToluRectToArea(line.x1,
-                                                          line.y1,
-                                                          line.x2,
-                                                          line.y2,
-                                                          Define.svgimagesize.width,
-                                                          Define.svgimagesize.height);
+                        const lz = Zahyo.ruToluRect(line.x1,
+                                                    line.y1,
+                                                    line.x2,
+                                                    line.y2,
+                                                    Define.svgimagesize.width,
+                                                    Define.svgimagesize.height);
                         return (
                             <line
                                 x1={lz.x1}
