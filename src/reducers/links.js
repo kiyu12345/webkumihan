@@ -1,5 +1,7 @@
 import { Zahyo } from '../libs/zahyo.js';
 
+import { PresenLink } from '../define.js';
+
 import {
     SAGA_TOOLBOXLINK_LINK_CREATE,
     SAGA_TOOLBOXLINK_LINK_DELETE,
@@ -11,6 +13,7 @@ import {
 import { SAGA_TOOLBOXBOXDATA_BOXDATA_DELETE } from '../actions_saga/toolboxboxdata.js';
 
 import {
+    SAGA_LINK_CALL,
     SAGA_LAYOUT_CALL,
 } from '../actions_saga/toolboxpresen.js';
 
@@ -39,6 +42,13 @@ export const links = (state = [], action) => {
     let link;
 
     switch (action.type) {
+    case SAGA_LINK_CALL:
+        lists = [];
+
+        lists = action.payload.links;
+
+        return lists;
+        
     case SAGA_TOOLBOXLINK_LINK_CREATE:
         lists = state.slice();
 

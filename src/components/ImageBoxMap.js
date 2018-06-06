@@ -26,6 +26,7 @@ const mergeProps = (state, dispatch, props) => {
         //     dispatch.dispatch(SU_Xxxxxx_Xxxxx_Xxxx());
         // },
         ...props,
+        editonoff: state.editonoff,
     };
 }
 

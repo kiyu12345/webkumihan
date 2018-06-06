@@ -58,7 +58,19 @@ export default class ToolBoxPresen extends React.Component {
                 >
                     lay B
                 </div>
+
+                <div
+                    style={{
+                        ...styles.button,
+                        float: 'right',
+                        marginRight: '0px',
+                    }}
+                    onClick={() => this.props.onEditOnClick()}
+                >
+                    E On
+                </div>
                 <div style={{clear: 'both'}}></div>
+
 
                 <div
                     style={{
@@ -78,6 +90,30 @@ export default class ToolBoxPresen extends React.Component {
                     onClick={() => this.props.onCallSozai({pattern: 'B'})}
                 >
                     Soz B
+                </div>
+
+                <div
+                    style={{
+                        ...styles.button,
+                        float: 'right',
+                        marginRight: '0px',
+                    }}
+                    onClick={() => this.props.onEditOffClick()}
+                >
+                    E Off
+                </div>
+                <div style={{clear: 'both'}}></div>
+
+                <div
+                    style={{
+                        ...styles.button2,
+                        float: 'left',
+                        marginLeft: '45px',
+                        backgroundColor: 'lightyellow',
+                    }}
+                    onClick={() => this.props.onCallLink({pattern: 'B'})}
+                >
+                    Lik B
                 </div>
                 <div style={{clear: 'both'}}></div>
             </div>

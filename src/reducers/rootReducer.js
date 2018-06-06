@@ -7,6 +7,7 @@ import { toolboxs } from './toolboxs.js';
 import { sozai } from './sozai.js';
 import { links } from './links.js';
 import { lines } from './lines.js';
+import { editonoff } from './editonoff.js';
 
 const rootReducer = combineReducers({
     scale,
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
     sozai,
     links,
     lines,
+    editonoff,
 });
 
 export default rootReducer;

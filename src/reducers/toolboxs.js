@@ -9,6 +9,10 @@ import {
     SAGA_SELECTBOX_BOX_NONSELECT,
 } from '../actions_saga/selectbox.js';
 
+import {
+    SAGA_EDITONOFF_CHANGE,
+} from '../actions_saga/toolboxpresen.js';
+
 // ====================
 // ツールボックスデータ
 //      [
@@ -75,7 +79,7 @@ export const toolboxs = (state = [
         x: 0,
         y: 0,
         w: 200,
-        h: 60,
+        h: 80,
         view: 'true',
     },
 ], action) => {
@@ -124,6 +128,22 @@ export const toolboxs = (state = [
             if (toolboxs[i].type == 'textdata') {
                 // toolboxs[i].view = 'false';
                 break;
+            }
+        }
+
+        return toolboxs;
+
+    case SAGA_EDITONOFF_CHANGE:     // 編集状態のON/OFFが切り替えられた
+        toolboxs = state.slice();
+
+        for (let i = 0; i < toolboxs.length; i++) {
+            if (action.payload.onoff == 'on') {
+                toolboxs[i].view = 'true';
+            } else {
+                toolboxs[i].view = 'false';
+                if (toolboxs[i].type == 'presen' || toolboxs[i].type == 'scale') {
+                    toolboxs[i].view = 'true';
+                }
             }
         }
 

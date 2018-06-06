@@ -112,6 +112,8 @@ export const boxs = (state = [], action) => {
                 break;
 
             case 'image':
+                boxs[i].image = '';
+                
                 break;
             }
         }

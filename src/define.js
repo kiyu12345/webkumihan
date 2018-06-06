@@ -1464,3 +1464,16 @@ export const PresenLine = {
         },
     ],
 };
+
+export const PresenLink = {
+    B: [
+        {
+            group: 'K1M1',
+            sozai_id: 'K1M1',
+        },
+        {
+            group: 'K1H1',
+            sozai_id: 'K1H1',
+        },
+    ],
+};

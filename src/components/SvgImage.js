@@ -13,6 +13,17 @@ const styles = {
 
 export default class SvgImage extends React.Component {
     render() {
+        let grid = '';
+        let selectbox = '';
+        if (this.props.editonoff == 'on') {
+            grid = <Grid
+                        width={this.props.width}
+                        height={this.props.height}
+                        scale={this.props.scale}
+                    />;
+            selectbox = <SelectBoxsMap />;
+        }
+
         return (
             <svg
                 width={this.props.width * this.props.scale / 100}
@@ -22,11 +33,7 @@ export default class SvgImage extends React.Component {
             >
 
                 {/* グリッドの描画 */}
-                <Grid
-                    width={this.props.width}
-                    height={this.props.height}
-                    scale={this.props.scale}
-                />
+                {grid}
 
                 {/* ボックスの描画 */}
                 <BoxsMap />
@@ -35,7 +42,7 @@ export default class SvgImage extends React.Component {
                 <LinesMap />
                 
                 {/* 選択ボックスの描画 */}
-                <SelectBoxsMap />
+                {selectbox}
             </svg>
         );
     }

@@ -14,6 +14,10 @@ export default class TextBox extends React.Component {
     }
 
     box() {
+        if (this.props.editonoff == 'off') {
+            return '';
+        }
+
         return (
             <rect
                 x="0"
@@ -32,6 +36,10 @@ export default class TextBox extends React.Component {
     textgrid() {
         let ary = [];
         let x, y;
+
+        if (this.props.editonoff == 'off') {
+            return '';
+        }
 
         for (let i = 0; i < this.props.textgrid.length; i++) {
             let cj, cg, x, y, size_x, size_y;

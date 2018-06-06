@@ -50,10 +50,16 @@ import {
 import {
     SU_TOOLBOXPRESEN_LAYOUTCALLBUTTON_CLICK,
     SU_TOOLBOXPRESEN_SOZAICALLBUTTON_CLICK,
+    SU_TOOLBOXPRESEN_LINKCALLBUTTON_CLICK,
+
+    SU_TOOLBOXPRESEN_EDITONOFFBUTTON_CLICK,
 } from '../actions_su/toolboxpresen.js';
 import {
     Saga_Layout_Call,
     Saga_Sozai_Call,
+    Saga_Link_Call,
+    
+    Saga_EditOnOff_Change,
 } from '../actions_saga/toolboxpresen.js';
 
 import {
@@ -74,6 +80,7 @@ import { Text } from '../libs/text.js';
 import { Box } from '../libs/box.js';
 import { Sozai } from '../libs/sozai.js';
 
+import { PresenLink } from '../define.js';
 
 export default function* toolbox() {
     // 素材の初期処理
@@ -258,5 +265,18 @@ export default function* toolbox() {
     });
     yield takeEvery(SU_TOOLBOXPRESEN_SOZAICALLBUTTON_CLICK, function* (action) {
         yield put(Saga_Sozai_Call(action.payload));
+    });
+    yield takeEvery(SU_TOOLBOXPRESEN_LINKCALLBUTTON_CLICK, function* (action) {
+        // プレゼン用リンクリストを得る
+        const plinklist = PresenLink[action.payload.pattern];
+
+        for (let i = 0; i < plinklist.length; i++) {
+            // グループ名と素材が両方ともに存在して、種類も合っていれば、流してリストとして加える
+
+        }
+        yield put(Saga_Link_Call());
+    });
+    yield takeEvery(SU_TOOLBOXPRESEN_EDITONOFFBUTTON_CLICK, function* (action) {
+        yield put(Saga_EditOnOff_Change(action.payload));
     });
 }

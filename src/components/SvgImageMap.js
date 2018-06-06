@@ -28,6 +28,7 @@ const mergeProps = (state, dispatch, props) => {
         width: props.width,
         height: props.height,
         scale: state.scale,
+        editonoff: state.editonoff,
     };
 }
 

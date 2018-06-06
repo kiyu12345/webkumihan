@@ -5,6 +5,9 @@ import ToolBoxPresen from './ToolBoxPresen.js';
 import {
     SU_ToolBoxPresen_LayoutCallButton_Click,
     SU_ToolBoxPresen_SozaiCallButton_Click,
+    SU_ToolBoxPresen_LinkCallButton_Click,
+    
+    SU_ToolBoxPresen_EditOnOffButton_Click,
 } from '../actions_su/toolboxpresen.js';
 
 
@@ -46,6 +49,16 @@ const mergeProps = (state, dispatch, props) => {
         },
         onCallSozai: (payload) => {
             dispatch.dispatch(SU_ToolBoxPresen_SozaiCallButton_Click(payload));
+        },
+        onCallLink: (payload) => {
+            dispatch.dispatch(SU_ToolBoxPresen_LinkCallButton_Click(payload));
+        },
+
+        onEditOnClick: () => {
+            dispatch.dispatch(SU_ToolBoxPresen_EditOnOffButton_Click({onoff: 'on'}));
+        },
+        onEditOffClick: () => {
+            dispatch.dispatch(SU_ToolBoxPresen_EditOnOffButton_Click({onoff: 'off'}));
         },
     };
 }

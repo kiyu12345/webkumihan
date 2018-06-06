@@ -14,6 +14,10 @@ export default class ImageBox extends React.Component {
     }
 
     box() {
+        if (this.props.editonoff == 'off') {
+            return '';
+        }
+        
         return (
             <rect
                 x="0"
