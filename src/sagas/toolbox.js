@@ -334,7 +334,6 @@ export default function* toolbox() {
             yield fork(nagashiExec, newlinklist[i].group, newlinklist[i].sozai_id);
         }
 
-console.log(newlinklist);
         yield put(Saga_Link_Call({links: newlinklist}));
     });
     yield takeEvery(SU_TOOLBOXPRESEN_EDITONOFFBUTTON_CLICK, function* (action) {

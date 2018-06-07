@@ -3,6 +3,7 @@ import { put, select, fork } from 'redux-saga/effects';
 import {
     Saga_NagashiResult_Create,
     Saga_Nagashi_Image,
+    Saga_NagashiResult_Afure,
 } from '../actions_saga/nagashi.js';
 
 import { Text } from '../libs/text.js';
@@ -20,6 +21,9 @@ export function* nagashiExec(group, sozai_id) {
     const first_box_id = Box.getBoxId(boxs, group, no_ary[0]);
     const box = Box.getBox(boxs, first_box_id);
     const sozai_rec = Sozai.getSozai(sozai, sozai_id);
+
+    // 最後まで流したかどうかのフラグ
+    let lastNagashiFlg = false;
 
     switch (box.type) {
     case 'text':        // テキストボックスの場合
@@ -83,19 +87,28 @@ export function* nagashiExec(group, sozai_id) {
 
                 moji_index = end_index + 1;
 
-                if (moji_index >= sozai_rec.mojiObjAry.length - 1) {
+                if (moji_index > sozai_rec.mojiObjAry.length - 1) {
                     // 文字列の最後まで流した
                     // break;
-console.log('最後まで流した');
+                    lastNagashiFlg = true;
                 }
             }
         }
-
-        // 素材（文字列）が余った場合
-        if (end_index == -1
-         || end_index + 1 < sozai_rec.mojiObjAry.length) {
-console.log(end_index);
-console.log('文字が余った');
+        
+        // 溢れ処理
+        if (lastNagashiFlg == false) {
+            // 溢れ処理
+            yield put(Saga_NagashiResult_Afure({
+                group: group,
+                afure: sozai_rec.mojiObjAry.length - moji_index,
+            }));
+console.log('文字が余った（溢れ）');
+        } else {
+            yield put(Saga_NagashiResult_Afure({
+                group: group,
+                afure: 0,
+            }));
+console.log('最後まで流した');
         }
 
         break;

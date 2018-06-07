@@ -1,6 +1,7 @@
 import { Zahyo } from '../libs/zahyo.js';
 
 import { TextGrid } from '../libs/textgrid.js';
+import { Box } from '../libs/box.js';
 
 import { PresenBox } from '../define.js';
 
@@ -27,6 +28,7 @@ import {
     SAGA_NAGASHIRESULT_CREATE,
     SAGA_NAGASHI_REMOVE,
     SAGA_NAGASHI_IMAGE,
+    SAGA_NAGASHIRESULT_AFURE,
 } from '../actions_saga/nagashi.js';
 
 
@@ -341,6 +343,28 @@ export const boxs = (state = [], action) => {
                 boxs[i].image = '';
             }
         }
+
+        return boxs;
+
+    case SAGA_NAGASHIRESULT_AFURE:
+        boxs = state.slice();
+
+        const group = action.payload.group;
+
+        // グループの最後のNoを得る
+        const no_ary = Box.getGroupNoAry(boxs, group);
+        const lastno = no_ary.pop();
+
+console.log(lastno);
+        // 溢れフラグをセット
+        const box_id = Box.getBoxId(boxs, group, lastno);
+        for (let i = 0; i < boxs.length; i++) {
+            if (boxs[i].id == box_id) {
+                boxs[i].afure = action.payload.afure;
+                break;
+            }
+        }
+console.log(boxs);
 
         return boxs;
 
