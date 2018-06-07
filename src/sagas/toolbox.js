@@ -269,12 +269,73 @@ export default function* toolbox() {
     yield takeEvery(SU_TOOLBOXPRESEN_LINKCALLBUTTON_CLICK, function* (action) {
         // プレゼン用リンクリストを得る
         const plinklist = PresenLink[action.payload.pattern];
+        // ボックスリストを得る
+        const boxs = yield select((state) => state.boxs);
+        // 素材リストを得る
+        const sozais = yield select((state) => state.sozai);
 
+        let linklist = [];
         for (let i = 0; i < plinklist.length; i++) {
-            // グループ名と素材が両方ともに存在して、種類も合っていれば、流してリストとして加える
+            const group = plinklist[i].group;
+            const sozai_id = plinklist[i].sozai_id;
 
+            // ボックスリストからグループNo配列を得る
+            const group_ary = Box.getGroupNoAry(boxs, group);
+
+            // ボックスリストにグループがなければ、無視
+            if (group_ary.length <= 0) {
+                continue;
+            }
+
+            // ボックスを得る
+            const box_id = Box.getBoxId(boxs, group, group_ary[0]);
+            const box = Box.getBox(boxs, box_id);
+
+            // 素材リストから素材を得る
+            const sozai = Sozai.getSozai(sozais, sozai_id);
+
+            // 素材リストに素材が存在しなければ、無視
+            if (sozai == '') {
+                continue;
+            }
+
+            // ボックスと素材の種類が異なっていれば、無視
+            if (box.type != sozai.type) {
+                continue;
+            }
+
+            // 正しいリンクリストとして作成する
+            linklist.push({
+                group: group,
+                sozai_id: sozai_id,
+            });
         }
-        yield put(Saga_Link_Call());
+
+        // 作成したリンクリストを整理（重複をカット）する
+        const newlinklist = linklist.filter((x, i, self) => {
+            if (firstIndex(self, x) === i) {
+                return true;
+            }
+            return false;
+        });
+        function firstIndex(list, obj) {
+            for (let i = 0; i < list.length; i++) {
+                if (list[i].group == obj.group
+                 && list[i].sozai_id == obj.sozai_id) {
+                     return i;
+                 }
+            }
+
+            return -1;
+        }
+
+        // 流し処理を行う
+        for (let i = 0; i < newlinklist.length; i++) {
+            yield fork(nagashiExec, newlinklist[i].group, newlinklist[i].sozai_id);
+        }
+
+console.log(newlinklist);
+        yield put(Saga_Link_Call({links: newlinklist}));
     });
     yield takeEvery(SU_TOOLBOXPRESEN_EDITONOFFBUTTON_CLICK, function* (action) {
         yield put(Saga_EditOnOff_Change(action.payload));

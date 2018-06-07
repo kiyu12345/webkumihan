@@ -1475,5 +1475,149 @@ export const PresenLink = {
             group: 'K1H1',
             sozai_id: 'K1H1',
         },
+        {
+            group: 'K1I1',
+            sozai_id: 'K1I1',
+        },
+        {
+            group: 'K1C1',
+            sozai_id: 'K1C1',
+        },
+
+        {
+            group: 'K2M1',
+            sozai_id: 'K2M1',
+        },
+        {
+            group: 'K2H1',
+            sozai_id: 'K2H1',
+        },
+        {
+            group: 'K2I1',
+            sozai_id: 'K2I1',
+        },
+        {
+            group: 'K2C1',
+            sozai_id: 'K2C1',
+        },
+
+        {
+            group: 'K3M1',
+            sozai_id: 'K3M1',
+        },
+        {
+            group: 'K3H1',
+            sozai_id: 'K3H1',
+        },
+        {
+            group: 'K3I1',
+            sozai_id: 'K3I1',
+        },
+        {
+            group: 'K3C1',
+            sozai_id: 'K3C1',
+        },
+
+        {
+            group: 'K4M1',
+            sozai_id: 'K4M1',
+        },
+        {
+            group: 'K4H1',
+            sozai_id: 'K4H1',
+        },
+        {
+            group: 'K4I1',
+            sozai_id: 'K4I1',
+        },
+        {
+            group: 'K4C1',
+            sozai_id: 'K4C1',
+        },
+
+        {
+            group: 'K5M1',
+            sozai_id: 'K5M1',
+        },
+        {
+            group: 'K5H1',
+            sozai_id: 'K5H1',
+        },
+        {
+            group: 'K5I1',
+            sozai_id: 'K5I1',
+        },
+        {
+            group: 'K5C1',
+            sozai_id: 'K5C1',
+        },
+
+        {
+            group: 'K6M1',
+            sozai_id: 'K6M1',
+        },
+        {
+            group: 'K6H1',
+            sozai_id: 'K6H1',
+        },
+        {
+            group: 'K6I1',
+            sozai_id: 'K6I1',
+        },
+        {
+            group: 'K6C1',
+            sozai_id: 'K6C1',
+        },
+
+        {
+            group: 'K7M1',
+            sozai_id: 'K7M1',
+        },
+        {
+            group: 'K7H1',
+            sozai_id: 'K7H1',
+        },
+        {
+            group: 'K7I1',
+            sozai_id: 'K7I1',
+        },
+        {
+            group: 'K7C1',
+            sozai_id: 'K7C1',
+        },
+
+        {
+            group: 'K8M1',
+            sozai_id: 'K8M1',
+        },
+        {
+            group: 'K8H1',
+            sozai_id: 'K8H1',
+        },
+        {
+            group: 'K8I1',
+            sozai_id: 'K8I1',
+        },
+        {
+            group: 'K8C1',
+            sozai_id: 'K8C1',
+        },
+
+        {
+            group: 'K9M1',
+            sozai_id: 'K9M1',
+        },
+        {
+            group: 'K9H1',
+            sozai_id: 'K9H1',
+        },
+        {
+            group: 'K9I1',
+            sozai_id: 'K9I1',
+        },
+        {
+            group: 'K9C1',
+            sozai_id: 'K9C1',
+        },
     ],
 };
