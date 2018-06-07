@@ -97,7 +97,7 @@ export const PresenBox = {
         {
             id: 'box4',
             type: 'image',
-            group: 'グループB',
+            group: 'K1I1',
             no: 1,
             x1: 100,
             y1: 100,
