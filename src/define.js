@@ -27,7 +27,7 @@ export const PresenBox = {
         {
             id: 'box1',
             type: 'text',
-            group: 'グループA',
+            group: 'K1H1',
             no: 1,
             x1: 400,
             y1: 100,
@@ -50,7 +50,7 @@ export const PresenBox = {
         {
             id: 'box2',
             type: 'text',
-            group: 'グループA',
+            group: 'K1H1',
             no: 2,
             x1: 400,
             y1: 350,
@@ -73,7 +73,7 @@ export const PresenBox = {
         {
             id: 'box3',
             type: 'text',
-            group: 'グループA',
+            group: 'K1H1',
             no: 3,
             x1: 400,
             y1: 600,

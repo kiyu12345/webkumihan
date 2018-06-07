@@ -341,6 +341,7 @@ export const boxs = (state = [], action) => {
         for (let i = 0; i < boxs.length; i++) {
             if (boxs[i].group == action.payload.group) {
                 boxs[i].textResult = [];
+                boxs[i].afure = '';
                 boxs[i].image = '';
             }
         }
