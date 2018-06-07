@@ -110,6 +110,7 @@ export const boxs = (state = [], action) => {
                 );
                 boxs[i].textgrid = textgrid;
                 boxs[i].textResult = [];
+                boxs[i].afure = '';
 
                 break;
 
