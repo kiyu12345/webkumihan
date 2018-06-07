@@ -25,12 +25,19 @@ export const Text = {
         let mojiobj;
 
         for (let i = 0; i < str.length; i++) {
+            const moji = str.substr(i, 1);
+
             mojiobj = {
-                moji: str.substr(i, 1),
+                moji: moji,
                 size_j: 0,
                 size_g: 0,
                 font: 0,
             };
+
+            if (moji === '★') {
+                mojiobj.size_j = 30;
+                mojiobj.size_g = 30;
+            }
 
             mojiobjary.push(mojiobj);
         }
@@ -117,6 +124,7 @@ export const Text = {
             index = i - 1;
         }
 
+console.log(index);
         return [index, normalgyo];
     },
 
@@ -377,7 +385,8 @@ export const Text = {
     //   padding_je: 字詰方向エリアの終了パディング値
     //   padding_gs: 行送方向エリアの開始パディング値
     //   padding_ge: 行送方向エリアの終了パディング値
-    //   defaultSize: デフォルト文字サイズ（行送方向）
+    //   size_j: デフォルト文字サイズ（字詰方向）
+    //   size_g: デフォルト文字サイズ（行送方向）
     //   gyokan: 行間サイズ
     //
     // [OUT]
@@ -392,7 +401,8 @@ export const Text = {
         padding_je,
         padding_gs,
         padding_ge,
-        defaultSize,
+        size_j,
+        size_g,
         gyokan
     ) => {
         let centerAry = [];
@@ -405,8 +415,9 @@ export const Text = {
             areasize_j,
             padding_js,
             padding_je,
-            defaultSize
+            size_j
         );
+console.log(gyoIndexAry);
 
         let pointer = 0;
         pointer += padding_gs;
@@ -416,8 +427,9 @@ export const Text = {
                 mojiObjAry,
                 gyoIndexAry[i].s,
                 gyoIndexAry[i].e,
-                defaultSize
+                size_g
             );
+console.log(max_width);
 
             if ((pointer + max_width) > (areasize_g - padding_ge)) {
                 break;
@@ -484,6 +496,7 @@ export const Text = {
             padding_je,
             size_j,
         );
+console.log(zenGyoIndexAry);
 
         // 文字の中心の座標（行送方向）の配列を得る
         const gyookuriAry = Text.getGyookuriAry(
@@ -495,9 +508,11 @@ export const Text = {
             padding_je,
             padding_gs,
             padding_ge,
+            size_j,
             size_g,
             gyokan
         );
+console.log(gyookuriAry);
 
         let jidumeAry;
 
