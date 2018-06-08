@@ -124,7 +124,6 @@ export const Text = {
             index = i - 1;
         }
 
-console.log(index);
         return [index, normalgyo];
     },
 
@@ -417,7 +416,6 @@ console.log(index);
             padding_je,
             size_j
         );
-console.log(gyoIndexAry);
 
         let pointer = 0;
         pointer += padding_gs;
@@ -429,7 +427,6 @@ console.log(gyoIndexAry);
                 gyoIndexAry[i].e,
                 size_g
             );
-console.log(max_width);
 
             if ((pointer + max_width) > (areasize_g - padding_ge)) {
                 break;
@@ -496,7 +493,6 @@ console.log(max_width);
             padding_je,
             size_j,
         );
-console.log(zenGyoIndexAry);
 
         // 文字の中心の座標（行送方向）の配列を得る
         const gyookuriAry = Text.getGyookuriAry(
@@ -512,7 +508,6 @@ console.log(zenGyoIndexAry);
             size_g,
             gyokan
         );
-console.log(gyookuriAry);
 
         let jidumeAry;
 

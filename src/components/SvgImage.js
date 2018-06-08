@@ -29,9 +29,11 @@ export default class SvgImage extends React.Component {
                 width={this.props.width * this.props.scale / 100}
                 height={this.props.height * this.props.scale / 100}
                 viewBox={`0 0 ${this.props.width} ${this.props.height}`}
-                style={styles.container}
+                style={{
+                    ...styles.container,
+                    fontFamily: 'Fp2mW1Web'
+                }}
             >
-
                 {/* グリッドの描画 */}
                 {grid}
 
