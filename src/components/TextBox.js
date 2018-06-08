@@ -115,15 +115,32 @@ export default class TextBox extends React.Component {
                 y = cg;
             }
 
+            const basesize = (size_x > size_y) ? size_x : size_y;
+            let rotate = 0;
+            if (this.props.text.kumihoko == 'tate') {
+                switch (this.props.textResult[i].moji) {
+                case '「':
+                case '」':
+                case '（':
+                case '）':
+                case 'ー':
+                    rotate = 90;
+                }
+            }
+
             ary.push(
                 <text
-                    x={x - (size_x / 2)}
-                    y={y + (size_y / 2) - (size_y * 12.5 / 100.0)}
+                    // x={x - (size_x / 2)}
+                    // y={y + (size_y / 2) - (size_y * 12.5 / 100.0)}
+                    x={-1 * (basesize / 2)}
+                    y={(basesize / 2) - (basesize * 12.5 / 100.0)}
                     style={{
-                        fontSize: size_x,
+                        // fontSize: size_x,
+                        fontSize: basesize,
                         stroke: 'none',
-                        fill: 'black',
+                        fill: '#333333',
                     }}
+                    transform={`translate(${x}, ${y}) scale(${size_x / basesize}, ${size_y / basesize}) rotate(${rotate})`}
                 >
                     {this.props.textResult[i].moji}
                 </text>
