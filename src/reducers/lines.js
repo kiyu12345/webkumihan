@@ -30,11 +30,7 @@ export const lines = (state = [], action) => {
 
     switch (action.type) {
     case SAGA_LAYOUT_CALL:
-        lines = [];
-
-        for (let i = 0; i < PresenLine[action.payload.pattern].length; i++) {
-            lines.push(PresenLine[action.payload.pattern][i]);
-        }
+        lines = JSON.parse(JSON.stringify(PresenLine[action.payload.pattern]));
 
         return lines;
 

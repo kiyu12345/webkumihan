@@ -22,6 +22,33 @@ export const Define = {
     },
 };
 
+export const Font = {
+    fontface: `
+        @font-face {
+            font-family: "maiSMHWeb";
+            src: url(font/maiSMHWeb.eot) format("eot"), url(font/maiSMHWeb.woff) format("woff");
+        }
+        @font-face {
+            font-family: "maiSMBWeb";
+            src: url(font/maiSMBWeb.eot) format("eot"), url(font/maiSMBWeb.woff) format("woff");
+        }
+        @font-face {
+            font-family: "maiSGHWeb";
+            src: url(font/maiSGHWeb.eot) format("eot"), url(font/maiSGHWeb.woff) format("woff");
+        }
+        @font-face {
+            font-family: "maiSGBWeb";
+            src: url(font/maiSGBWeb.eot) format("eot"), url(font/maiSGBWeb.woff) format("woff");
+        }
+    `,
+    font: [
+        'maiSMHWeb',
+        'maiSMBWeb',
+        'maiSGHWeb',
+        'maiSGBWeb'
+    ],
+}
+
 export const PresenBox = {
     A: [
         {
@@ -43,6 +70,7 @@ export const PresenBox = {
                 size_j: 20,
                 size_g: 20,
                 gyokan: 5,
+                font: 1,
             },
             textgrid: [],
             textResult: [],
@@ -66,6 +94,7 @@ export const PresenBox = {
                 size_j: 20,
                 size_g: 20,
                 gyokan: 5,
+                font: 1,
             },
             textgrid: [],
             textResult: [],
@@ -89,6 +118,7 @@ export const PresenBox = {
                 size_j: 20,
                 size_g: 20,
                 gyokan: 5,
+                font: 1,
             },
             textgrid: [],
             textResult: [],
@@ -128,6 +158,7 @@ export const PresenBox = {
                 size_j: 9,
                 size_g: 9,
                 gyokan: 5,
+                font: 4,
             },
             textgrid: [],
             textResult: [],
@@ -151,6 +182,7 @@ export const PresenBox = {
                 size_j: 25,
                 size_g: 28,
                 gyokan: 5,
+                font: 2,
             },
             textgrid: [],
             textResult: [],
@@ -174,6 +206,7 @@ export const PresenBox = {
                 size_j: 17,
                 size_g: 17,
                 gyokan: 5,
+                font: 2,
             },
             textgrid: [],
             textResult: [],
@@ -197,6 +230,7 @@ export const PresenBox = {
                 size_j: 9,
                 size_g: 10,
                 gyokan: 5,
+                font: 1,
             },
             textgrid: [],
             textResult: [],
@@ -220,6 +254,7 @@ export const PresenBox = {
                 size_j: 9,
                 size_g: 10,
                 gyokan: 5,
+                font: 1,
             },
             textgrid: [],
             textResult: [],
@@ -243,6 +278,7 @@ export const PresenBox = {
                 size_j: 9,
                 size_g: 10,
                 gyokan: 5,
+                font: 1,
             },
             textgrid: [],
             textResult: [],
@@ -266,6 +302,7 @@ export const PresenBox = {
                 size_j: 9,
                 size_g: 10,
                 gyokan: 5,
+                font: 1,
             },
             textgrid: [],
             textResult: [],
@@ -289,6 +326,7 @@ export const PresenBox = {
                 size_j: 9,
                 size_g: 10,
                 gyokan: 5,
+                font: 1,
             },
             textgrid: [],
             textResult: [],
@@ -312,6 +350,7 @@ export const PresenBox = {
                 size_j: 9,
                 size_g: 10,
                 gyokan: 5,
+                font: 1,
             },
             textgrid: [],
             textResult: [],
@@ -328,7 +367,7 @@ export const PresenBox = {
     
             image: '',
         },
-        { // 記事01 の本文06 
+        { // 記事01 のキャプション 
             id: 'box011',
             type: 'text',
             group: 'K1C1',
@@ -347,6 +386,7 @@ export const PresenBox = {
                 size_j: 10,
                 size_g: 10,
                 gyokan: 5,
+                font: 3,
             },
             textgrid: [],
             textResult: [],
@@ -370,6 +410,7 @@ export const PresenBox = {
                 size_j: 8,
                 size_g: 12,
                 gyokan: 8,
+                font: 4,
             },
             textgrid: [],
             textResult: [],
@@ -393,6 +434,7 @@ export const PresenBox = {
                 size_j: 7,
                 size_g: 7,
                 gyokan: 10,
+                font: 4,
             },
             textgrid: [],
             textResult: [],
@@ -416,6 +458,7 @@ export const PresenBox = {
                 size_j: 9,
                 size_g: 10,
                 gyokan: 5,
+                font: 1,
             },
             textgrid: [],
             textResult: [],
@@ -439,6 +482,7 @@ export const PresenBox = {
                 size_j: 9,
                 size_g: 10,
                 gyokan: 5,
+                font: 1,
             },
             textgrid: [],
             textResult: [],
@@ -462,6 +506,7 @@ export const PresenBox = {
                 size_j: 14,
                 size_g: 14,
                 gyokan: 5,
+                font: 3,
             },
             textgrid: [],
             textResult: [],
@@ -485,6 +530,7 @@ export const PresenBox = {
                 size_j: 16,
                 size_g: 20,
                 gyokan: 5,
+                font: 2,
             },
             textgrid: [],
             textResult: [],
@@ -508,6 +554,7 @@ export const PresenBox = {
                 size_j: 15,
                 size_g: 15,
                 gyokan: 5,
+                font: 1,
             },
             textgrid: [],
             textResult: [],
@@ -531,6 +578,7 @@ export const PresenBox = {
                 size_j: 9,
                 size_g: 10,
                 gyokan: 5,
+                font: 1,
             },
             textgrid: [],
             textResult: [],
@@ -554,6 +602,7 @@ export const PresenBox = {
                 size_j: 9,
                 size_g: 10,
                 gyokan: 5,
+                font: 1,
             },
             textgrid: [],
             textResult: [],
@@ -577,6 +626,7 @@ export const PresenBox = {
                 size_j: 9,
                 size_g: 10,
                 gyokan: 5,
+                font: 1,
             },
             textgrid: [],
             textResult: [],
@@ -600,6 +650,7 @@ export const PresenBox = {
                 size_j: 10,
                 size_g: 10,
                 gyokan: 5,
+                font: 4,
             },
             textgrid: [],
             textResult: [],
@@ -623,6 +674,7 @@ export const PresenBox = {
                 size_j: 18,
                 size_g: 20,
                 gyokan: 5,
+                font: 2,
             },
             textgrid: [],
             textResult: [],
@@ -646,6 +698,7 @@ export const PresenBox = {
                 size_j: 12,
                 size_g: 12,
                 gyokan: 5,
+                font: 4,
             },
             textgrid: [],
             textResult: [],
@@ -669,6 +722,7 @@ export const PresenBox = {
                 size_j: 9,
                 size_g: 10,
                 gyokan: 5,
+                font: 1,
             },
             textgrid: [],
             textResult: [],
@@ -692,6 +746,7 @@ export const PresenBox = {
                 size_j: 9,
                 size_g: 10,
                 gyokan: 5,
+                font: 1,
             },
             textgrid: [],
             textResult: [],
@@ -715,6 +770,7 @@ export const PresenBox = {
                 size_j: 9,
                 size_g: 10,
                 gyokan: 5,
+                font: 1,
             },
             textgrid: [],
             textResult: [],
@@ -738,6 +794,7 @@ export const PresenBox = {
                 size_j: 9,
                 size_g: 14,
                 gyokan: 5,
+                font: 4,
             },
             textgrid: [],
             textResult: [],
@@ -761,6 +818,7 @@ export const PresenBox = {
                 size_j: 9,
                 size_g: 14,
                 gyokan: 5,
+                font: 4,
             },
             textgrid: [],
             textResult: [],
@@ -784,6 +842,7 @@ export const PresenBox = {
                 size_j: 8,
                 size_g: 8,
                 gyokan: 5,
+                font: 3,
             },
             textgrid: [],
             textResult: [],
@@ -807,6 +866,7 @@ export const PresenBox = {
                 size_j: 9,
                 size_g: 10,
                 gyokan: 5,
+                font: 1,
             },
             textgrid: [],
             textResult: [],
@@ -830,6 +890,7 @@ export const PresenBox = {
                 size_j: 9,
                 size_g: 10,
                 gyokan: 5,
+                font: 1,
             },
             textgrid: [],
             textResult: [],
@@ -853,6 +914,7 @@ export const PresenBox = {
                 size_j: 9,
                 size_g: 10,
                 gyokan: 5,
+                font: 1,
             },
             textgrid: [],
             textResult: [],
@@ -888,6 +950,7 @@ export const PresenBox = {
                 size_j: 11,
                 size_g: 11,
                 gyokan: 5,
+                font: 3,
             },
             textgrid: [],
             textResult: [],
@@ -923,6 +986,7 @@ export const PresenBox = {
                 size_j: 11,
                 size_g: 12,
                 gyokan: 5,
+                font: 2,
             },
             textgrid: [],
             textResult: [],
@@ -946,6 +1010,7 @@ export const PresenBox = {
                 size_j: 9,
                 size_g: 10,
                 gyokan: 5,
+                font: 1,
             },
             textgrid: [],
             textResult: [],
@@ -969,6 +1034,7 @@ export const PresenBox = {
                 size_j: 11,
                 size_g: 12,
                 gyokan: 5,
+                font: 2,
             },
             textgrid: [],
             textResult: [],
@@ -992,6 +1058,7 @@ export const PresenBox = {
                 size_j: 9,
                 size_g: 10,
                 gyokan: 5,
+                font: 1,
             },
             textgrid: [],
             textResult: [],

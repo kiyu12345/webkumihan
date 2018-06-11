@@ -2,6 +2,8 @@ import React from 'react';
 
 import { Zahyo } from '../libs/zahyo.js';
 
+import { Font } from '../define.js';
+
 const styles = {
     container: {
         backgroundColor: 'yellow',
@@ -167,7 +169,13 @@ export default class TextBox extends React.Component {
                 {this.textgrid()}
 
                 {/* テキスト */}
-                {this.text()}
+                <g
+                    style={{
+                        fontFamily: Font.font[this.props.text.font - 1],
+                    }}
+                >
+                    {this.text()}
+                </g>
             </g>
         );
     }

@@ -79,7 +79,7 @@ export const toolboxs = (state = [
         x: 0,
         y: 0,
         w: 200,
-        h: 80,
+        h: 100,
         view: 'true',
     },
 ], action) => {
@@ -87,7 +87,7 @@ export const toolboxs = (state = [
 
     switch (action.type) {
     case SAGA_TOOLBOX_MOVEEND:
-        toolboxs = state.slice();
+        toolboxs = JSON.parse(JSON.stringify(state));
 
         let i;
         for (i = 0; i < toolboxs.length; i++) {
@@ -106,7 +106,7 @@ export const toolboxs = (state = [
         return toolboxs;
 
     case SAGA_SELECTBOX_BOX_SELECT:   // ボックスを選択した場合
-        toolboxs = state.slice();
+        toolboxs = JSON.parse(JSON.stringify(state));
 
         for (let i = 0; i < toolboxs.length; i++) {
             if (toolboxs[i].type == 'textdata') {
@@ -122,7 +122,7 @@ export const toolboxs = (state = [
         return toolboxs;
 
     case SAGA_SELECTBOX_BOX_NONSELECT:   // ボックスの選択を解除した場合
-        toolboxs = state.slice();
+        toolboxs = JSON.parse(JSON.stringify(state));
 
         for (let i = 0; i < toolboxs.length; i++) {
             if (toolboxs[i].type == 'textdata') {
@@ -134,7 +134,7 @@ export const toolboxs = (state = [
         return toolboxs;
 
     case SAGA_EDITONOFF_CHANGE:     // 編集状態のON/OFFが切り替えられた
-        toolboxs = state.slice();
+        toolboxs = JSON.parse(JSON.stringify(state));
 
         for (let i = 0; i < toolboxs.length; i++) {
             if (action.payload.onoff == 'on') {

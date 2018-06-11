@@ -80,11 +80,7 @@ export const boxs = (state = [], action) => {
 
     switch (action.type) {
     case SAGA_LAYOUT_CALL:
-        boxs = [];
-
-        for (let i = 0; i < PresenBox[action.payload.pattern].length; i++) {
-            boxs.push(PresenBox[action.payload.pattern][i]);
-        }
+        boxs = JSON.parse(JSON.stringify(PresenBox[action.payload.pattern]));
 
         for (let i = 0; i < boxs.length; i++) {
             switch (boxs[i].type) {
@@ -106,7 +102,8 @@ export const boxs = (state = [], action) => {
                     boxs[i].text.padding_ge,  // パディング値（行送り方向 終了）
                     boxs[i].text.size_j,  // テキストサイズ（字詰め方向）
                     boxs[i].text.size_g,  // テキストサイズ（行送り方向）
-                    boxs[i].text.gyokan  // 行間
+                    boxs[i].text.gyokan,  // 行間
+                    boxs[i].text.font     // フォントNo
                 );
                 boxs[i].textgrid = textgrid;
                 boxs[i].textResult = [];
@@ -124,7 +121,7 @@ export const boxs = (state = [], action) => {
         return boxs;
 
     case SAGA_SELECTBOX_EDITBOX_MOVEEND:
-        boxs = state.slice();
+        boxs = JSON.parse(JSON.stringify(state));
 
         for (let i = 0; i < boxs.length; i++) {
             if (boxs[i].id == action.payload.id) {
@@ -140,7 +137,7 @@ export const boxs = (state = [], action) => {
         return boxs;
 
     case SAGA_SELECTBOX_EDITBOX_CHANGESIZE:
-        boxs = state.slice();
+        boxs = JSON.parse(JSON.stringify(state));
 
         for (let i = 0; i < boxs.length; i++) {
             if (boxs[i].id == action.payload.id) {
@@ -168,7 +165,8 @@ export const boxs = (state = [], action) => {
                         boxs[i].text.padding_ge,  // パディング値（行送り方向 終了）
                         boxs[i].text.size_j,  // テキストサイズ（字詰め方向）
                         boxs[i].text.size_g,  // テキストサイズ（行送り方向）
-                        boxs[i].text.gyokan  // 行間
+                        boxs[i].text.gyokan,  // 行間
+                        boxs[i].text.font     // フォントNo
                     );
                     boxs[i].textgrid = textgrid;
 
@@ -185,7 +183,7 @@ export const boxs = (state = [], action) => {
         return boxs;
 
     case SAGA_TOOLBOXBOXDATA_BOXDATA_UPDATE:
-        boxs = state.slice();
+        boxs = JSON.parse(JSON.stringify(state));
 
         for (let i = 0; i < boxs.length; i++) {
             if (boxs[i].id == action.payload.box.id) {
@@ -199,7 +197,7 @@ export const boxs = (state = [], action) => {
         return boxs;
 
     case SAGA_TOOLBOXTEXTDATA_TEXTDATA_UPDATE:
-        boxs = state.slice();
+        boxs = JSON.parse(JSON.stringify(state));
 
         for (let i = 0; i < boxs.length; i++) {
             if (boxs[i].id == action.payload.box.id) {
@@ -229,7 +227,8 @@ export const boxs = (state = [], action) => {
                         boxs[i].text.padding_ge,  // パディング値（行送り方向 終了）
                         boxs[i].text.size_j,  // テキストサイズ（字詰め方向）
                         boxs[i].text.size_g,  // テキストサイズ（行送り方向）
-                        boxs[i].text.gyokan  // 行間
+                        boxs[i].text.gyokan,  // 行間
+                        boxs[i].text.font     // フォントNo
                     );
                     boxs[i].textgrid = textgrid;
 
@@ -246,7 +245,7 @@ export const boxs = (state = [], action) => {
         return boxs;
 
     case SAGA_TOOLBOXBOXDATA_BOXDATA_DELETE:
-        boxs = state.slice();
+        boxs = JSON.parse(JSON.stringify(state));
 
         for (let i = 0; i < boxs.length; i++) {
             if (boxs[i].id == action.payload.id) {
@@ -258,7 +257,7 @@ export const boxs = (state = [], action) => {
         return boxs;       
 
     case SAGA_TOOLBOXBOXDATA_BOXDATA_CREATE:
-        boxs = state.slice();
+        boxs = JSON.parse(JSON.stringify(state));
 
         let box;
         box = {
@@ -300,7 +299,8 @@ export const boxs = (state = [], action) => {
                 box.text.padding_ge,  // パディング値（行送り方向 終了）
                 box.text.size_j,  // テキストサイズ（字詰め方向）
                 box.text.size_g,  // テキストサイズ（行送り方向）
-                box.text.gyokan  // 行間
+                box.text.gyokan,  // 行間
+                box.text.font     // フォントNo
             );
             box.textgrid = textgrid;
             box.textResult = [];
@@ -312,7 +312,7 @@ export const boxs = (state = [], action) => {
         return boxs;
 
     case SAGA_NAGASHIRESULT_CREATE:
-        boxs = state.slice();
+        boxs = JSON.parse(JSON.stringify(state));
 
         for (let i = 0; i < boxs.length; i++) {
             if (boxs[i].id == action.payload.box_id) {
@@ -324,7 +324,7 @@ export const boxs = (state = [], action) => {
         return boxs;
 
     case SAGA_NAGASHI_IMAGE:
-        boxs = state.slice();
+        boxs = JSON.parse(JSON.stringify(state));
 
         for (let i = 0; i < boxs.length; i++) {
             if (boxs[i].id == action.payload.box_id) {
@@ -336,7 +336,7 @@ export const boxs = (state = [], action) => {
         return boxs;
 
     case SAGA_NAGASHI_REMOVE:
-        boxs = state.slice();
+        boxs = JSON.parse(JSON.stringify(state));
 
         for (let i = 0; i < boxs.length; i++) {
             if (boxs[i].group == action.payload.group) {
@@ -349,7 +349,7 @@ export const boxs = (state = [], action) => {
         return boxs;
 
     case SAGA_NAGASHIRESULT_AFURE:
-        boxs = state.slice();
+        boxs = JSON.parse(JSON.stringify(state));
 
         const group = action.payload.group;
 
@@ -357,7 +357,6 @@ export const boxs = (state = [], action) => {
         const no_ary = Box.getGroupNoAry(boxs, group);
         const lastno = no_ary.pop();
 
-console.log(lastno);
         // 溢れフラグをセット
         const box_id = Box.getBoxId(boxs, group, lastno);
         for (let i = 0; i < boxs.length; i++) {
@@ -366,7 +365,6 @@ console.log(lastno);
                 break;
             }
         }
-console.log(boxs);
 
         return boxs;
 

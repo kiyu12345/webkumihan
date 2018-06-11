@@ -34,11 +34,7 @@ export const sozai = (state = [], action) => {
 
     switch (action.type) {
     case SAGA_SOZAI_CALL:
-        lists = [];
-
-        for (let i = 0; i < PresenSozai[action.payload.pattern].length; i++) {
-            lists.push(PresenSozai[action.payload.pattern][i]);
-        }
+        lists = JSON.parse(JSON.stringify(PresenSozai[action.payload.pattern]));
 
         for (let i = 0; i < lists.length; i++) {
             if (lists[i].type == 'text') {
@@ -50,7 +46,7 @@ export const sozai = (state = [], action) => {
         return lists;
 
     case SAGA_TOOLBOXSOZAI_SOZAI_SELECT:
-        lists = state.slice();
+        lists = JSON.parse(JSON.stringify(state));
 
         for (let i = 0; i < lists.length; i++) {
             lists[i].select = '';
@@ -66,7 +62,7 @@ export const sozai = (state = [], action) => {
         return lists;
 
     case SAGA_TOOLBOXSOZAI_SOZAI_TOGGLE:
-        lists = state.slice();
+        lists = JSON.parse(JSON.stringify(state));
 
         let index = -1;
         let select;
@@ -94,7 +90,7 @@ export const sozai = (state = [], action) => {
         return lists;
 
     case SAGA_TOOLBOXSOZAI_SOZAI_UPDATE:
-        lists = state.slice();
+        lists = JSON.parse(JSON.stringify(state));
 
         for (let i = 0; i < lists.length; i++) {
             // lists[i].select = '';
@@ -117,7 +113,7 @@ export const sozai = (state = [], action) => {
         return lists;
 
     case SAGA_TOOLBOXSOZAI_SOZAI_DELETE:
-        lists = state.slice();
+        lists = JSON.parse(JSON.stringify(state));
 
         for (let i = 0; i < lists.length; i++) {
             lists[i].select = '';
@@ -133,7 +129,7 @@ export const sozai = (state = [], action) => {
         return lists;
 
     case SAGA_TOOLBOXSOZAI_SOZAI_CREATE:
-        lists = state.slice();
+        lists = JSON.parse(JSON.stringify(state));
 
         for (let i = 0; i < lists.length; i++) {
             lists[i].select = '';

@@ -43,14 +43,12 @@ export const links = (state = [], action) => {
 
     switch (action.type) {
     case SAGA_LINK_CALL:
-        lists = [];
-
-        lists = action.payload.links;
+        lists = JSON.parse(JSON.stringify(action.payload.links));
 
         return lists;
         
     case SAGA_TOOLBOXLINK_LINK_CREATE:
-        lists = state.slice();
+        lists = JSON.parse(JSON.stringify(state));
 
         link = {
             group: action.payload.group,
@@ -62,7 +60,7 @@ export const links = (state = [], action) => {
         return lists;
 
     case SAGA_TOOLBOXLINK_LINK_DELETE:
-        lists = state.slice();
+        lists = JSON.parse(JSON.stringify(state));
 
         for (let i = 0; i < lists.length; i++) {
             if (lists[i].group == action.payload.group) {
@@ -74,7 +72,7 @@ export const links = (state = [], action) => {
         return lists;
 
     case SAGA_TOOLBOXSOZAI_SOZAI_DELETE:
-        lists = state.slice();
+        lists = JSON.parse(JSON.stringify(state));
 
         for (let i = 0; i < lists.length; i++) {
             if (lists[i].sozai_id == action.payload.id) {

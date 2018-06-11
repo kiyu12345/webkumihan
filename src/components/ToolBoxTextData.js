@@ -39,6 +39,7 @@ export default class ToolBoxTextData extends React.Component {
             size_j: props.box.text.size_j,
             size_g: props.box.text.size_g,
             gyokan: props.box.text.gyokan,
+            font: props.box.text.font,
         };
     }
     
@@ -52,6 +53,7 @@ export default class ToolBoxTextData extends React.Component {
             size_j: nextProps.box.text.size_j,
             size_g: nextProps.box.text.size_g,
             gyokan: nextProps.box.text.gyokan,
+            font: nextProps.box.text.font,
         });
     }
 
@@ -65,13 +67,19 @@ export default class ToolBoxTextData extends React.Component {
          || this.state.kumihoko === ''
          || this.state.size_j === ''
          || this.state.size_g === ''
-         || this.state.gyokan === '') {
+         || this.state.gyokan === ''
+         || this.state.font === '') {
              alert('全ての項目を入力してください');
              return;
         }
 
         if (this.state.kumihoko != 'tate' && this.state.kumihoko != 'yoko') {
             alert('「組方向」は、tate または yoko と入力してください');
+            return;
+        }
+
+        if (this.state.font < 1 || this.state.font > 4) {
+            alert('「フォントNo」は、1 ～ 4 で入力してください');
             return;
         }
 
@@ -84,6 +92,7 @@ export default class ToolBoxTextData extends React.Component {
         box.text.size_j = this.state.size_j;
         box.text.size_g = this.state.size_g;
         box.text.gyokan = this.state.gyokan;
+        box.text.font = this.state.font;
 
         this.props.onClickUpdateButton({
             box: box,
@@ -183,7 +192,14 @@ export default class ToolBoxTextData extends React.Component {
                     style={{
                         ...styles.line
                     }}
-                />
+                >
+                    フォントNo.<input
+                                type="text"
+                                value={this.state.font}
+                                style={{...styles.input, width: '30px'}}
+                                onChange={(e) => this.setState({font: String.toNumeric(e.target.value)})}
+                    />
+                </div>
                 <div
                     style={{
                         ...styles.line,

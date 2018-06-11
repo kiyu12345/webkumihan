@@ -33,7 +33,20 @@ const styles = {
     },
 };
 
+
 export default class ToolBoxPresen extends React.Component {
+    download() {
+        let content = document.getElementById('viewbox').innerHTML;
+        content = '<?xml version="1.0" encoding="utf-8"?>' + content;
+        let blob = new Blob([content], {type: 'text/plain'});
+        let a = document.createElement('a');
+        a.href = window.URL.createObjectURL(blob);
+        a.target = '_blank';
+        a.download = 'shimen.svg';
+        a.click();
+    }
+
+
     render() {
         return (
             <div
@@ -116,6 +129,17 @@ export default class ToolBoxPresen extends React.Component {
                     Lik B
                 </div>
                 <div style={{clear: 'both'}}></div>
+
+                <div
+                    style={{
+                        ...styles.button2,
+                        float: 'right',
+                        marginRight: '0px',
+                        backgroundColor: 'orange',
+                    }}
+                    onClick={() => this.download()}
+                >DL
+                </div>
             </div>
         )
     }
