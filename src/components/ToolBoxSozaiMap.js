@@ -11,6 +11,10 @@ import {
     SU_ToolBoxSozai_Sozai_Toggle,
 } from '../actions_su/toolboxsozai.js';
 
+import {
+    SU_DAndD_MouseDown,
+} from '../actions_su/dandd.js';
+
 
 // mapStateToProps
 const mapStateToProps = (state, props) => {
@@ -59,6 +63,10 @@ const mergeProps = (state, dispatch, props) => {
 
             return false;
         },
+
+        sozaiMouseDown: (payload) => {
+            dispatch.dispatch(SU_DAndD_MouseDown(payload));
+        }
     };
 }
 

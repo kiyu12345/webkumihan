@@ -3,9 +3,8 @@ import { connect } from 'react-redux';
 import TopScreen from './TopScreen.js';
 
 import {
-    SU_SelectBox_Box_NonSelect,
-} from '../actions_su/selectbox.js';
-
+    SU_DAndD_MouseUp,
+} from '../actions_su/dandd.js';
 
 // mapStateToProps
 const mapStateToProps = (state, props) => {
@@ -30,6 +29,12 @@ const mergeProps = (state, dispatch, props) => {
         //     dispatch.dispatch(SU_Xxxxxx_Xxxxx_Xxxx());
         // },
         toolboxs: state.toolboxs,
+        dandd: state.dandd,
+        scale: state.scale,
+
+        danddMouseUp: (payload) => {
+            dispatch.dispatch(SU_DAndD_MouseUp(payload));
+        },
     };
 }
 

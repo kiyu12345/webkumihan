@@ -125,6 +125,12 @@ console.log('最後まで流した');
     }
 }
 
+//
+// 指定のグループ名がリンクリストに含まれていれば、それを流す
+//
+// [IN]
+//   group: グループ名
+//
 export function* nagashiExecGroup(group) {
     // 指定のグループ名がリンクリストに含まれていれば、対応する素材IDを得る
     const links = yield select((state) => state.links);
@@ -144,6 +150,12 @@ export function* nagashiExecGroup(group) {
     yield fork(nagashiExec, group, sozai_id);
 }
 
+//
+// 指定のボックスIDのグループ名がリンクリストに含まれていれば、それを流す
+//
+// [IN]
+//   box_id: ボックスID
+//
 export function* nagashiExecBox(box_id) {
     // 指定のボックスのグループ名がリンクリストに含まれていれば、対応する素材IDを得る
     const boxs  = yield select((state) => state.boxs);
@@ -153,6 +165,12 @@ export function* nagashiExecBox(box_id) {
     yield fork(nagashiExecGroup, group);
 } 
 
+//
+// 指定の素材IDがリンクリストに含まれていれば、それを流す
+//
+// [IN]
+//   sozai_id: 素材ID
+//
 export function* nagashiExecSozai(sozai_id) {
     // 指定の素材IDがリンクリストに含まれていれば、対応するグループ名を得る
     const links = yield select((state) => state.links);
@@ -172,6 +190,9 @@ export function* nagashiExecSozai(sozai_id) {
     yield fork(nagashiExec, group, sozai_id);
 } 
 
+//
+// リンクリストの内容を全て流す
+//
 export function* nagashiExecAll() {
     // リンクリストを得る
     const links = yield select((state) => state.links);

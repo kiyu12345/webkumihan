@@ -155,4 +155,153 @@ export const Zahyo = {
 
         return rect;
     },
+
+    // 右上を基点とする点XYが、ボックスの内部に入っていれば true を返す
+    isInBox: (x, y, box_x1, box_y1, box_x2, box_y2) => {
+        if (x >= box_x1 && y >= box_y1 && x <= box_x2 && y <= box_y2) {
+            return true;
+        }
+
+        return false;
+    }
+};
+
+export const Cursor = {
+    //
+    // カーソルのページの左上起点からの相対座標を返す
+    //
+    // [IN]
+    //   e: マウスイベント
+    //
+    // [OUT]
+    //    [x, y]: ページ（ブラウザ表示エリア）の左上からの相対座標
+    //
+    curPageKiten: (e) => {
+        const x = e.pageX;
+        const y = e.pageY;
+
+        return [x, y];
+    },
+
+    //
+    // カーソル位置のウィンドウスクロールを考慮したページの左上起点からの相対座標を返す
+    //
+    // [IN]
+    //   x: ページの左上からの相対座標 X
+    //   y: ページの左上からの相対座標 Y
+    //
+    // [OUT]
+    //   [x, y]: ページ（ブラウザ表示エリア）の左上からの相対座標（ページスクロールも考慮）
+    //
+    curPageScrollKiten: (x, y) => {
+        const sx = window.pageXOffset;
+        const sy = window.pageYOffset;
+
+        return [sx + x, sy + y];
+    },
+
+    // 
+    // 指定要素の左上起点が、ページの左上起点からの座標を返す
+    //
+    // [IN]
+    //   elem: 要素（エレメント）
+    //
+    // [OUT]
+    //   [x, y]: 指定要素の左上起点が、ページ（ブラウザ表示エリア）の左上からの相対座標
+    //
+    elemPageKiten: (elem) => {
+        const em = elem.getBoundingClientRect();
+
+        return [em.left, em.top];
+    },
+
+    //
+    // 指定要素の左上起点が、スクロールを考慮したページの左上起点からの相対座標を返す
+    //
+    // [IN]
+    //   elem: 要素（エレメント）
+    //
+    // [OUT]
+    //   [x, y]: 指定要素の左上起点が、ページ（ブラウザ表示エリア）の左上からの相対座標（ページスクロールも考慮）
+    //
+    elemPageScrollKiten: (elem) => {
+        const sx = window.pageXOffset;
+        const sy = window.pageYOffset;
+
+        const [x, y] = Cursor.elemPageKiten(elem);
+
+        return [sx + x, sy + y];
+    },
+
+    //
+    // カーソル位置の指定要素の左上起点からの相対座標を返す
+    //
+    // [IN]
+    //   x: ページの左上からの相対座標 X
+    //   y: ページの左上からの相対座標 Y
+    //   elem: 要素（エレメント）
+    //
+    // [OUT]
+    //   [x, y]: カーソル位置の指定要素の左上起点からの相対座標
+    //
+    curElemKiten: (x, y, elem) => {
+        // 要素の左上起点を得る
+        const [emx, emy] = Cursor.elemPageScrollKiten(elem);
+
+        // カーソルの座標を得る
+        const [cx, cy] = Cursor.curPageScrollKiten(x, y);
+
+        return [cx - emx, cy - emy];
+    },
+
+    //
+    // カーソルの指定要素のスクロールを考慮した左上起点からの相対座標
+    //
+    // [IN]
+    //   x: ページの左上からの相対座標 X
+    //   y: ページの左上からの相対座標 Y
+    //   elem: 要素（エレメント）
+    //
+    // [OUT]
+    //   [x, y]: カーソルの指定要素の左上起点からの相対座標（指定要素のスクロールも考慮）
+    //
+    curElemScrollKiten: (x, y, elem) => {
+        // 要素の左上起点を得る
+        const [emx, emy] = Cursor.elemPageScrollKiten(elem);
+
+        // カーソルの座標を得る
+        const [cx, cy] = Cursor.curPageScrollKiten(x, y);
+
+        // 要素のスクロール量を得る
+        const esx = elem.scrollLeft;
+        const esy = elem.scrollTop;
+
+        return [cx - emx + esx, cy - emy + esy];
+    },
+
+    //
+    // カーソルの指定要素のスクロールを考慮した左上起点からの相対座標（指定要素の拡大縮小率を考慮）
+    //
+    // [IN]
+    //   x: ページの左上からの相対座標 X
+    //   y: ページの左上からの相対座標 Y
+    //   elem: 要素（エレメント）
+    //   scale: 要素（エレメント）の拡大縮小率（1.0 = 100%）
+    //
+    // [OUT]
+    //   [x, y]: カーソルの指定要素の左上起点からの相対座標（指定要素のスクロール、指定要素の拡大縮小率を考慮）
+    //
+    curElemScaleScrollKiten: (x, y, elem, scale = 1.0) => {
+        // 要素の左上起点を得る
+        const [emx, emy] = Cursor.elemPageScrollKiten(elem);
+
+        // カーソルの座標を得る
+        const [cx, cy] = Cursor.curPageScrollKiten(x, y);
+
+        // 要素のスクロール量を得る
+        const esx = elem.scrollLeft / scale;
+        const esy = elem.scrollTop  / scale;
+
+        return [(cx - emx) / scale + esx, (cy - emy) / scale + esy];
+    },
 };

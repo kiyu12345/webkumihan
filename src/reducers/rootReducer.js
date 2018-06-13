@@ -8,6 +8,7 @@ import { sozai } from './sozai.js';
 import { links } from './links.js';
 import { lines } from './lines.js';
 import { editonoff } from './editonoff.js';
+import { dandd } from './dandd.js';
 
 const rootReducer = combineReducers({
     scale,
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
     links,
     lines,
     editonoff,
+    dandd,
 });
 
 export default rootReducer;

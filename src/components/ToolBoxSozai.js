@@ -196,6 +196,15 @@ export default class ToolBoxSozai extends React.Component {
                         onClick={(e) => {
                             this.clickList(rec);
                         }}
+                        onMouseDown={(e) => {
+                            // 素材のドラッグアンドドロップ処理
+                            this.props.sozaiMouseDown({
+                                x: e.pageX,
+                                y: e.pageY,
+                                type: 'sozai',
+                                value: rec,
+                            });
+                        }}
                     >
                         <span
                             style={{

@@ -39,4 +39,20 @@ export const Link = {
 
         return sozai_id;
     },
+
+    //
+    // 指定の素材IDがリンクされていたら、対応するグループ名を返す
+    //
+    getGroupFromSozaiId: (links, sozai_id) => {
+        let group = '';
+
+        for (let i = 0; i < links.length; i++) {
+            if (links[i].sozai_id == sozai_id) {
+                group = links[i].group;
+                break;
+            }
+        }
+
+        return group;
+    }
 }
