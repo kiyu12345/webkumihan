@@ -38,8 +38,8 @@ export default class ViewBox extends React.Component {
 		// let event = new CustomEvent("resize");
 		// viewbox.dispatchEvent(event);	// イベントトリガー
     }
-    
 
+  
     render() {
         return (
             <div
