@@ -3,6 +3,7 @@ export const SU_SELECTBOX_BOX_SELECT      = 'SU_SELECTBOX_BOX_SELECT';
 
 export const SU_SELECTBOX_EDITBOX_MOVEEND = 'SU_SELECTBOX_EDITBOX_MOVEEND';
 export const SU_SELECTBOX_EDITBOX_CHANGESIZE = 'SU_SELECTBOX_EDITBOX_CHANGESIZE';
+export const SU_SELECTBOX_EDITBOX_DELETEKEYPRESS = 'SU_SELECTBOX_EDITBOX_DELETEKEYPRESS';
 
 
 export const SU_SelectBox_Box_NonSelect = (payload = {}) => {
@@ -51,6 +52,15 @@ export const SU_SelectBox_EditBox_ChangeSize = (payload = {}) => {
             y1: payload.y1,
             x2: payload.x2,
             y2: payload.y2,
+        },
+    };
+}
+
+export const SU_SelectBox_EditBox_DeleteKeyPress = (payload = {}) => {
+    return {
+        type: SU_SELECTBOX_EDITBOX_DELETEKEYPRESS,
+        payload: {
+            group: payload.group,
         },
     };
 }

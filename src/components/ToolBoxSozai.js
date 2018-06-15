@@ -56,6 +56,7 @@ const styles = {
         height: '20px',
         lineHeight: '20px',
         borderBottom: '1px solid gray',
+        cursor: 'pointer',
     },
 };
 
@@ -197,6 +198,9 @@ export default class ToolBoxSozai extends React.Component {
                             this.clickList(rec);
                         }}
                         onMouseDown={(e) => {
+                            e.stopPropagation();
+                            e.preventDefault();
+
                             // 素材のドラッグアンドドロップ処理
                             this.props.sozaiMouseDown({
                                 x: e.pageX,
@@ -204,6 +208,8 @@ export default class ToolBoxSozai extends React.Component {
                                 type: 'sozai',
                                 value: rec,
                             });
+
+                            return false;
                         }}
                     >
                         <span

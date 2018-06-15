@@ -34,7 +34,10 @@ const styles = {
         textOverflow: 'ellipsis',
         // whiteSpace: 'nowrap',
         backgroundColor: 'lightyellow',
-        opacity: '0.5',        
+        opacity: '0.5',
+        cursor: '-moz-grabbing',
+        cursor: '-webkit-grabbing',
+        cursor: 'pointer',
     },
     danddImageBox: {
         position: 'absolute',
@@ -45,6 +48,9 @@ const styles = {
         height: '130px',
         opacity: '0.5',
         // backgroundColor: 'lightblue',
+        cursor: '-moz-grabbing',
+        cursor: '-webkit-grabbing',
+        cursor: 'pointer',
     },
     danddImage: {
         maxWidth: '130px',

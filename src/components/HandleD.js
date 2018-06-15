@@ -156,6 +156,7 @@ export default class HandleD extends React.Component {
                 height={hh}
                 style={{
                     fill: 'blue',
+                    cursor: 'ns-resize',
                 }}
 
                 onClick={(e) => {

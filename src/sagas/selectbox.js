@@ -5,6 +5,7 @@ import {
     SU_SELECTBOX_BOX_SELECT,
     SU_SELECTBOX_EDITBOX_MOVEEND,
     SU_SELECTBOX_EDITBOX_CHANGESIZE,
+    SU_SELECTBOX_EDITBOX_DELETEKEYPRESS,
 } from '../actions_su/selectbox.js';
 
 import {
@@ -17,6 +18,14 @@ import {
 import {
     Saga_ToolBoxSozai_Sozai_Select,
 } from '../actions_saga/toolboxsozai.js';
+
+import {
+    Saga_Nagashi_Remove,
+} from '../actions_saga/nagashi.js';
+
+import {
+    Saga_ToolBoxLink_Link_Delete,
+} from '../actions_saga/toolboxlink.js';
 
 import {
     nagashiExec,
@@ -83,5 +92,12 @@ export default function* selectbox() {
         case 'image':
             break;
         }
+    });
+
+    yield takeEvery(SU_SELECTBOX_EDITBOX_DELETEKEYPRESS, function* (action) {
+        // ボックス情報から、素材情報を削除する
+        yield put(Saga_Nagashi_Remove(action.payload));
+        // リンクリストから、削除する
+        yield put(Saga_ToolBoxLink_Link_Delete(action.payload));
     });
 }

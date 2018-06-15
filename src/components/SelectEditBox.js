@@ -42,6 +42,7 @@ export default class SelectEditBox extends React.Component {
                                          Define.svgimagesize.width,
                                          Define.svgimagesize.height);
         this.state = {
+            group: props.group,
             x: z.x,
             y: z.y,
             w: z.w,
@@ -55,6 +56,11 @@ export default class SelectEditBox extends React.Component {
 
         // ベースクリックのイベントを登録する
         this.addBaseClickEvent();
+
+        this.keyPress = this.keyPress.bind(this);
+
+        // キー入力のイベントを登録する
+        this.addKeyPressEvent();
     }
 
     componentWillReceiveProps(nextProps) {
@@ -71,6 +77,7 @@ export default class SelectEditBox extends React.Component {
         };
 
         this.setState({
+            group: nextProps.group,
             x: area.x,
             y: area.y,
             w: area.w,
@@ -81,6 +88,25 @@ export default class SelectEditBox extends React.Component {
 
     componentWillUnmount() {
         this.removeBaseClickEvent();
+        this.removeKeyPressEvent();
+    }
+
+    // キー入力のイベント登録処理
+    addKeyPressEvent() {
+        document.addEventListener('keydown', this.keyPress, false);
+    }
+    // キー入力のイベント削除処理
+    removeKeyPressEvent() {
+        document.removeEventListener('keydown', this.keyPress);
+    }
+    // キー入力処理
+    keyPress(e) {
+        // 「Delete」キーが押された場合
+        if (e.keyCode == 46) {
+            this.props.sozaiDelete({
+                group: this.state.group,
+            });
+        }
     }
     
     // ベースクリックのイベント登録処理
@@ -359,6 +385,7 @@ export default class SelectEditBox extends React.Component {
                         // fill: 'none',
                         stroke: 'blue',
                         strokeWidth: 2 * 100 / this.props.scale,
+                        cursor: 'move',
                     }}
 
                     onClick={(e) => {

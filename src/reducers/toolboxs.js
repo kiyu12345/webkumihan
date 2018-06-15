@@ -71,7 +71,7 @@ export const toolboxs = (state = [
         y: 0,
         w: 200,
         h: 470,
-        view: 'true',
+        view: 'false',
     },
     {
         id: 'toolbox999',
@@ -139,6 +139,9 @@ export const toolboxs = (state = [
         for (let i = 0; i < toolboxs.length; i++) {
             if (action.payload.onoff == 'on') {
                 toolboxs[i].view = 'true';
+                if (toolboxs[i].type == 'link') {
+                    toolboxs[i].view = 'false';
+                }
             } else {
                 toolboxs[i].view = 'false';
                 if (toolboxs[i].type == 'presen' || toolboxs[i].type == 'scale') {

@@ -6,6 +6,7 @@ import {
     SU_SelectBox_Box_NonSelect,
     SU_SelectBox_EditBox_MoveEnd,
     SU_SelectBox_EditBox_ChangeSize,
+    SU_SelectBox_EditBox_DeleteKeyPress,
 } from '../actions_su/selectbox.js';
 
 // mapStateToProps
@@ -42,8 +43,11 @@ const mergeProps = (state, dispatch, props) => {
 
         onClickBase: () => {
             dispatch.dispatch(SU_SelectBox_Box_NonSelect());
-        }
+        },
 
+        sozaiDelete: (payload) => {
+            dispatch.dispatch(SU_SelectBox_EditBox_DeleteKeyPress(payload));
+        },
     };
 }
 

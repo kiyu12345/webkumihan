@@ -89,11 +89,12 @@ export default function* scale() {
 
         // 流し処理を行う
         if (check == true && box != '') {
-            const group = box.group;
+            const links = yield select((state) => state.links);
             const sozai_id = action.payload.value.id;
+            const group = box.group;
 
             // ドロップした素材が既に流されていたら、削除する
-            const gp = Link.getGroupFromSozaiId(sozai_id);
+            const gp = Link.getGroupFromSozaiId(links, sozai_id);
             if (gp != '') {
                 const payload = {
                     group: gp,
