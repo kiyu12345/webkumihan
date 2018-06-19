@@ -40,7 +40,7 @@ export default class ImageBox extends React.Component {
                 y="0"
                 width={this.props.width}
                 height={this.props.height}
-                xlinkHref={this.props.image}
+                xlinkHref={this.props.imageUrl}
                 preserveAspectRatio={'xMidYMid slice'}
             />
         )
@@ -50,7 +50,7 @@ export default class ImageBox extends React.Component {
     render() {
         return (
             <g
-                id={this.props.id}
+                id={this.props.box_id}
                 transform={`translate(${this.props.x},${this.props.y})`}
                 width={this.props.width}
                 height={this.props.height}

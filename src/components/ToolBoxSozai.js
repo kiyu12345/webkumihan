@@ -73,11 +73,11 @@ export default class ToolBoxSozai extends React.Component {
         this.button = '';
 
         this.state = {
-            id: '',
-            inputid: '',
+            sozai_id: '',
+            input_id: '',
             type: '',
             text: '',
-            image: '',
+            imageUrl: '',
         };
     }
    
@@ -92,32 +92,32 @@ export default class ToolBoxSozai extends React.Component {
 
         if (sozai == '') {
             this.setState({
-                id: '',
-                inputid: '',
+                sozai_id: '',
+                input_id: '',
                 type: '',
                 text: '',
-                image: '',
+                imageUrl: '',
             });
         } else {
             this.setState({
-                id: sozai.id,
+                sozai_id: sozai.id,
                 type: sozai.type,
                 text: sozai.text,
-                image: sozai.image,
+                imageUrl: sozai.imageUrl,
             });
         }
     }
 
     clickList(sozai) {
-        this.props.onClickSozaiList({id: sozai.id});
+        this.props.onClickSozaiList({sozai_id: sozai.sozai_id});
     }
 
     clickUpdateButton() {
         let sozai = {
-            id: this.state.id,
+            sozai_id: this.state.sozai_id,
             type: this.state.type,
             text: this.state.text,
-            image: this.state.image,
+            imageUrl: this.state.imageUrl,
         };
 
         this.props.onClickUpdateButton({
@@ -127,24 +127,24 @@ export default class ToolBoxSozai extends React.Component {
         this.button = 'update';
     }
 
-    clickDeleteButton(id) {
+    clickDeleteButton(sozai_id) {
         if (confirm('削除します。よろしいですか？') == false) {
             return;
         }
 
         this.props.onClickDeleteButton({
-            id: id,
+            sozai_id: sozai_id,
         });
     }
 
     clickCreateButton() {
-        if (this.state.inputid == ''
+        if (this.state.input_id == ''
          || this.state.type == '') {
              alert('素材IDおよびタイプを入力してください');
              return;
         }
 
-        if (this.props.checkSozaiExist(this.state.inputid)) {
+        if (this.props.checkSozaiExist(this.state.input_id)) {
             alert('この素材IDは既に存在しています');
             return;
         }
@@ -154,20 +154,20 @@ export default class ToolBoxSozai extends React.Component {
             return;
         }
 
-        let image = '';
+        let imageUrl = '';
         if (this.state.type == 'image') {
-            image = this.state.text;
+            imageUrl = this.state.text;
         }
 
         this.props.onClickCreateButton({
-            id: this.state.inputid,
+            sozai_id: this.state.input_id,
             type: this.state.type,
             text: this.state.text,
-            image: image,
+            imageUrl: imageUrl,
         });
 
         this.setState({
-            inputid: '',
+            input_id: '',
         });
     }
 
@@ -218,8 +218,8 @@ export default class ToolBoxSozai extends React.Component {
                                 height: '9px',
                                 backgroundColor: 'lightgray',
                             }}
-                            onClick={(e) => this.clickDeleteButton(rec.id)}
-                        >✕</span> {rec.id}
+                            onClick={(e) => this.clickDeleteButton(rec.sozai_id)}
+                        >✕</span> {rec.sozai_id}
                     </div>
                 );
             })
@@ -228,7 +228,7 @@ export default class ToolBoxSozai extends React.Component {
 
     idtype() {
         let html;
-        if (this.state.id == '') {
+        if (this.state.sozai_id == '') {
             html = [
                 <div
                     style={{
@@ -241,8 +241,8 @@ export default class ToolBoxSozai extends React.Component {
                                     ...styles.input,
                                     width: '80px',
                                 }}
-                                value={this.state.inputid}
-                                onChange={(e) => this.setState({inputid: e.target.value})}
+                                value={this.state.input_id}
+                                onChange={(e) => this.setState({input_id: e.target.value})}
                             />
                 </div>,
                 <div
@@ -268,7 +268,7 @@ export default class ToolBoxSozai extends React.Component {
                         ...styles.line,
                     }}
                 >
-                    素材ID：{this.state.id}
+                    素材ID：{this.state.sozai_id}
                 </div>,
                 <div
                     style={{
@@ -285,7 +285,7 @@ export default class ToolBoxSozai extends React.Component {
 
     newupdatebutton() {
         let html;
-        if (this.state.id == '') {
+        if (this.state.sozai_id == '') {
             html = [
                 <div
                     style={{
@@ -321,7 +321,7 @@ export default class ToolBoxSozai extends React.Component {
 
     sozaiarea() {
         let html;
-        if (this.state.id == '') {
+        if (this.state.sozai_id == '') {
             html = [
                 <textarea
                     id="toolboxsozaitextarea"
@@ -353,7 +353,7 @@ export default class ToolBoxSozai extends React.Component {
                         }}
                     >
                         <img
-                            src={this.state.image}
+                            src={this.state.imageUrl}
                             style={{
                                 ...styles.img,
                             }}

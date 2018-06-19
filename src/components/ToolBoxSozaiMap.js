@@ -2,8 +2,6 @@ import { connect } from 'react-redux';
 
 import ToolBoxSozai from './ToolBoxSozai.js';
 
-import { Zahyo } from '../libs/zahyo.js';
-
 import {
     SU_ToolBoxSozai_UpdateButton_Click,
     SU_ToolBoxSozai_DeleteButton_Click,
@@ -54,9 +52,9 @@ const mergeProps = (state, dispatch, props) => {
             dispatch.dispatch(SU_ToolBoxSozai_CreateButton_Click(payload));
         },
 
-        checkSozaiExist: (id) => {
+        checkSozaiExist: (sozai_id) => {
             for (let i = 0; i < state.sozai.length; i++) {
-                if (state.sozai[i].id == id) {
+                if (state.sozai[i].sozai_id == sozai_id) {
                     return true;
                 }
             }

@@ -43,10 +43,10 @@ export default class TextBox extends React.Component {
             return '';
         }
 
-        for (let i = 0; i < this.props.textgrid.length; i++) {
+        for (let i = 0; i < this.props.text.grid.length; i++) {
             let cj, cg, x, y, size_x, size_y;
-            cj = this.props.textgrid[i][0];
-            cg = this.props.textgrid[i][1];
+            cj = this.props.text.grid[i][0];
+            cg = this.props.text.grid[i][1];
 
             if (this.props.text.kumihoko == 'tate') {
                 x = Zahyo.ruToluX(cg, this.props.width);
@@ -82,35 +82,35 @@ export default class TextBox extends React.Component {
         let ary = [];
         let x, y;
 
-        for (let i = 0; i < this.props.textResult.length; i++) {
+        for (let i = 0; i < this.props.text.result.length; i++) {
             let cj, cg, x, y, size_x, size_y;
-            cj = this.props.textResult[i].j;
-            cg = this.props.textResult[i].g;
+            cj = this.props.text.result[i].j;
+            cg = this.props.text.result[i].g;
 
             if (this.props.text.kumihoko == 'tate') {
-                if (this.props.textResult[i].size_g == 0) {
+                if (this.props.text.result[i].size_g == 0) {
                     size_x = this.props.text.size_g;
                 } else {
-                    size_x = this.props.textResult[i].size_g;
+                    size_x = this.props.text.result[i].size_g;
                 }
-                if (this.props.textResult[i].size_j == 0) {
+                if (this.props.text.result[i].size_j == 0) {
                     size_y = this.props.text.size_j;
                 } else {
-                    size_y = this.props.textResult[i].size_j;
+                    size_y = this.props.text.result[i].size_j;
                 }
 
                 x = Zahyo.ruToluX(cg, this.props.width);
                 y = Zahyo.ruToluY(cj, this.props.height);
             } else {
-                if (this.props.textResult[i].size_j == 0) {
+                if (this.props.text.result[i].size_j == 0) {
                     size_x = this.props.text.size_j;
                 } else {
-                    size_x = this.props.textResult[i].size_j;
+                    size_x = this.props.text.result[i].size_j;
                 }
-                if (this.props.textResult[i].size_g == 0) {
+                if (this.props.text.result[i].size_g == 0) {
                     size_y = this.props.text.size_g;
                 } else {
-                    size_y = this.props.textResult[i].size_g;
+                    size_y = this.props.text.result[i].size_g;
                 }
 
                 x = cj;
@@ -120,7 +120,7 @@ export default class TextBox extends React.Component {
             const basesize = (size_x > size_y) ? size_x : size_y;
             let rotate = 0;
             if (this.props.text.kumihoko == 'tate') {
-                switch (this.props.textResult[i].moji) {
+                switch (this.props.text.result[i].moji) {
                 case '「':
                 case '」':
                 case '（':
@@ -144,7 +144,7 @@ export default class TextBox extends React.Component {
                     }}
                     transform={`translate(${x}, ${y}) scale(${size_x / basesize}, ${size_y / basesize}) rotate(${rotate})`}
                 >
-                    {this.props.textResult[i].moji}
+                    {this.props.text.result[i].moji}
                 </text>
             );
         }
@@ -156,7 +156,7 @@ export default class TextBox extends React.Component {
     render() {
         return (
             <g
-                id={this.props.id}
+                id={`box_${this.props.box_id}`}
                 transform={`translate(${this.props.x},${this.props.y})`}
                 width={this.props.width}
                 height={this.props.height}

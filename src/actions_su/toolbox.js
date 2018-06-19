@@ -5,7 +5,7 @@ export const SU_ToolBox_MoveEnd = (payload = {}) => {
     return {
         type: SU_TOOLBOX_MOVEEND,
         payload: {
-            id: payload.id,
+            toolbox_id: payload.toolbox_id,
             x:  payload.x,
             y:  payload.y,
         },

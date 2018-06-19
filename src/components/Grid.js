@@ -76,8 +76,8 @@ export default class Grid extends React.Component {
     render() {
         return (
             <g>
-                   {this.yokokei()}
-                   {this.tatekei()}
+                {this.yokokei()}
+                {this.tatekei()}
             </g>
         );
     }

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import ViewBox from '../components/ViewBox.js';
+import ViewBoxMap from '../components/ViewBoxMap.js';
 // import { Dialog } from 'material-ui';
 import ToolBoxMap from '../components/ToolBoxMap.js';
 import ToolBoxScaleMap from '../components/ToolBoxScaleMap.js';
@@ -145,7 +145,7 @@ export default class TopScreen extends React.Component {
                 }
                 toolboxs.push(
                     <ToolBoxMap
-                        id={this.props.toolboxs[i].id}
+                        toolbox_id={this.props.toolboxs[i].toolbox_id}
                         x={this.props.toolboxs[i].x}
                         y={this.props.toolboxs[i].y}
                         w={this.props.toolboxs[i].w}
@@ -163,7 +163,7 @@ export default class TopScreen extends React.Component {
                 }
                 toolboxs.push(
                     <ToolBoxMap
-                        id={this.props.toolboxs[i].id}
+                        toolbox_id={this.props.toolboxs[i].toolbox_id}
                         x={this.props.toolboxs[i].x}
                         y={this.props.toolboxs[i].y}
                         w={this.props.toolboxs[i].w}
@@ -181,7 +181,7 @@ export default class TopScreen extends React.Component {
                 }
                 toolboxs.push(
                     <ToolBoxMap
-                        id={this.props.toolboxs[i].id}
+                        toolbox_id={this.props.toolboxs[i].toolbox_id}
                         x={this.props.toolboxs[i].x}
                         y={this.props.toolboxs[i].y}
                         w={this.props.toolboxs[i].w}
@@ -199,7 +199,7 @@ export default class TopScreen extends React.Component {
                 }
                 toolboxs.push(
                     <ToolBoxMap
-                        id={this.props.toolboxs[i].id}
+                        toolbox_id={this.props.toolboxs[i].toolbox_id}
                         x={this.props.toolboxs[i].x}
                         y={this.props.toolboxs[i].y}
                         w={this.props.toolboxs[i].w}
@@ -217,7 +217,7 @@ export default class TopScreen extends React.Component {
                 }
                 toolboxs.push(
                     <ToolBoxMap
-                        id={this.props.toolboxs[i].id}
+                        toolbox_id={this.props.toolboxs[i].toolbox_id}
                         x={this.props.toolboxs[i].x}
                         y={this.props.toolboxs[i].y}
                         w={this.props.toolboxs[i].w}
@@ -235,7 +235,7 @@ export default class TopScreen extends React.Component {
                 }
                 toolboxs.push(
                     <ToolBoxMap
-                        id={this.props.toolboxs[i].id}
+                        toolbox_id={this.props.toolboxs[i].toolbox_id}
                         x={this.props.toolboxs[i].x}
                         y={this.props.toolboxs[i].y}
                         w={this.props.toolboxs[i].w}
@@ -278,7 +278,7 @@ export default class TopScreen extends React.Component {
             case 'image': // 画像
                 objstyle = styles.danddImageBox;
                 children = <img
-                                src={this.state.value.image}
+                                src={this.state.value.imageUrl}
                                 style={styles.danddImage}
                             />;
 
@@ -311,7 +311,7 @@ export default class TopScreen extends React.Component {
                 style={styles.container}
             >
                 {/* SVGイメージボックス */}
-                <ViewBox />
+                <ViewBoxMap />
 
                 {/* ツールボックス */}
                 { this.toolBoxs() }

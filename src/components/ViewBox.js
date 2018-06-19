@@ -3,6 +3,7 @@ import React from 'react';
 import SvgImageMap from './SvgImageMap.js';
 
 import { Define } from '../define.js';
+import ContextMenuMap from './ContextMenuMap.js';
 
 const styles = {
     container: {
@@ -17,6 +18,12 @@ const styles = {
 export default class ViewBox extends React.Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+            contenxtmenuOpenClose: 'close',
+            contextmenuX: 0,
+            contextmenuY: 0,
+        };
     }
 
     componentDidMount() {
@@ -39,6 +46,28 @@ export default class ViewBox extends React.Component {
 		// viewbox.dispatchEvent(event);	// イベントトリガー
     }
 
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            contextmenuOpenClose: nextProps.contextmenu.openclose,
+            contextmenuX: nextProps.contextmenu.x,
+            contextmenuY: nextProps.contextmenu.y,
+        });
+    }
+
+    contextMenu() {
+        let contextmenu = '';
+
+        if (this.state.contextmenuOpenClose == 'open') {
+            contextmenu = (
+                <ContextMenuMap
+                    x={this.state.contextmenuX}
+                    y={this.state.contextmenuY}
+                />
+            );
+        }
+
+        return contextmenu;
+    }
   
     render() {
         return (
@@ -48,11 +77,22 @@ export default class ViewBox extends React.Component {
                     ...styles.container,
                     ...this.props.style,
                 }}
+                onContextMenu={(e) => {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    
+                    this.props.onContextMenu({
+                        x: e.pageX,
+                        y: e.pageY,
+                    });
+                }}
             >
                 <SvgImageMap
                     width={Define.svgimagesize.width}
                     height={Define.svgimagesize.height}
                 />
+
+                {this.contextMenu()}
             </div>
         );
     }

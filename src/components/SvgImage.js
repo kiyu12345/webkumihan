@@ -39,12 +39,6 @@ export default class SvgImage extends React.Component {
                     ...styles.container,
                     // fontFamily: 'Fp2mW1Web'
                 }}
-onClick={(e) => {
-    const [x, y] = Cursor.curPageKiten(e);
-    console.log(Cursor.curElemKiten(x, y, document.getElementById('viewbox')));
-    console.log(Cursor.curElemScrollKiten(x, y, document.getElementById('viewbox')));
-    console.log(Cursor.curElemScaleScrollKiten(x, y, document.getElementById('viewbox'), this.props.scale / 100));
-}}
             >
                 <style>{Font.fontface}</style>
 

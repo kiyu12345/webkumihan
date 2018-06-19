@@ -26,7 +26,7 @@ export default class Boxs extends React.Component {
                     case 'text':
                         let afure = '';
                         let x, y;
-                        if (box.afure > 0) {
+                        if (box.text.afure > 0) {
                             if (box.text.kumihoko == 'tate') {
                                 x = z.x;
                                 y = z.y + z.h;
@@ -45,7 +45,7 @@ export default class Boxs extends React.Component {
                                             opacity: '0.8',
                                         }}
                                     >
-                                        {box.afure}
+                                        {box.text.afure}
                                     </text>;
                         }
 
@@ -56,17 +56,15 @@ export default class Boxs extends React.Component {
                         return (
                             <g>
                                 <TextBoxMap
-                                    id={box.id}
+                                    box_id={box.box_id}
+                                    group_id={box.group_id}
+                                    group_no={box.group_no}
                                     x={z.x}
                                     y={z.y}
                                     width={z.w}
                                     height={z.h}
-                                    group={box.group}
-                                    no={box.no}
 
                                     text={box.text}
-                                    textgrid={box.textgrid}
-                                    textResult={box.textResult}
                                 />
                                 {afure}
                             </g>
@@ -75,14 +73,15 @@ export default class Boxs extends React.Component {
                     case 'image':
                         return (
                             <ImageBoxMap
-                                id={box.id}
+                                box_id={box.box_id}
+                                group_id={box.group_id}
+                                group_no={box.group_no}
                                 x={z.x}
                                 y={z.y}
                                 width={z.w}
                                 height={z.h}
-                                group={box.group}
-                                no={box.no}
-                                image={box.image}
+
+                                imageUrl={box.image.url}
                             />
                         );
                     }

@@ -42,7 +42,7 @@ export default class SelectEditBox extends React.Component {
                                          Define.svgimagesize.width,
                                          Define.svgimagesize.height);
         this.state = {
-            group: props.group,
+            group_id: props.group_id,
             x: z.x,
             y: z.y,
             w: z.w,
@@ -77,7 +77,7 @@ export default class SelectEditBox extends React.Component {
         };
 
         this.setState({
-            group: nextProps.group,
+            group_id: nextProps.group_id,
             x: area.x,
             y: area.y,
             w: area.w,
@@ -104,7 +104,7 @@ export default class SelectEditBox extends React.Component {
         // 「Delete」キーが押された場合
         if (e.keyCode == 46) {
             this.props.sozaiDelete({
-                group: this.state.group,
+                group_id: this.state.group_id,
             });
         }
     }
@@ -198,7 +198,7 @@ export default class SelectEditBox extends React.Component {
                                          Define.svgimagesize.width,
                                          Define.svgimagesize.height);
         this.props.endMoveBox({
-            id: this.props.id,
+            box_id: this.props.box_id,
             x1: z.x1,
             y1: z.y1,
             x2: z.x2,
@@ -362,7 +362,7 @@ export default class SelectEditBox extends React.Component {
         });
 
         this.props.endChangeSizeBox({
-            id: this.props.id,
+            box_id: this.props.box_id,
             x1: z.x1,
             y1: z.y1,
             x2: z.x2,
@@ -374,7 +374,7 @@ export default class SelectEditBox extends React.Component {
         return (
             <g>
                 <rect
-                    id={`${this.props.id}_selectbox`}
+                    id={`selectbox_${this.props.box_id}`}
                     x={this.state.x}
                     y={this.state.y}
                     width={this.state.w}
@@ -406,7 +406,7 @@ export default class SelectEditBox extends React.Component {
                         fillOpacity: '0.7',
                     }}
                 >
-                    {this.props.no}
+                    {this.props.group_no}
                 </text>
 
                 <HandleUMap

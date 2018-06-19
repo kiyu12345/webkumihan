@@ -45,7 +45,7 @@ export default function* selectbox() {
     for (let i = 0; i < boxs.length; i++) {
         if (boxs[i].type == 'text') {
             const payload = {
-                id: boxs[i].id,
+                box_id: boxs[i].box_id,
                 x1: boxs[i].x1,
                 y1: boxs[i].y1,
                 x2: boxs[i].x2,
@@ -68,7 +68,7 @@ export default function* selectbox() {
         const boxs  = yield select((state) => state.boxs);
         const sozai_id = Link.getSozaiIdFromBoxId(links, boxs, action.payload.id);
         if (sozai_id != '') {
-            yield put(Saga_ToolBoxSozai_Sozai_Select({id: sozai_id}));
+            yield put(Saga_ToolBoxSozai_Sozai_Select({sozai_id: sozai_id}));
         }
     });
 
@@ -80,12 +80,12 @@ export default function* selectbox() {
         yield put(Saga_SelectBox_EditBox_ChangeSize(action.payload));
 
         const boxs = yield select((state) => state.boxs);
-        const box = Box.getBox(boxs, action.payload.id);
+        const box = Box.getBox(boxs, action.payload.box_id);
 
         switch (box.type) {
         case 'text':
             // 流し直す
-            yield fork(nagashiExecBox, action.payload.id);
+            yield fork(nagashiExecBox, action.payload.box_id);
 
             break;
             

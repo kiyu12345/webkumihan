@@ -115,7 +115,7 @@ export default class ToolBox extends React.Component {
 
         // 移動終了処理
         this.props.endMoveBox({
-            id: this.props.id,
+            toolbox_id: this.props.toolbox_id,
             x:  this.state.x,
             y:  this.state.y,
         });

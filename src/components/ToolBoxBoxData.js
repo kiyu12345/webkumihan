@@ -23,6 +23,7 @@ const styles = {
     },
     input: {
         height: '9px',
+        fontSize: '9px',
     },
 };
 
@@ -31,37 +32,37 @@ export default class ToolBoxBoxData extends React.Component {
         super(props);
 
         this.state = {
-            id: props.box.id,
-            type: props.box.type,
-            group: props.box.group,
-            no: props.box.no,
+            box_id:   props.box.box_id,
+            group_id: props.box.group_id,
+            group_no: props.box.group_no,
+            type:     props.box.type,
         };
     }
     
     componentWillReceiveProps(nextProps) {
         this.setState({
-            id: nextProps.box.id,
-            type: nextProps.box.type,
-            group: nextProps.box.group,
-            no: nextProps.box.no,
+            box_id:   nextProps.box.box_id,
+            group_id: nextProps.box.group_id,
+            group_no: nextProps.box.group_no,
+            type:     nextProps.box.type,
         });
     }
 
     clickUpdateButton() {
         let box = this.props.box;
 
-        if (this.props.box.id === ''
-         || this.props.box.type === ''
-         || this.state.group === ''
-         || this.state.no === '') {
+        if (this.props.box.box_id === ''
+         || this.state.group_id === ''
+         || this.state.group_no === ''
+         || this.props.box.type === '') {
              alert('全ての項目を入力してください');
              return;
         }
 
-        box.id = this.props.box.id;
-        box.type = this.props.box.type;
-        box.group = this.state.group;
-        box.no = this.state.no;
+        box.box_id   = this.props.box.box_id;
+        box.group_id = this.state.group_id;
+        box.group_no = this.state.group_no;
+        box.type     = this.props.box.type;
 
         this.props.onClickUpdateButton({
             box: box,
@@ -74,17 +75,17 @@ export default class ToolBoxBoxData extends React.Component {
         }
 
         this.props.onClickDeleteButton({
-            id: this.state.id,
+            box_id: this.state.box_id,
         });
     }
 
     clickCreateButton() {
         let box = this.props.box;
 
-        if (this.state.id === ''
-         || this.state.type === ''
-         || this.state.group === ''
-         || this.state.no === '') {
+        if (this.state.box_id === ''
+         || this.state.group_id === ''
+         || this.state.group_no === ''
+         || this.state.type === '') {
             alert('全ての項目を入力してください');
             return;
         }
@@ -102,7 +103,7 @@ export default class ToolBoxBoxData extends React.Component {
         }
 
         // グループ名とNoのチェック
-        if (this.props.isSameGroupAndNo(this.state.group, this.state.no) == true) {
+        if (this.props.isSameGroupAndNo(this.state.group_id, this.state.group_no) == true) {
             alert('同じグループ名とグループNoのボックスが存在します');
             return;
         }
@@ -110,16 +111,16 @@ export default class ToolBoxBoxData extends React.Component {
         // 指定のグループ名でボックスを作れるかをチェック
         // （既存のグループ名と同じグループのボックスを作成する場合、タイプが text でなければならない）
         if (this.state.type != 'text') {
-            if (this.props.isSameGroup(this.state.group) == true) {
+            if (this.props.isSameGroup(this.state.group_id) == true) {
                 alert('同じグループ名のボックスがあります。ボックスを作成できません。')
                 return;
             }
         }
 
-        box.id = this.state.id;
-        box.type = this.state.type;
-        box.group = this.state.group;
-        box.no = this.state.no;
+        box.box_id   = this.state.box_id;
+        box.group_id = this.state.group_id;
+        box.group_no = this.state.group_no;
+        box.type     = this.state.type;
 
         this.props.onClickCreateButton({
             box: box,
@@ -146,7 +147,7 @@ export default class ToolBoxBoxData extends React.Component {
                         onClick={(e) => this.clickDeleteButton()}
                     >✕</span>
                     &nbsp;
-                    <span style={{fontWeight: 'bold', color: 'blue'}}>{this.props.box.id}</span>
+                    <span style={{fontWeight: 'bold', color: 'blue'}}>{this.props.box.box_id}</span>
                 </div>
                 <div
                     style={{
@@ -160,11 +161,11 @@ export default class ToolBoxBoxData extends React.Component {
                         ...styles.line
                     }}
                 >
-                    ｸﾞﾙｰﾌﾟ名 <input
+                    ｸﾞﾙｰﾌﾟID <input
                                 type="text"
-                                value={this.state.group}
+                                value={this.state.group_id}
                                 style={{...styles.input, width: '100px'}}
-                                onChange={(e) => this.setState({group: e.target.value})}
+                                onChange={(e) => this.setState({group_id: e.target.value})}
                             />
                 </div>
                 <div
@@ -174,9 +175,9 @@ export default class ToolBoxBoxData extends React.Component {
                 >
                     No.<input
                             type="text"
-                            value={this.state.no}
+                            value={this.state.group_no}
                             style={{...styles.input, width: '20px'}}
-                            onChange={(e) => this.setState({no: String.toNumeric(e.target.value)})}
+                            onChange={(e) => this.setState({group_no: String.toNumeric(e.target.value)})}
                         />
                 </div>
                 <div
@@ -217,9 +218,9 @@ export default class ToolBoxBoxData extends React.Component {
                 >
                     ボックスID: <input
                                 type="text"
-                                value={this.state.id}
+                                value={this.state.box_id}
                                 style={{...styles.input, width: '50px'}}
-                                onChange={(e) => this.setState({id: e.target.value})}
+                                onChange={(e) => this.setState({box_id: e.target.value})}
                             />
                 </div>
                 <div
@@ -239,11 +240,11 @@ export default class ToolBoxBoxData extends React.Component {
                         ...styles.line
                     }}
                 >
-                    ｸﾞﾙｰﾌﾟ名 <input
+                    ｸﾞﾙｰﾌﾟID <input
                                 type="text"
-                                value={this.state.group}
+                                value={this.state.group_id}
                                 style={{...styles.input, width: '100px'}}
-                                onChange={(e) => this.setState({group: e.target.value})}
+                                onChange={(e) => this.setState({group_id: e.target.value})}
                             />
                 </div>
                 <div
@@ -253,9 +254,9 @@ export default class ToolBoxBoxData extends React.Component {
                 >
                     No.<input
                             type="text"
-                            value={this.state.no}
+                            value={this.state.group_no}
                             style={{...styles.input, width: '20px'}}
-                            onChange={(e) => this.setState({no: String.toNumeric(e.target.value)})}
+                            onChange={(e) => this.setState({group_no: String.toNumeric(e.target.value)})}
                         />
                 </div>
                 <div
@@ -285,7 +286,7 @@ export default class ToolBoxBoxData extends React.Component {
 
     render() {
         let html;
-        if (this.props.box.id == '') {
+        if (this.props.box.box_id == '') {
             html = this.shinki();
         } else {
             html = this.henshu();

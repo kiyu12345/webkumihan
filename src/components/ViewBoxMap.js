@@ -1,14 +1,11 @@
 import { connect } from 'react-redux';
 
-import SelectGroupBox from './SelectGroupBox.js';
+import ViewBox from './ViewBox.js';
 
 import {
-    SU_SelectBox_Box_Select,
-} from '../actions_su/selectbox.js';
-
-import {
-    SU_ContextMenu_Close,
+    SU_ContextMenu_Open, SU_CONTEXTMENU_CLOSE, SU_ContextMenu_Close,
 } from '../actions_su/contextmenu.js';
+
 
 // mapStateToProps
 const mapStateToProps = (state, props) => {
@@ -32,18 +29,22 @@ const mergeProps = (state, dispatch, props) => {
         //     .....
         //     dispatch.dispatch(SU_Xxxxxx_Xxxxx_Xxxx());
         // },
-        ...props,
-        onClickBox: (payload) => {
-            dispatch.dispatch(SU_SelectBox_Box_Select(payload));
+        // ...props,
+        contextmenu: state.contextmenu,
+        onContextMenu: (payload) => {
+            dispatch.dispatch(SU_ContextMenu_Open(payload));
+        },
+        onContextMenuClose: () => {
+            dispatch.dispatch(SU_ContextMenu_Close());
         },
     };
 }
 
 // connect
-const SelectGroupBoxMap = connect(
+const ViewBoxMap = connect(
     mapStateToProps,
     mapDispatchToProps,
     mergeProps
-)(SelectGroupBox);
+)(ViewBox);
 
-export default SelectGroupBoxMap;
+export default ViewBoxMap;

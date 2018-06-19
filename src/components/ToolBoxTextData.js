@@ -23,6 +23,7 @@ const styles = {
     },
     input: {
         height: '9px',
+        fontSize: '9px',
     },
 };
 

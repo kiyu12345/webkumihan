@@ -18,7 +18,7 @@ export const SU_ToolBoxSozai_DeleteButton_Click = (payload = {}) => {
     return {
         type: SU_TOOLBOXSOZAI_DELETEBUTTON_CLICK,
         payload: {
-            id: payload.id,
+            sozai_id: payload.sozai_id,
         },
     };
 }
@@ -27,10 +27,10 @@ export const SU_ToolBoxSozai_CreateButton_Click = (payload = {}) => {
     return {
         type: SU_TOOLBOXSOZAI_CREATEBUTTON_CLICK,
         payload: {
-            id: payload.id,
+            sozai_id: payload.sozai_id,
             type: payload.type,
             text: payload.text,
-            image: payload.image,
+            imageUrl: payload.imageUrl,
         },
     };
 }
@@ -39,7 +39,7 @@ export const SU_ToolBoxSozai_Sozai_Select = (payload = {}) => {
     return {
         type: SU_TOOLBOXSOZAI_SOZAI_SELECT,
         payload: {
-            id: payload.id,
+            sozai_id: payload.sozai_id,
         }
     }
 }
@@ -48,7 +48,7 @@ export const SU_ToolBoxSozai_Sozai_Toggle = (payload = {}) => {
     return {
         type: SU_TOOLBOXSOZAI_SOZAI_TOGGLE,
         payload: {
-            id: payload.id,
+            sozai_id: payload.sozai_id,
         }
     }
 }

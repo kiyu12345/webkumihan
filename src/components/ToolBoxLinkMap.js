@@ -2,7 +2,6 @@ import { connect } from 'react-redux';
 
 import ToolBoxLink from './ToolBoxLink.js';
 
-import { Zahyo } from '../libs/zahyo.js';
 import { Box } from '../libs/box.js';
 import { Sozai } from '../libs/sozai.js';
 
@@ -46,9 +45,9 @@ const mergeProps = (state, dispatch, props) => {
             dispatch.dispatch(SU_ToolBoxLink_DeleteButton_Click(payload));
         },
 
-        getTypeBoxGroup: (group) => {
-            const noAry = Box.getGroupNoAry(state.boxs, group);
-            const box_id = Box.getBoxId(state.boxs, group, noAry[0]);
+        getTypeBoxGroup: (group_id) => {
+            const groupNoAry = Box.getGroupNoAry(state.boxs, group_id);
+            const box_id = Box.getBoxId(state.boxs, group_id, groupNoAry[0]);
             const box = Box.getBox(state.boxs, box_id);
 
             return box.type;

@@ -9,6 +9,7 @@ import { links } from './links.js';
 import { lines } from './lines.js';
 import { editonoff } from './editonoff.js';
 import { dandd } from './dandd.js';
+import { contextmenu } from './contextmenu.js';
 
 const rootReducer = combineReducers({
     scale,
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
     lines,
     editonoff,
     dandd,
+    contextmenu,
 });
 
 export default rootReducer;

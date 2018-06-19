@@ -8,16 +8,16 @@ export const Sozai = {
     //
     // [IN]
     //   sozai: 素材情報
-    //   id: 素材ID
+    //   sozai_id: 素材ID
     //
     // [OUT]
     //   rec: 素材レコード
     //
-    getSozai: (sozai, id) => {
+    getSozai: (sozai, sozai_id) => {
         let sozai_rec = '';
 
         for (let i = 0; i < sozai.length; i++) {
-            if (sozai[i].id == id) {
+            if (sozai[i].sozai_id == sozai_id) {
                 sozai_rec = sozai[i];
                 break;
             }

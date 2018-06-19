@@ -19,14 +19,14 @@ export default class SelectBoxs extends React.Component {
         for (let i = 0; i < this.props.boxs.length; i++) {
             selectboxs.push(
                 <SelectSonotaBoxMap
-                    id={this.props.boxs[i].id}
+                    box_id={this.props.boxs[i].box_id}
+                    group_id={this.props.boxs[i].group_id}
+                    group_no={this.props.boxs[i].group_no}
                     type={this.props.boxs[i].type}
                     x1={this.props.boxs[i].x1}
                     y1={this.props.boxs[i].y1}
                     x2={this.props.boxs[i].x2}
                     y2={this.props.boxs[i].y2}
-                    group={this.props.boxs[i].group}
-                    no={this.props.boxs[i].no}
                 />           
             )
         }
@@ -40,17 +40,17 @@ export default class SelectBoxs extends React.Component {
         
         for (let i = 0; i < this.props.boxs.length; i++) {
             // 選択したボックス（エディットボックス）の場合は、配列の最後に追加するため、保存
-            if (this.props.focusbox.id == this.props.boxs[i].id) {
+            if (this.props.focusbox.box_id == this.props.boxs[i].box_id) {
                 editbox = (
                     <SelectEditBoxMap
-                        id={this.props.boxs[i].id}
+                        box_id={this.props.boxs[i].box_id}
+                        group_id={this.props.boxs[i].group_id}
+                        group_no={this.props.boxs[i].group_no}
                         type={this.props.boxs[i].type}
                         x1={this.props.boxs[i].x1}
                         y1={this.props.boxs[i].y1}
                         x2={this.props.boxs[i].x2}
                         y2={this.props.boxs[i].y2}
-                        group={this.props.boxs[i].group}
-                        no={this.props.boxs[i].no}
                     />
                 );
 
@@ -58,17 +58,17 @@ export default class SelectBoxs extends React.Component {
             }
 
             // 選択したボックスのグループボックスの場合
-            if (this.props.focusbox.group == this.props.boxs[i].group) {
+            if (this.props.focusbox.group_id == this.props.boxs[i].group_id) {
                 selectboxs.push(
                     <SelectGroupBoxMap
-                        id={this.props.boxs[i].id}
+                        box_id={this.props.boxs[i].box_id}
+                        group_id={this.props.boxs[i].group_id}
+                        group_no={this.props.boxs[i].group_no}
                         type={this.props.boxs[i].type}
                         x1={this.props.boxs[i].x1}
                         y1={this.props.boxs[i].y1}
                         x2={this.props.boxs[i].x2}
                         y2={this.props.boxs[i].y2}
-                        group={this.props.boxs[i].group}
-                        no={this.props.boxs[i].no}
                     />
                 );
 
@@ -78,14 +78,14 @@ export default class SelectBoxs extends React.Component {
             // その他のボックスの場合
             selectboxs.push(
                 <SelectSonotaBoxMap
-                    id={this.props.boxs[i].id}
+                    box_id={this.props.boxs[i].box_id}
+                    group_id={this.props.boxs[i].group_id}
+                    group_no={this.props.boxs[i].group_no}
                     type={this.props.boxs[i].type}
                     x1={this.props.boxs[i].x1}
                     y1={this.props.boxs[i].y1}
                     x2={this.props.boxs[i].x2}
                     y2={this.props.boxs[i].y2}
-                    group={this.props.boxs[i].group}
-                    no={this.props.boxs[i].no}
                 />
             );
         }
@@ -99,7 +99,7 @@ export default class SelectBoxs extends React.Component {
 
     render() {
         let selectboxs;
-        if (this.props.focusbox.id == '') {
+        if (this.props.focusbox.box_id == '') {
             selectboxs = this.selectAllSonotaBox();
         } else {
             selectboxs = this.selectBox();

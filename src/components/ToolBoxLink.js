@@ -73,54 +73,54 @@ export default class ToolBoxList extends React.Component {
         super(props);
 
         this.state = {
-            group: '',
+            group_id: '',
             sozai_id: '',
         };
     }
    
     componentWillReceiveProps(nextProps) {
         this.setState({
-            group: '',
+            group_id: '',
             sozai_id: '',
         });
     }
 
-    clickBoxList(group) {
-        let id;
+    clickBoxList(group_id) {
+        let gid;
 
-        if (this.state.group == group) {
-            id = '';
+        if (this.state.group_id == group_id) {
+            gid = '';
         } else {
-            id = group;
+            gid = group_id;
         }
 
         this.setState({
-            group: id,
+            group_id: gid,
         });
     }
 
     clickSozaiList(sozai_id) {
-        let id;
+        let sid;
 
         if (this.state.sozai_id == sozai_id) {
-            id = '';
+            sid = '';
         } else {
-            id = sozai_id;
+            sid = sozai_id;
         }
 
         this.setState({
-            sozai_id: id,
+            sozai_id: sid,
         });
     }
 
     clickCreateButton() {
-        if (this.state.group == ''
+        if (this.state.group_id == ''
          || this.state.sozai_id == '') {
              return;
         }
 
         // 種別（テキスト or 画像）が合っていなければ、リンクできない
-        const box_type = this.props.getTypeBoxGroup(this.state.group);
+        const box_type = this.props.getTypeBoxGroup(this.state.group_id);
         const sozai_type = this.props.getTypeSozai(this.state.sozai_id);
         let check = 'ng';
         if (box_type == 'text') {
@@ -138,25 +138,25 @@ export default class ToolBoxList extends React.Component {
         }
 
         this.props.onClickCreateButton({
-            group: this.state.group,
+            group_id: this.state.group_id,
             sozai_id: this.state.sozai_id,
         });
     }
 
-    clickDeleteButton(group) {
+    clickDeleteButton(group_id) {
         if (confirm('削除します。よろしいですか？') == false) {
             return;
         }
 
         this.props.onClickDeleteButton({
-            group: group,
+            group_id: group_id,
         });
     }
 
     // グループ名がリンクリストに含まれているかどうかを返す
-    isIncludeLinkListGroup(group) {
+    isIncludeLinkListGroup(group_id) {
         for (let i = 0; i < this.props.links.length; i++) {
-            if (this.props.links[i].group == group) {
+            if (this.props.links[i].group_id == group_id) {
                 return true;
             }
         }
@@ -179,7 +179,7 @@ export default class ToolBoxList extends React.Component {
         let list = [];
         let html = [];
 
-        // ボックスのグループ名のリスト（配列）を得る
+        // ボックスのグループIDのリスト（配列）を得る
         const group_ary = Box.getGroupAry(this.props.boxs);
 
         for (let i = 0; i < group_ary.length; i++) {
@@ -190,16 +190,16 @@ export default class ToolBoxList extends React.Component {
 
             // ボックスリストとして追加する
             list.push({
-                group: group_ary[i],
+                group_id: group_ary[i],
             });
         }
 
         for (let i = 0; i < list.length; i++) {
             let bgcolor;
-            if (this.state.group == list[i].group) {
+            if (this.state.group_id == list[i].group_id) {
                 bgcolor = 'red';
             } else {
-                const type = this.props.getTypeBoxGroup(list[i].group);
+                const type = this.props.getTypeBoxGroup(list[i].group_id);
                 if (type == 'text') {
                     bgcolor = Color.text;
                 } else if (type == 'image') {
@@ -213,9 +213,9 @@ export default class ToolBoxList extends React.Component {
                         ...styles.list,
                         backgroundColor: bgcolor,
                     }}
-                    onClick={(e) => this.clickBoxList(list[i].group)}
+                    onClick={(e) => this.clickBoxList(list[i].group_id)}
                 >
-                    {list[i].group}
+                    {list[i].group_id}
                 </div>
             );
         }
@@ -229,13 +229,13 @@ export default class ToolBoxList extends React.Component {
 
         for (let i = 0; i < this.props.sozai.length; i++) {
             // リンクリストに追加されているものは無視
-            if (this.isIncludeLinkListSozaiId(this.props.sozai[i].id) == true) {
+            if (this.isIncludeLinkListSozaiId(this.props.sozai[i].sozai_id) == true) {
                 continue;
             }
 
             // 素材リストとして追加する
             list.push({
-                sozai_id: this.props.sozai[i].id,
+                sozai_id: this.props.sozai[i].sozai_id,
             });
         }
 
@@ -284,10 +284,10 @@ export default class ToolBoxList extends React.Component {
                             height: '9px',
                             backgroundColor: 'lightgray',
                         }}
-                        onClick={(e) => this.clickDeleteButton(this.props.links[i].group)}
+                        onClick={(e) => this.clickDeleteButton(this.props.links[i].group_id)}
                     >✕</span>
                     &nbsp;
-                    {this.props.links[i].group}<br/>
+                    {this.props.links[i].group_id}<br/>
                     <span style={{width: '9px', height: '9px'}}>　</span>
                     &nbsp;
                     {this.props.links[i].sozai_id}

@@ -16,7 +16,7 @@ export const Saga_ToolBoxBoxData_BoxData_Delete = (payload = {}) => {
     return {
         type: SAGA_TOOLBOXBOXDATA_BOXDATA_DELETE,
         payload: {
-            id: payload.id,
+            box_id: payload.box_id,
         },
     };
 }

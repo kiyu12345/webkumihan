@@ -1,5 +1,3 @@
-import { Zahyo } from '../libs/zahyo.js';
-
 import {
     SAGA_TOOLBOX_MOVEEND,
 } from '../actions_saga/toolbox.js';
@@ -29,7 +27,7 @@ import {
 // ====================
 export const toolboxs = (state = [
     {
-        id: 'toolbox001',
+        toolbox_id: 1,
         type: 'scale',
         x: 0,
         y: 0,
@@ -38,7 +36,7 @@ export const toolboxs = (state = [
         view: 'true',
     },
     {
-        id: 'toolbox002',
+        toolbox_id: 2,
         type: 'boxdata',
         x: 0,
         y: 0,
@@ -47,16 +45,16 @@ export const toolboxs = (state = [
         view: 'true',
     },
     {
-        id: 'toolbox003',
+        toolbox_id: 3,
         type: 'textdata',
         x: 0,
         y: 0,
         w: 200,
         h: 160,
-        view: 'true',
+        view: 'false',
     },
     {
-        id: 'toolbox004',
+        toolbox_id: 4,
         type: 'sozai',
         x: 0,
         y: 0,
@@ -65,7 +63,7 @@ export const toolboxs = (state = [
         view: 'true',
     },
     {
-        id: 'toolbox005',
+        toolbox_id: 5,
         type: 'link',
         x: 0,
         y: 0,
@@ -74,7 +72,7 @@ export const toolboxs = (state = [
         view: 'false',
     },
     {
-        id: 'toolbox999',
+        toolbox_id: 6,
         type: 'presen',
         x: 0,
         y: 0,
@@ -91,7 +89,7 @@ export const toolboxs = (state = [
 
         let i;
         for (i = 0; i < toolboxs.length; i++) {
-            if (toolboxs[i].id == action.payload.id) {
+            if (toolboxs[i].toolbox_id == action.payload.toolbox_id) {
                 toolboxs[i].x = action.payload.x;
                 toolboxs[i].y = action.payload.y;
                 break;
@@ -126,7 +124,7 @@ export const toolboxs = (state = [
 
         for (let i = 0; i < toolboxs.length; i++) {
             if (toolboxs[i].type == 'textdata') {
-                // toolboxs[i].view = 'false';
+                toolboxs[i].view = 'false';
                 break;
             }
         }

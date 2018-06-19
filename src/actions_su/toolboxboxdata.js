@@ -16,7 +16,7 @@ export const SU_ToolBoxBoxData_DeleteButton_Click = (payload = {}) => {
     return {
         type: SU_TOOLBOXBOXDATA_DELETEBUTTON_CLICK,
         payload: {
-            id: payload.id,
+            box_id: payload.box_id,
         },
     };
 }

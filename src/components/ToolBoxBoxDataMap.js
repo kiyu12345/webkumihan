@@ -30,10 +30,10 @@ const mapDispatchToProps = (dispatch, props) => {
 const mergeProps = (state, dispatch, props) => {
     // フォーカスされているボックス情報
     let box = {
-        id: '',
+        box_id: '',
+        group_id: '',
+        group_no: '',
         type: '',
-        group: '',
-        no: '',
         text: {
             kumihoko: '',
             padding_js: '',
@@ -45,9 +45,9 @@ const mergeProps = (state, dispatch, props) => {
             gyokan: '',
         },
     }
-    if (state.focusbox.id != '') {
+    if (state.focusbox.box_id != '') {
         for (let i = 0; i < state.boxs.length; i++) {
-            if (state.boxs[i].id == state.focusbox.id) {
+            if (state.boxs[i].box_id == state.focusbox.box_id) {
                 const z = Zahyo.changeRectToArea(state.boxs[i].x1,
                                                  state.boxs[i].y1,
                                                  state.boxs[i].x2,
@@ -81,25 +81,25 @@ const mergeProps = (state, dispatch, props) => {
             dispatch.dispatch(SU_ToolBoxBoxData_CreateButton_Click(payload));
         },
 
-        checkKizonId: (id) => {
+        checkKizonId: (box_id) => {
             for (let i = 0; i < state.boxs.length; i++) {
-                if (state.boxs[i].id == id) {
+                if (state.boxs[i].box_id == box_id) {
                     return true;
                 }
             }
 
             return false;
         },
-        isSameGroupAndNo: (group, no) => {
-            const box_id = Box.getBoxId(state.boxs, group, no);
+        isSameGroupAndNo: (group_id, group_no) => {
+            const box_id = Box.getBoxId(state.boxs, group_id, group_no);
             if (box_id != '') {
                 return true;
             }
 
             return false;
         },
-        isSameGroup: (group) => {
-            const groupNoAry = Box.getGroupNoAry(state.boxs, group);
+        isSameGroup: (group_id) => {
+            const groupNoAry = Box.getGroupNoAry(state.boxs, group_id);
             if (groupNoAry.length > 0) {
                 return true;
             }

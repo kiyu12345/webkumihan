@@ -15,7 +15,7 @@ export default class SelectSonotaBox extends React.Component {
     }
 
     componentDidMount() {
-        document.getElementById(`${this.props.id}_selectbox`).addEventListener('click', this.boxClick, false);
+        document.getElementById(`selectbox_${this.props.box_id}`).addEventListener('click', this.boxClick, false);
     }
 
     boxClick(e) {
@@ -23,10 +23,10 @@ export default class SelectSonotaBox extends React.Component {
         e.preventDefault();     // ブラウザ標準機能のイベントを抑止する
 
         this.props.onClickBox({
-            id:    this.props.id,
-            type:  this.props.type,
-            group: this.props.group,
-            no:    this.props.no,
+            box_id:   this.props.box_id,
+            group_id: this.props.group_id,
+            group_no: this.props.group_no,
+            type:     this.props.type,
         });
 
         return false;
@@ -44,7 +44,7 @@ export default class SelectSonotaBox extends React.Component {
         return (
             <g>
                 <rect
-                    id={`${this.props.id}_selectbox`}
+                    id={`selectbox_${this.props.box_id}`}
                     x={z.x}
                     y={z.y}
                     width={z.w}

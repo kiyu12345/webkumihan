@@ -19,7 +19,7 @@ export const Saga_Nagashi_Image = (payload = {}) => {
         type: SAGA_NAGASHI_IMAGE,
         payload: {
             box_id: payload.box_id,
-            image:  payload.image,
+            imageUrl:  payload.imageUrl,
         }
     }
 }
@@ -28,7 +28,7 @@ export const Saga_Nagashi_Remove = (payload = {}) => {
     return {
         type: SAGA_NAGASHI_REMOVE,
         payload: {
-            group: payload.group,
+            group_id: payload.group_id,
         },
     };
 }
@@ -37,7 +37,7 @@ export const Saga_NagashiResult_Afure = (payload = {}) => {
     return {
         type: SAGA_NAGASHIRESULT_AFURE,
         payload: {
-            group: payload.group,
+            group_id: payload.group_id,
             afure: payload.afure,
         },
     };

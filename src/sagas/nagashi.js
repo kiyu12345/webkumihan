@@ -10,15 +10,15 @@ import { Text } from '../libs/text.js';
 import { Box } from '../libs/box.js';
 import { Sozai } from '../libs/sozai.js';
 
-export function* nagashiExec(group, sozai_id) {
+export function* nagashiExec(group_id, sozai_id) {
     // ボックス情報を得る
     const boxs = yield select((state) => state.boxs);
     // 素材情報を得る
     const sozai = yield select((state) => state.sozai);
 
     // 指定のボックスのグループの最初のボックスレコードを得る
-    const no_ary = Box.getGroupNoAry(boxs, group);
-    const first_box_id = Box.getBoxId(boxs, group, no_ary[0]);
+    const group_no_ary = Box.getGroupNoAry(boxs, group_id);
+    const first_box_id = Box.getBoxId(boxs, group_id, group_no_ary[0]);
     const box = Box.getBox(boxs, first_box_id);
     const sozai_rec = Sozai.getSozai(sozai, sozai_id);
 
@@ -31,9 +31,9 @@ export function* nagashiExec(group, sozai_id) {
 
         // グループNo配列で繰り返す
         let centerAry, end_index;
-        for (let n = 0; n < no_ary.length; n++) {
+        for (let n = 0; n < group_no_ary.length; n++) {
             // ボックスレコードを得る
-            const target_box_id = Box.getBoxId(boxs, group, no_ary[n]);
+            const target_box_id = Box.getBoxId(boxs, group_id, group_no_ary[n]);
             const box_rec = Box.getBox(boxs, target_box_id);
 
             // エリア情報を求める
@@ -99,13 +99,13 @@ export function* nagashiExec(group, sozai_id) {
         if (lastNagashiFlg == false) {
             // 溢れ処理
             yield put(Saga_NagashiResult_Afure({
-                group: group,
+                group_id: group_id,
                 afure: sozai_rec.mojiObjAry.length - moji_index,
             }));
 console.log('文字が余った（溢れ）');
         } else {
             yield put(Saga_NagashiResult_Afure({
-                group: group,
+                group_id: group_id,
                 afure: 0,
             }));
 console.log('最後まで流した');
@@ -115,8 +115,8 @@ console.log('最後まで流した');
 
     case 'image':               // イメージボックスの場合
         const payload = {
-            box_id: box.id,
-            image:  sozai_rec.image,
+            box_id:   box.box_id,
+            imageUrl: sozai_rec.imageUrl,
         };
 
         yield put(Saga_Nagashi_Image(payload));
@@ -126,18 +126,18 @@ console.log('最後まで流した');
 }
 
 //
-// 指定のグループ名がリンクリストに含まれていれば、それを流す
+// 指定のグループIDがリンクリストに含まれていれば、それを流す
 //
 // [IN]
-//   group: グループ名
+//   group_id: グループID
 //
-export function* nagashiExecGroup(group) {
-    // 指定のグループ名がリンクリストに含まれていれば、対応する素材IDを得る
+export function* nagashiExecGroup(group_id) {
+    // 指定のグループIDがリンクリストに含まれていれば、対応する素材IDを得る
     const links = yield select((state) => state.links);
 
     let sozai_id = '';
     for (let i = 0; i < links.length; i++) {
-        if (links[i].group == group) {
+        if (links[i].group_id == group_id) {
             sozai_id = links[i].sozai_id;
             break;
         }
@@ -147,7 +147,7 @@ export function* nagashiExecGroup(group) {
         return;
     }
 
-    yield fork(nagashiExec, group, sozai_id);
+    yield fork(nagashiExec, group_id, sozai_id);
 }
 
 //
@@ -160,9 +160,9 @@ export function* nagashiExecBox(box_id) {
     // 指定のボックスのグループ名がリンクリストに含まれていれば、対応する素材IDを得る
     const boxs  = yield select((state) => state.boxs);
 
-    const [group, no] = Box.getGroupAndNo(boxs, box_id);
+    const [group_id, group_no] = Box.getGroupAndNo(boxs, box_id);
 
-    yield fork(nagashiExecGroup, group);
+    yield fork(nagashiExecGroup, group_id);
 } 
 
 //
@@ -175,19 +175,19 @@ export function* nagashiExecSozai(sozai_id) {
     // 指定の素材IDがリンクリストに含まれていれば、対応するグループ名を得る
     const links = yield select((state) => state.links);
     
-    let group = '';
+    let group_id = '';
     for (let i = 0; i < links.length; i++) {
         if (links[i].sozai_id == sozai_id) {
-            group = links[i].group;
+            group_id = links[i].group_id;
             break;
         }
     }
 
-    if (group == '') {
+    if (group_id == '') {
         return;
     }
 
-    yield fork(nagashiExec, group, sozai_id);
+    yield fork(nagashiExec, group_id, sozai_id);
 } 
 
 //
@@ -198,7 +198,7 @@ export function* nagashiExecAll() {
     const links = yield select((state) => state.links);
 
     for (let i = 0; i < links.length; i++) {
-        yield fork(nagashiExec, links[i].group, links[i].sozai_id);
+        yield fork(nagashiExec, links[i].group_id, links[i].sozai_id);
     }
 }
 

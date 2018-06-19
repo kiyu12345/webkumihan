@@ -27,7 +27,7 @@ const mapDispatchToProps = (dispatch, props) => {
 const mergeProps = (state, dispatch, props) => {
     // フォーカスされているボックス情報
     let box = {
-        id: '',
+        box_id: '',
         text: {
             kumihoko: '',
             padding_js: '',
@@ -37,11 +37,12 @@ const mergeProps = (state, dispatch, props) => {
             size_j: '',
             size_g: '',
             gyokan: '',
+            font: '',
         },
     }
-    if (state.focusbox.id != '') {
+    if (state.focusbox.box_id != '') {
         for (let i = 0; i < state.boxs.length; i++) {
-            if (state.boxs[i].id == state.focusbox.id) {
+            if (state.boxs[i].box_id == state.focusbox.box_id) {
                 const z = Zahyo.changeRectToArea(state.boxs[i].x1,
                                                  state.boxs[i].y1,
                                                  state.boxs[i].x2,

@@ -31,6 +31,8 @@ import {
     nagashiExecAll,
 } from './nagashi.js';
 
+import { Box } from '../libs/box.js';
+
 
 export default function* scale() {
     yield takeEvery(SU_DANDD_MOUSEDOWN, function* (action) {
@@ -56,32 +58,7 @@ export default function* scale() {
             }
 
             // ドロップしたものとボックスの種別が同じでない場合は無視
-            check = false;
-            switch (action.payload.value.type) {
-            case 'text':
-                switch (box.type) {
-                case 'text':
-                    check = true;
-                    break;
-                case 'image':
-                    break;
-                default:
-                    break;
-                }
-                break;
-
-            case 'image':
-                switch (box.type) {
-                case 'text':
-                    break;
-                case 'image':
-                    check = true;
-                    break;
-                default:
-                    break;
-                }
-                break;
-            }
+            check = Box.isSameBoxTypeAndSozaiType(box.type, action.payload.value.type);
             if (check == true) {
                 break;
             }
@@ -90,25 +67,25 @@ export default function* scale() {
         // 流し処理を行う
         if (check == true && box != '') {
             const links = yield select((state) => state.links);
-            const sozai_id = action.payload.value.id;
-            const group = box.group;
+            const sozai_id = action.payload.value.sozai_id;
+            const group_id = box.group_id;
 
             // ドロップした素材が既に流されていたら、削除する
-            const gp = Link.getGroupFromSozaiId(links, sozai_id);
-            if (gp != '') {
+            const gpid = Link.getGroupFromSozaiId(links, sozai_id);
+            if (gpid != '') {
                 const payload = {
-                    group: gp,
+                    group_id: gpid,
                 };
                 yield put(Saga_Nagashi_Remove(payload));
                 yield put(Saga_ToolBoxLink_Link_Delete(payload));
             }
 
             // 流し処理を行う
-            yield fork(nagashiExec, group, sozai_id);
+            yield fork(nagashiExec, group_id, sozai_id);
 
             // リンクリストに追加
             const payload = {
-                group: group,
+                group_id: group_id,
                 sozai_id: sozai_id,
             };
             yield put(Saga_ToolBoxLink_Link_Create(payload));

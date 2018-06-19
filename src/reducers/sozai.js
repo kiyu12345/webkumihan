@@ -1,5 +1,3 @@
-import { Zahyo } from '../libs/zahyo.js';
-
 import { Text } from '../libs/text.js';
 import { PresenSozai } from '../define.js';
 
@@ -53,7 +51,7 @@ export const sozai = (state = [], action) => {
         }
 
         for (let i = 0; i < lists.length; i++) {
-            if (lists[i].id == action.payload.id) {
+            if (lists[i].sozai_id == action.payload.sozai_id) {
                 lists[i].select = 'on';
                 break;
             }
@@ -68,7 +66,7 @@ export const sozai = (state = [], action) => {
         let select;
 
         for (let i = 0; i < lists.length; i++) {
-            if (lists[i].id == action.payload.id) {
+            if (lists[i].sozai_id == action.payload.sozai_id) {
                 index = i;
                 select = lists[i].select;
                 break;
@@ -95,7 +93,7 @@ export const sozai = (state = [], action) => {
         for (let i = 0; i < lists.length; i++) {
             // lists[i].select = '';
 
-            if (lists[i].id == action.payload.sozai.id) {
+            if (lists[i].sozai_id == action.payload.sozai.sozai_id) {
                 lists[i].type = action.payload.sozai.type;
                 lists[i].text = action.payload.sozai.text;
 
@@ -120,7 +118,7 @@ export const sozai = (state = [], action) => {
         }
 
         for (let i = 0; i < lists.length; i++) {
-            if (lists[i].id == action.payload.id) {
+            if (lists[i].sozai_id == action.payload.sozai_id) {
                 lists.splice(i, 1);
                 break;
             }
@@ -136,7 +134,7 @@ export const sozai = (state = [], action) => {
         }
 
         sozai = {
-            id: action.payload.id,
+            sozai_id: action.payload.sozai_id,
             type: action.payload.type,
             text: action.payload.text,
 
