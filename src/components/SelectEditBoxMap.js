@@ -50,7 +50,7 @@ const mergeProps = (state, dispatch, props) => {
             dispatch.dispatch(SU_SelectBox_Box_NonSelect());
         },
 
-        sozaiDelete: (payload) => {
+        sozaiRemove: (payload) => {
             dispatch.dispatch(SU_SelectBox_EditBox_DeleteKeyPress(payload));
         },
     };

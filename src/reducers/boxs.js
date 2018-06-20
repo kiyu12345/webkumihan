@@ -32,7 +32,8 @@ import {
 } from '../actions_saga/nagashi.js';
 
 import {
-    SAGA_CONTEXTMENU_NEWTEXTBOX,
+    SAGA_CONTEXTMENU_NEWBOXTEXT,
+    SAGA_CONTEXTMENU_NEWBOXIMAGE,
 } from '../actions_saga/contextmenu.js';
 
 
@@ -432,7 +433,7 @@ export const boxs = (state = [], action) => {
 
         return boxs;
 
-    case SAGA_CONTEXTMENU_NEWTEXTBOX:   // テキストボックスの新規作成（グループ化なし）
+    case SAGA_CONTEXTMENU_NEWBOXTEXT:   // ボックスの新規作成（テキストボックス）
         boxs = JSON.parse(JSON.stringify(state));
 
         box = {
@@ -440,10 +441,10 @@ export const boxs = (state = [], action) => {
             group_id: action.payload.group_id,
             group_no: action.payload.group_no,
             type:     action.payload.type,
-            x1: 100,
-            y1: 100,
-            x2: 400,
-            y2: 300,
+            x1: action.payload.x1,
+            y1: action.payload.y1,
+            x2: action.payload.x2,
+            y2: action.payload.y2,
             text: {
                 kumihoko:   action.payload.text.kumihoko,
                 padding_js: action.payload.text.padding_js,
@@ -483,6 +484,27 @@ export const boxs = (state = [], action) => {
         box.text.grid = textgrid;
         box.text.result = [];
         box.text.afure = 0;
+
+        boxs.push(box);
+
+        return boxs;
+
+    case SAGA_CONTEXTMENU_NEWBOXIMAGE:   // ボックスの新規作成（画像ボックス）
+        boxs = JSON.parse(JSON.stringify(state));
+
+        box = {
+            box_id:   action.payload.box_id,
+            group_id: action.payload.group_id,
+            group_no: action.payload.group_no,
+            type:     action.payload.type,
+            x1: action.payload.x1,
+            y1: action.payload.y1,
+            x2: action.payload.x2,
+            y2: action.payload.y2,
+            image: {
+                url: action.payload.image.url,
+            },
+        };
 
         boxs.push(box);
 

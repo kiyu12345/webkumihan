@@ -103,7 +103,7 @@ export default class SelectEditBox extends React.Component {
     keyPress(e) {
         // 「Delete」キーが押された場合
         if (e.keyCode == 46) {
-            this.props.sozaiDelete({
+            this.props.sozaiRemove({
                 group_id: this.state.group_id,
             });
         }

@@ -10,7 +10,8 @@ import {
 } from '../actions_saga/toolboxboxdata.js';
 
 import {
-    SAGA_CONTEXTMENU_NEWTEXTBOX,
+    SAGA_CONTEXTMENU_NEWBOXTEXT,
+    SAGA_CONTEXTMENU_NEWBOXIMAGE,
 } from '../actions_saga/contextmenu.js';
 
 
@@ -65,7 +66,15 @@ export const focusbox = (state = {box_id: 0, group_id: 0, group_no: 0, type: ''}
             type:     action.payload.box.type,
         };
         
-    case SAGA_CONTEXTMENU_NEWTEXTBOX:           // コンテキストメニュの「新規作成 テキストボックス」
+    case SAGA_CONTEXTMENU_NEWBOXTEXT:           // コンテキストメニュの「新規作成 テキストボックス」
+        return {
+            box_id:   action.payload.box_id,
+            group_id: action.payload.group_id,
+            group_no: action.payload.group_no,
+            type:     action.payload.type,
+        };
+
+    case SAGA_CONTEXTMENU_NEWBOXIMAGE:           // コンテキストメニュの「新規作成 画像ボックス」
         return {
             box_id:   action.payload.box_id,
             group_id: action.payload.group_id,

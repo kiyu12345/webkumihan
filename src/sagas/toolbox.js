@@ -171,17 +171,20 @@ export default function* toolbox() {
     }
 
     
-    // takeEvery
+    // ツールボックスの移動を完了
     yield takeEvery(SU_TOOLBOX_MOVEEND, function* (action) {
         yield put(Saga_ToolBox_MoveEnd(action.payload));
     });
 
+    // ボックス情報ツールボックスの「更新」が押された
     yield takeEvery(SU_TOOLBOXBOXDATA_UPDATEBUTTON_CLICK, function* (action) {
         yield put(Saga_ToolBoxBoxData_BoxData_Update(action.payload));
 
         // すべてを流し直す
         yield fork(nagashiExecAll);
     });
+
+    // ボックス情報ツールボックスの「ボックス削除」が押された
     yield takeEvery(SU_TOOLBOXBOXDATA_DELETEBUTTON_CLICK, function* (action) {
         // 削除しようとしているボックスのグループIDを得る
         let boxs = yield select((state) => state.boxs);
@@ -204,6 +207,8 @@ export default function* toolbox() {
             yield fork(nagashiExecGroup, group_id);
         }
     });
+
+    // ボックス情報ツールボックスの「新規作成」が押された
     yield takeEvery(SU_TOOLBOXBOXDATA_CREATEBUTTON_CLICK, function* (action) {
         yield put(Saga_ToolBoxBoxData_BoxData_Create(action.payload));
 
@@ -211,6 +216,7 @@ export default function* toolbox() {
         yield fork(nagashiExecBox, action.payload.box.box_id);
     });
 
+    // テキスト情報ツールボックスの「更新」が押された
     yield takeEvery(SU_TOOLBOXTEXTDATA_UPDATEBUTTON_CLICK, function* (action) {
         yield put(Saga_ToolBoxTextData_TextData_Update(action.payload));
 
@@ -218,12 +224,15 @@ export default function* toolbox() {
         yield fork(nagashiExecBox, action.payload.box.box_id);
     });
 
+    // 素材リストツールボックスの「更新」が押された
     yield takeEvery(SU_TOOLBOXSOZAI_UPDATEBUTTON_CLICK, function* (action) {
         yield put(Saga_ToolBoxSozai_Sozai_Update(action.payload));
 
         // 流し処理を行う
         yield fork(nagashiExecSozai, action.payload.sozai.sozai_id);
     });
+
+    // 素材リストツールボックスの「削除」が押された
     yield takeEvery(SU_TOOLBOXSOZAI_DELETEBUTTON_CLICK, function* (action) {
         // 削除しようとしている素材がリンクリストにある場合、
         // そのリンクされているボックスのグループを得てディスパッチする
@@ -239,19 +248,26 @@ export default function* toolbox() {
 
         yield put(Saga_ToolBoxSozai_Sozai_Delete(action.payload));
     });
+
+    // 素材リストツールボックスの「新規作成」が押された
     yield takeEvery(SU_TOOLBOXSOZAI_CREATEBUTTON_CLICK, function* (action) {
         yield put(Saga_ToolBoxSozai_Sozai_Create(action.payload));
     });
+
+    // 素材リストツールボックスのリストが押された
     yield takeEvery(SU_TOOLBOXSOZAI_SOZAI_TOGGLE, function* (action) {
         yield put(Saga_ToolBoxSozai_Sozai_Toggle(action.payload));
     });
 
+    // リンクリストツールボックスの「リンク」が押された
     yield takeEvery(SU_TOOLBOXLINK_CREATEBUTTON_CLICK, function* (action) {
         yield put(Saga_ToolBoxLink_Link_Create(action.payload));
 
         // 流し処理を行う
         yield fork(nagashiExec, action.payload.group_id, action.payload.sozai_id);
     });
+
+    // リンクリストツールボックスの「リンク解除」が押された
     yield takeEvery(SU_TOOLBOXLINK_DELETEBUTTON_CLICK, function* (action) {
         // ボックス情報から、素材情報を削除する
         yield put(Saga_Nagashi_Remove(action.payload));
@@ -259,12 +275,17 @@ export default function* toolbox() {
         yield put(Saga_ToolBoxLink_Link_Delete(action.payload));
     });
 
+    // プレゼン用ツールボックスの「レイアウト呼び出し」が押された
     yield takeEvery(SU_TOOLBOXPRESEN_LAYOUTCALLBUTTON_CLICK, function* (action) {
         yield put(Saga_Layout_Call(action.payload));
     });
+
+    // プレゼン用ツールボックスの「素材呼び出し」が押された
     yield takeEvery(SU_TOOLBOXPRESEN_SOZAICALLBUTTON_CLICK, function* (action) {
         yield put(Saga_Sozai_Call(action.payload));
     });
+
+    // プレゼン用ツールボックスの「自動全リンク」が押された
     yield takeEvery(SU_TOOLBOXPRESEN_LINKCALLBUTTON_CLICK, function* (action) {
         // プレゼン用リンクリストを得る
         const plinklist = PresenLink[action.payload.pattern];
@@ -335,6 +356,8 @@ export default function* toolbox() {
 
         yield put(Saga_Link_Call({links: newlinklist}));
     });
+
+    // プレゼン用ツールボックスの「編集ON/OFF」が押された
     yield takeEvery(SU_TOOLBOXPRESEN_EDITONOFFBUTTON_CLICK, function* (action) {
         yield put(Saga_EditOnOff_Change(action.payload));
     });

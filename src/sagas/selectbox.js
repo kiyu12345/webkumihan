@@ -24,6 +24,9 @@ import {
 } from '../actions_saga/nagashi.js';
 
 import {
+    SU_ToolBoxLink_DeleteButton_Click,
+} from '../actions_su/toolboxlink.js';
+import {
     Saga_ToolBoxLink_Link_Delete,
 } from '../actions_saga/toolboxlink.js';
 
@@ -56,10 +59,12 @@ export default function* selectbox() {
     }
 
 
+    // ボックスの選択を解除する
     yield takeEvery(SU_SELECTBOX_BOX_NONSELECT, function* (action) {
         yield put(Saga_SelectBox_Box_NonSelect(action.payload));
     });
 
+    // ボックスを選択する
     yield takeEvery(SU_SELECTBOX_BOX_SELECT, function* (action) {
         yield put(Saga_SelectBox_Box_Select(action.payload));
 
@@ -72,10 +77,12 @@ export default function* selectbox() {
         }
     });
 
+    // 選択ボックスの移動が完了
     yield takeEvery(SU_SELECTBOX_EDITBOX_MOVEEND, function* (action) {
         yield put(Saga_SelectBox_EditBox_MoveEnd(action.payload));
     });
 
+    // 選択ボックスのサイズが変更された
     yield takeEvery(SU_SELECTBOX_EDITBOX_CHANGESIZE, function* (action) {
         yield put(Saga_SelectBox_EditBox_ChangeSize(action.payload));
 
@@ -94,10 +101,8 @@ export default function* selectbox() {
         }
     });
 
+    // 選択ボックス状態で「Delete」キーが押された
     yield takeEvery(SU_SELECTBOX_EDITBOX_DELETEKEYPRESS, function* (action) {
-        // ボックス情報から、素材情報を削除する
-        yield put(Saga_Nagashi_Remove(action.payload));
-        // リンクリストから、削除する
-        yield put(Saga_ToolBoxLink_Link_Delete(action.payload));
+        yield put(SU_ToolBoxLink_DeleteButton_Click(action.payload));
     });
 }

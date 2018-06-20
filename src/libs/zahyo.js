@@ -305,3 +305,139 @@ export const Cursor = {
         return [(cx - emx) / scale + esx, (cy - emy) / scale + esy];
     },
 };
+
+import { Define } from '../define.js';
+
+export const Grid = {
+    //
+    // グリッドにスナップさせた場合の座標を返す
+    //
+    // [IN]
+    //   x: 紙面座標（SVGイメージの右上基点の座標）のX
+    //   y: 紙面座標（SVGイメージの右上基点の座標）のY
+    //   area_w: 紙面エリア（SVGイメージ）の幅
+    //   area_h: 紙面エリア（SVGイメージ）の高さ
+    //   grid_w: グリッドの幅
+    //   grid_h: グリッドの高さ
+    //
+    // [OUT]
+    //   [x, y] : スナップ後の紙面座標（SVGイメージの右上基点の座標）
+    //
+    snap: (x, y, area_w, area_h, grid_w, grid_h) => {
+        let ru_x = x;
+        let ru_y = y;
+
+        // X座標をグリッド幅で割って、余りが0の場合は、X座標決定
+        let amari, sho, minX, maxX;
+        amari = ru_x % grid_w;
+        if (amari == 0) {
+            // X座標は決定
+        } else {
+            // グリッドの小さい方のX座標を求める
+            sho = Math.floor(ru_x / grid_w);
+            minX = sho * grid_w;
+            // グリッドの大きい方のX座標を求める
+            maxX = (sho + 1) * grid_w;
+
+            // 余りが、グリッドの半分より大きければ大きい方、小さければ小さい方
+            if (amari >= (grid_w / 2)) {
+                ru_x = maxX;
+            } else {
+                ru_x = minX;
+            }
+        }
+
+        // Y座標をグリッド高さで割って、余りが0の場合は、Y座標決定
+        let minY, maxY;
+        amari = ru_y % grid_h;
+        if (amari == 0) {
+            // Y座標は決定
+        } else {
+            // グリッドの小さい方のY座標を求める
+            sho = Math.floor(ru_y / grid_h);
+            minY = sho * grid_h;
+            // グリッドの大きい方のX座標を求める
+            maxY = (sho + 1) * grid_h;
+
+            // 余りが、グリッドの半分より大きければ大きい方、小さければ小さい方
+            if (amari >= (grid_h / 2)) {
+                ru_y = maxY;
+            } else {
+                ru_y = minY;
+            }
+        }
+
+        // スナップ後の座標が0より小さい場合は、0にする
+        if (ru_x < 0) {
+            ru_x = 0;
+        }
+        if (ru_y < 0) {
+            ru_y = 0;
+        }
+
+        // スナップ後の座標がエリアの最大スナップ座標より大きければ、最大スナップ座標にする
+        sho = Math.floor(area_w / grid_w);
+        const areamax_x = grid_w * sho;
+        if (ru_x > areamax_x) {
+            ru_x = areamax_x;
+        }
+        sho = Math.floor(area_h / grid_h);
+        const areamax_y = grid_h * sho;
+        if (ru_y > areamax_y) {
+            ru_y = areamax_y;
+        }
+
+        return [ru_x, ru_y];
+    },
+
+    //
+    // 紙面（SVGイメージ）からはみ出している矩形を内部に収める
+    //
+    // [IN]
+    //   x1: 紙面座標（SVGイメージの右上基点の座標）の矩形の始点X
+    //   y1: 紙面座標（SVGイメージの右上基点の座標）の矩形の始点Y
+    //   x2: 紙面座標（SVGイメージの右上基点の座標）の矩形の終点X
+    //   y2: 紙面座標（SVGイメージの右上基点の座標）の矩形の終点Y
+    //   area_w: 紙面エリア（SVGイメージ）の幅
+    //   area_h: 紙面エリア（SVGイメージ）の高さ
+    //   grid_w: グリッドの幅
+    //   grid_h: グリッドの高さ
+    //
+    // [OUT]
+    //   [x1, y1, x2, y2] : はみ出してない矩形の始点終点座標
+    //
+    changeInArea: (x1, y1, x2, y2, area_w, area_h, grid_w, grid_h) => {
+        // 矩形の幅と高さを得る
+        const width  = x2 - x1;
+        const height = y2 - y1;
+
+        // 始点がオーバーしていたら、範囲に収める
+        if (x1 < 0) {
+            x1 = 0;
+        }
+        if (y1 < 0) {
+            y1 = 0;
+        }
+
+        // 終点をグリッドにスナップさせる
+        [x1, y1] = Grid.snap(x1, y1, area_w, area_h, grid_w, grid_h);
+        
+        // 始点を求める
+        x2 = x1 + width;
+        y2 = y1 + height;
+
+        // 終点をグリッドにスナップさせる
+        [x2, y2] = Grid.snap(x2, y2, area_w, area_h, grid_w, grid_h);
+
+        x1 = x2 - width;
+        y1 = y2 - height;
+        if (x1 < 0) {
+            x1 = 0;
+        }
+        if (y1 < 0) {
+            y1 = 0;
+        }
+
+        return [x1, y1, x2, y2];
+    },
+};

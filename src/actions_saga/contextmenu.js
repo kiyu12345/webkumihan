@@ -1,7 +1,8 @@
 export const SAGA_CONTEXTMENU_OPEN  = 'SAGA_CONTEXTMENU_OPEN';
 export const SAGA_CONTEXTMENU_CLOSE = 'SAGA_CONTEXTMENU_CLOSE';
 
-export const SAGA_CONTEXTMENU_NEWTEXTBOX = 'SAGA_CONTEXTMENU_NEWTEXTBOX';
+export const SAGA_CONTEXTMENU_NEWBOXTEXT = 'SAGA_CONTEXTMENU_NEWBOXTEXT';
+export const SAGA_CONTEXTMENU_NEWBOXIMAGE = 'SAGA_CONTEXTMENU_NEWBOXIMAGE';
 
 
 export const Saga_ContextMenu_Open = (payload = {}) => {
@@ -23,14 +24,18 @@ export const Saga_ContextMenu_Close = (payload = {}) => {
     };
 }
 
-export const Saga_ContextMenu_NewTextBox = (payload = {}) => {
+export const Saga_ContextMenu_NewBoxText = (payload = {}) => {
     return {
-        type: SAGA_CONTEXTMENU_NEWTEXTBOX,
+        type: SAGA_CONTEXTMENU_NEWBOXTEXT,
         payload: {
             box_id:   payload.box_id,
             group_id: payload.group_id,
             group_no: payload.group_no,
             type:     payload.type,
+            x1: payload.x1,
+            y1: payload.y1,
+            x2: payload.x2,
+            y2: payload.y2,
 
             text: {
                 kumihoko:   payload.text.kumihoko,
@@ -46,3 +51,24 @@ export const Saga_ContextMenu_NewTextBox = (payload = {}) => {
         },
     };
 }
+
+export const Saga_ContextMenu_NewBoxImage = (payload = {}) => {
+    return {
+        type: SAGA_CONTEXTMENU_NEWBOXIMAGE,
+        payload: {
+            box_id:   payload.box_id,
+            group_id: payload.group_id,
+            group_no: payload.group_no,
+            type:     payload.type,
+            x1: payload.x1,
+            y1: payload.y1,
+            x2: payload.x2,
+            y2: payload.y2,
+
+            image: {
+                url: payload.image.url,
+            },
+        },
+    };
+}
+

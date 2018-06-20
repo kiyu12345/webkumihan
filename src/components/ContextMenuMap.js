@@ -4,8 +4,13 @@ import ContextMenu from './ContextMenu.js';
 
 import {
     SU_ContextMenu_Close,
-    SU_ContextMenu_NewTextBoxOnGroup,
-    SU_ContextMenu_NewTextBox,
+    SU_ContextMenu_NewBoxText,
+    SU_ContextMenu_NewBoxImage,
+    SU_ContextMenu_CopyBoxTextOnGroup,
+    SU_ContextMenu_CopyBoxText,
+    SU_ContextMenu_CopyBoxImage,
+    SU_ContextMenu_SozaiUnlink,
+    SU_ContextMenu_BoxRemove,
 } from '../actions_su/contextmenu.js';
 
 
@@ -33,16 +38,32 @@ const mergeProps = (state, dispatch, props) => {
         // },
         ...props,
         focusbox: state.focusbox,
+        scale: state.scale,
 
         closeContextMenu: () => {
             dispatch.dispatch(SU_ContextMenu_Close());
         },
 
-        createTextBoxOnGroup: (payload) => {
-            dispatch.dispatch(SU_ContextMenu_NewTextBoxOnGroup(payload));
+        newBoxText: (payload) => {
+            dispatch.dispatch(SU_ContextMenu_NewBoxText(payload));
         },
-        createTextBox: () => {
-            dispatch.dispatch(SU_ContextMenu_NewTextBox());
+        newBoxImage: (payload) => {
+            dispatch.dispatch(SU_ContextMenu_NewBoxImage(payload));
+        },
+        copyBoxTextOnGroup: (payload) => {
+            dispatch.dispatch(SU_ContextMenu_CopyBoxTextOnGroup(payload));
+        },
+        copyBoxText: (payload) => {
+            dispatch.dispatch(SU_ContextMenu_CopyBoxText(payload));
+        },
+        copyBoxImage: (payload) => {
+            dispatch.dispatch(SU_ContextMenu_CopyBoxImage(payload));
+        },
+        sozaiUnlink: (payload) => {
+            dispatch.dispatch(SU_ContextMenu_SozaiUnlink(payload));
+        },
+        boxRemove: (payload) => {
+            dispatch.dispatch(SU_ContextMenu_BoxRemove(payload));
         },
     };
 }
