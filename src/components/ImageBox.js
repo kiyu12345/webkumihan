@@ -41,7 +41,7 @@ export default class ImageBox extends React.Component {
                 width={this.props.width}
                 height={this.props.height}
                 xlinkHref={this.props.imageUrl}
-                preserveAspectRatio={'xMidYMid slice'}
+                preserveAspectRatio={'xMidYMid meet'}
             />
         )
     }

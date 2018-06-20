@@ -8,6 +8,8 @@ export const SU_CONTEXTMENU_COPYBOXTEXT = 'SU_CONTEXTMENU_COPYBOXTEXT';
 export const SU_CONTEXTMENU_COPYBOXIMAGE = 'SU_CONTEXTMENU_COPYBOXIMGE';
 export const SU_CONTEXTMENU_SOZAIUNLINK = 'SU_CONTEXTMENU_SOZAIUNLINK';
 export const SU_CONTEXTMENU_BOXREMOVE = 'SU_CONTEXTMENU_BOXREMOVE';
+export const SU_CONTEXTMENU_BOXTOFRONT = 'SU_CONTEXTMENU_BOXTOFRONT';
+export const SU_CONTEXTMENU_BOXTOBACK = 'SU_CONTEXTMENU_BOXTOBACK';
 
 
 export const SU_ContextMenu_Open = (payload = {}) => {
@@ -95,6 +97,24 @@ export const SU_ContextMenu_SozaiUnlink = (payload = {}) => {
 export const SU_ContextMenu_BoxRemove = (payload = {}) => {
     return {
         type: SU_CONTEXTMENU_BOXREMOVE,
+        payload: {
+            box_id: payload.box_id,
+        },
+    };
+}
+
+export const SU_ContextMenu_BoxToFront = (payload = {}) => {
+    return {
+        type: SU_CONTEXTMENU_BOXTOFRONT,
+        payload: {
+            box_id: payload.box_id,
+        },
+    };
+}
+
+export const SU_ContextMenu_BoxToBack = (payload = {}) => {
+    return {
+        type: SU_CONTEXTMENU_BOXTOBACK,
         payload: {
             box_id: payload.box_id,
         },

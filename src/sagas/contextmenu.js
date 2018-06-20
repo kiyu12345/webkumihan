@@ -10,6 +10,8 @@ import {
     SU_CONTEXTMENU_COPYBOXIMAGE,
     SU_CONTEXTMENU_SOZAIUNLINK,
     SU_CONTEXTMENU_BOXREMOVE,
+    SU_CONTEXTMENU_BOXTOFRONT,
+    SU_CONTEXTMENU_BOXTOBACK,
 } from '../actions_su/contextmenu.js';
 
 import {
@@ -17,6 +19,8 @@ import {
     Saga_ContextMenu_Close,
     Saga_ContextMenu_NewBoxText,
     Saga_ContextMenu_NewBoxImage,
+    Saga_ContextMenu_BoxToFront,
+    Saga_ContextMenu_BoxToBack,
 } from '../actions_saga/contextmenu.js';
 
 import {
@@ -386,5 +390,15 @@ export default function* contextmenu() {
     // ボックスを削除
     yield takeEvery(SU_CONTEXTMENU_BOXREMOVE, function* (action) {
         yield put(SU_ToolBoxBoxData_DeleteButton_Click(action.payload));
+    });
+
+    // ボックスを最前面に
+    yield takeEvery(SU_CONTEXTMENU_BOXTOFRONT, function* (action) {
+        yield put(Saga_ContextMenu_BoxToFront(action.payload));
+    });
+
+    // ボックスを再背面に
+    yield takeEvery(SU_CONTEXTMENU_BOXTOBACK, function* (action) {
+        yield put(Saga_ContextMenu_BoxToBack(action.payload));
     });
 }

@@ -11,6 +11,8 @@ import {
     SU_ContextMenu_CopyBoxImage,
     SU_ContextMenu_SozaiUnlink,
     SU_ContextMenu_BoxRemove,
+    SU_ContextMenu_BoxToFront,
+    SU_ContextMenu_BoxToBack,
 } from '../actions_su/contextmenu.js';
 
 
@@ -64,6 +66,12 @@ const mergeProps = (state, dispatch, props) => {
         },
         boxRemove: (payload) => {
             dispatch.dispatch(SU_ContextMenu_BoxRemove(payload));
+        },
+        boxToFront: (payload) => {
+            dispatch.dispatch(SU_ContextMenu_BoxToFront(payload));
+        },
+        boxToBack: (payload) => {
+            dispatch.dispatch(SU_ContextMenu_BoxToBack(payload));
         },
     };
 }

@@ -4,6 +4,9 @@ export const SAGA_CONTEXTMENU_CLOSE = 'SAGA_CONTEXTMENU_CLOSE';
 export const SAGA_CONTEXTMENU_NEWBOXTEXT = 'SAGA_CONTEXTMENU_NEWBOXTEXT';
 export const SAGA_CONTEXTMENU_NEWBOXIMAGE = 'SAGA_CONTEXTMENU_NEWBOXIMAGE';
 
+export const SAGA_CONTEXTMENU_BOXTOFRONT = 'SAGA_CONTEXTMENU_BOXTOFRONT';
+export const SAGA_CONTEXTMENU_BOXTOBACK = 'SAGA_CONTEXTMENU_BOXTOBACK';
+
 
 export const Saga_ContextMenu_Open = (payload = {}) => {
     return {
@@ -72,3 +75,20 @@ export const Saga_ContextMenu_NewBoxImage = (payload = {}) => {
     };
 }
 
+export const Saga_ContextMenu_BoxToFront = (payload = {}) => {
+    return {
+        type: SAGA_CONTEXTMENU_BOXTOFRONT,
+        payload: {
+            box_id: payload.box_id,
+        },
+    };
+}
+
+export const Saga_ContextMenu_BoxToBack = (payload = {}) => {
+    return {
+        type: SAGA_CONTEXTMENU_BOXTOBACK,
+        payload: {
+            box_id: payload.box_id,
+        },
+    };
+}

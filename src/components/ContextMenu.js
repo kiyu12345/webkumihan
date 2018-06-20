@@ -42,6 +42,8 @@ export default class ContextMenu extends React.Component {
         this.clickCopyBox = this.clickCopyBox.bind(this);
         this.clickSozaiUnlink = this.clickSozaiUnlink.bind(this);
         this.clickBoxRemove = this.clickBoxRemove.bind(this);
+        this.clickBoxToFront = this.clickBoxToFront.bind(this);
+        this.clickBoxToBack = this.clickBoxToBack.bind(this);
     }
 
     componentDidMount() {
@@ -102,20 +104,19 @@ export default class ContextMenu extends React.Component {
         }
 
         // 最前面へ の mousedown
-        elem = document.getElementById('cm_tofront');
+        elem = document.getElementById('cm_boxtofront');
         if (elem) {
-            elem.addEventListener('mousedown', this.clickToFront, false);
+            elem.addEventListener('mousedown', this.clickBoxToFront, false);
         }
 
         // 最背面へ の mousedown
-        elem = document.getElementById('cm_toback');
+        elem = document.getElementById('cm_boxtoback');
         if (elem) {
-            elem.addEventListener('mousedown', this.clickToBack, false);
+            elem.addEventListener('mousedown', this.clickBoxToBack, false);
         }
     }
     
     removeEvent() {
-console.log('***** remove Event *****');
         let elem;
 
         // document の mousedown and click
@@ -165,15 +166,15 @@ console.log('***** remove Event *****');
         }
 
         // 最前面へ の mousedown
-        elem = document.getElementById('cm_tofront');
+        elem = document.getElementById('cm_boxtofront');
         if (elem) {
-            elem.removeEventListener('mousedown', this.clickToFront);
+            elem.removeEventListener('mousedown', this.clickBoxToFront);
         }
 
         // 最背面へ の mousedown
-        elem = document.getElementById('cm_toback');
+        elem = document.getElementById('cm_boxtoback');
         if (elem) {
-            elem.removeEventListener('mousedown', this.clickToBack);
+            elem.removeEventListener('mousedown', this.clickBoxToBack);
         }
     }
 
@@ -351,6 +352,40 @@ console.log('***** remove Event *****');
 
         return false;
     }
+
+    // 最前面へ
+    clickBoxToFront(e) {
+        e.stopPropagation();
+        e.preventDefault();
+
+        // ボックスを最前面に移動する
+        this.props.boxToFront({
+            box_id: this.props.focusbox.box_id,
+        });
+
+        // コンテキストメニューを閉じる
+        // this.props.closeContextMenu();
+        Event.triggerEvent(document, 'click');
+
+        return false;
+    }
+
+    // 再背面へ
+    clickBoxToBack(e) {
+        e.stopPropagation();
+        e.preventDefault();
+
+        // ボックスを最前面に移動する
+        this.props.boxToBack({
+            box_id: this.props.focusbox.box_id,
+        });
+
+        // コンテキストメニューを閉じる
+        // this.props.closeContextMenu();
+        Event.triggerEvent(document, 'click');
+
+        return false;
+    }
     
     items() {
         let item = [];
@@ -434,8 +469,8 @@ console.log('***** remove Event *****');
             // 最前面へ
             item.push(
                 <div
-                    id="cm_tofront"
-                    className={css(styles.grayout)}
+                    id="cm_boxtofront"
+                    className={css(styles.item)}
                 >
                     最前面へ
                 </div>
@@ -443,10 +478,10 @@ console.log('***** remove Event *****');
             // 再背面へ
             item.push(
                 <div
-                    id="cm_toback"
-                    className={css(styles.grayout)}
+                    id="cm_boxtoback"
+                    className={css(styles.item)}
                 >
-                    再背面へ
+                    最背面へ
                 </div>
             );
         }

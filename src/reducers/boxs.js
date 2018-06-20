@@ -34,6 +34,8 @@ import {
 import {
     SAGA_CONTEXTMENU_NEWBOXTEXT,
     SAGA_CONTEXTMENU_NEWBOXIMAGE,
+    SAGA_CONTEXTMENU_BOXTOFRONT,
+    SAGA_CONTEXTMENU_BOXTOBACK,
 } from '../actions_saga/contextmenu.js';
 
 
@@ -136,6 +138,8 @@ import {
 export const boxs = (state = [], action) => {
     let boxs;
     let box;
+    let group_id;
+    let group_no_ary;
     let areasize_j, areasize_g;
 
     switch (action.type) {
@@ -305,10 +309,30 @@ export const boxs = (state = [], action) => {
     case SAGA_TOOLBOXBOXDATA_BOXDATA_DELETE:  // ボックスの削除時
         boxs = JSON.parse(JSON.stringify(state));
 
+        group_id = '';
+
+        // ボックス情報からボックスを削除する
         for (let i = 0; i < boxs.length; i++) {
             if (boxs[i].box_id == action.payload.box_id) {
+                group_id = boxs[i].group_id;
                 boxs.splice(i, 1);
                 break;
+            }
+        }
+
+        // 削除したボックスのグループNo配列を得る
+        group_no_ary = Box.getGroupNoAry(boxs, group_id);
+
+        // グループNoを1から順番に振り直す
+        let no = 1;
+        for (let i = 0; i < group_no_ary.length; i++) {
+            for (let j = 0; j < boxs.length; j++) {
+                if (boxs[j].group_id == group_id
+                 && boxs[j].group_no == group_no_ary[i]) {
+                     boxs[j].group_no = no;
+                     no++;
+                     break;
+                 }
             }
         }
 
@@ -416,10 +440,10 @@ export const boxs = (state = [], action) => {
     case SAGA_NAGASHIRESULT_AFURE:    // 流した結果あふれた場合
         boxs = JSON.parse(JSON.stringify(state));
 
-        const group_id = action.payload.group_id;
+        group_id = action.payload.group_id;
 
         // グループの最後のNoを得る
-        const group_no_ary = Box.getGroupNoAry(boxs, group_id);
+        group_no_ary = Box.getGroupNoAry(boxs, group_id);
         const last_group_no = group_no_ary.pop();
 
         // 溢れフラグをセット
@@ -507,6 +531,44 @@ export const boxs = (state = [], action) => {
         };
 
         boxs.push(box);
+
+        return boxs;
+
+    case SAGA_CONTEXTMENU_BOXTOFRONT:   // ボックスを最前面に
+        boxs = JSON.parse(JSON.stringify(state));
+
+        box = '';
+
+        // ボックス情報から指定のボックスを得て一端削除する
+        for (let i = 0; i < boxs.length; i++) {
+            if (boxs[i].box_id == action.payload.box_id) {
+                box = boxs[i];
+                boxs.splice(i, 1);
+                break;
+            }
+        }
+
+        // ボックス情報の末尾にプッシュする
+        boxs.push(box);
+
+        return boxs;
+
+    case SAGA_CONTEXTMENU_BOXTOBACK:    // ボックスを再背面に
+        boxs = JSON.parse(JSON.stringify(state));
+
+        box = '';
+
+        // ボックス情報から指定のボックスを得て一端削除する
+        for (let i = 0; i < boxs.length; i++) {
+            if (boxs[i].box_id == action.payload.box_id) {
+                box = boxs[i];
+                boxs.splice(i, 1);
+                break;
+            }
+        }
+
+        // ボックス情報の先頭に挿入する
+        boxs.unshift(box);
 
         return boxs;
 
