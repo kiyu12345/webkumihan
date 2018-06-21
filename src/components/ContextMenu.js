@@ -38,6 +38,8 @@ export default class ContextMenu extends React.Component {
         this.clickBase     = this.clickBase.bind(this);
         this.clickNewBoxText = this.clickNewBoxText.bind(this);
         this.clickNewBoxImage = this.clickNewBoxImage.bind(this);
+        this.clickNewBoxLineTate = this.clickNewBoxLineTate.bind(this);
+        this.clickNewBoxLineYoko = this.clickNewBoxLineYoko.bind(this);
         this.clickCopyBoxOnGroup = this.clickCopyBoxOnGroup.bind(this);
         this.clickCopyBox = this.clickCopyBox.bind(this);
         this.clickSozaiUnlink = this.clickSozaiUnlink.bind(this);
@@ -77,6 +79,18 @@ export default class ContextMenu extends React.Component {
         elem = document.getElementById('cm_newboximage');
         if (elem) {
             elem.addEventListener('mousedown', this.clickNewBoxImage, false);
+        }
+
+        // 新規作成（ライン[縦]ボックス）の mousedown
+        elem = document.getElementById('cm_newboxlinetate');
+        if (elem) {
+            elem.addEventListener('mousedown', this.clickNewBoxLineTate, false);
+        }
+
+        // 新規作成（ライン[横]ボックス）の mousedown
+        elem = document.getElementById('cm_newboxlineyoko');
+        if (elem) {
+            elem.addEventListener('mousedown', this.clickNewBoxLineYoko, false);
         }
 
         // ボックスを複製（グループ化する）の mousedown
@@ -139,6 +153,18 @@ export default class ContextMenu extends React.Component {
         elem = document.getElementById('cm_newboximage');
         if (elem) {
             elem.removeEventListener('mousedown', this.clickNewBoxImage);
+        }
+
+        // 新規作成（ライン[縦]ボックス）の mousedown
+        elem = document.getElementById('cm_newboxlinetate');
+        if (elem) {
+            elem.removeEventListener('mousedown', this.clickNewBoxLineTate, false);
+        }
+
+        // 新規作成（ライン[横]ボックス）の mousedown
+        elem = document.getElementById('cm_newboxlineyoko');
+        if (elem) {
+            elem.removeEventListener('mousedown', this.clickNewBoxLineYoko, false);
         }
 
         // ボックスを複製（グループ化する）の mousedown
@@ -238,6 +264,50 @@ export default class ContextMenu extends React.Component {
         return false;
     }
 
+    // 新規作成（ライン[縦]ボックス）のイベント処理
+    clickNewBoxLineTate(e) {
+        e.stopPropagation();
+        e.preventDefault();
+
+        // コンテキストメニューの左上座標を紙面座標に変換する
+        const [cur_x, cur_y] = this.changeCursorToArea(this.props.x, this.props.y);
+
+        // 新規作成（画像ボックス）
+        this.props.newBoxLine({
+            cur_x: cur_x,
+            cur_y: cur_y,
+            hoko: 'tate',
+        });
+
+        // コンテキストメニューを閉じる
+        // this.props.closeContextMenu();
+        Event.triggerEvent(document, 'click');
+
+        return false;
+    }
+
+    // 新規作成（ライン[横]ボックス）のイベント処理
+    clickNewBoxLineYoko(e) {
+        e.stopPropagation();
+        e.preventDefault();
+
+        // コンテキストメニューの左上座標を紙面座標に変換する
+        const [cur_x, cur_y] = this.changeCursorToArea(this.props.x, this.props.y);
+
+        // 新規作成（画像ボックス）
+        this.props.newBoxLine({
+            cur_x: cur_x,
+            cur_y: cur_y,
+            hoko: 'yoko',
+        });
+
+        // コンテキストメニューを閉じる
+        // this.props.closeContextMenu();
+        Event.triggerEvent(document, 'click');
+
+        return false;
+    }
+
     // ボックスの複製（グループ化する）のイベント処理
     clickCopyBoxOnGroup(e) {
         e.stopPropagation();
@@ -286,6 +356,12 @@ export default class ContextMenu extends React.Component {
             break;
         case 'image':   // 画像ボックス
             this.props.copyBoxImage({
+                cur_x: cur_x,
+                cur_y: cur_y,
+                box_id: this.props.focusbox.box_id,
+            });
+        case 'line':    // ラインボックス
+            this.props.copyBoxLine({
                 cur_x: cur_x,
                 cur_y: cur_y,
                 box_id: this.props.focusbox.box_id,
@@ -408,6 +484,24 @@ export default class ContextMenu extends React.Component {
                     className={css(styles.item)}
                 >
                     新規作成（画像ボックス）
+                </div>
+            );
+            // 新規ボックス（ライン縦）
+            item.push(
+                <div
+                    id="cm_newboxlinetate"
+                    className={css(styles.item)}
+                >
+                    新規作成（ライン[縦]ボックス）
+                </div>
+            );
+            // 新規ボックス（ライン横）
+            item.push(
+                <div
+                    id="cm_newboxlineyoko"
+                    className={css(styles.item)}
+                >
+                    新規作成（ライン[横]ボックス）
                 </div>
             );
         } else {                                    // ボックスが選択されていない場合

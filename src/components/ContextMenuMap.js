@@ -6,9 +6,11 @@ import {
     SU_ContextMenu_Close,
     SU_ContextMenu_NewBoxText,
     SU_ContextMenu_NewBoxImage,
+    SU_ContextMenu_NewBoxLine,
     SU_ContextMenu_CopyBoxTextOnGroup,
     SU_ContextMenu_CopyBoxText,
     SU_ContextMenu_CopyBoxImage,
+    SU_ContextMenu_CopyBoxLine,
     SU_ContextMenu_SozaiUnlink,
     SU_ContextMenu_BoxRemove,
     SU_ContextMenu_BoxToFront,
@@ -52,6 +54,9 @@ const mergeProps = (state, dispatch, props) => {
         newBoxImage: (payload) => {
             dispatch.dispatch(SU_ContextMenu_NewBoxImage(payload));
         },
+        newBoxLine: (payload) => {
+            dispatch.dispatch(SU_ContextMenu_NewBoxLine(payload));
+        },
         copyBoxTextOnGroup: (payload) => {
             dispatch.dispatch(SU_ContextMenu_CopyBoxTextOnGroup(payload));
         },
@@ -60,6 +65,9 @@ const mergeProps = (state, dispatch, props) => {
         },
         copyBoxImage: (payload) => {
             dispatch.dispatch(SU_ContextMenu_CopyBoxImage(payload));
+        },
+        copyBoxLine: (payload) => {
+            dispatch.dispatch(SU_ContextMenu_CopyBoxLine(payload));
         },
         sozaiUnlink: (payload) => {
             dispatch.dispatch(SU_ContextMenu_SozaiUnlink(payload));

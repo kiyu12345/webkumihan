@@ -2,6 +2,7 @@ import React from 'react';
 
 import TextBoxMap from './TextBoxMap.js';
 import ImageBoxMap from './ImageBoxMap.js';
+import LineBoxMap from './LineBoxMap.js';
 
 import { Define } from '../define.js';
 import { Zahyo } from '../libs/zahyo.js';
@@ -81,7 +82,23 @@ export default class Boxs extends React.Component {
                                 width={z.w}
                                 height={z.h}
 
-                                imageUrl={box.image.url}
+                                image={box.image}
+                            />
+                        );
+
+                    case 'line':
+console.log(box);
+                        return (
+                            <LineBoxMap
+                                box_id={box.box_id}
+                                group_id={box.group_id}
+                                group_no={box.group_no}
+                                x={z.x}
+                                y={z.y}
+                                width={z.w}
+                                height={z.h}
+
+                                line={box.line}
                             />
                         );
                     }

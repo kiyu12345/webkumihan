@@ -3,9 +3,11 @@ export const SU_CONTEXTMENU_CLOSE = 'SU_CONTEXTMENU_CLOSE';
 
 export const SU_CONTEXTMENU_NEWBOXTEXT = 'SU_CONTEXTMENU_NEWBOXTEXT';
 export const SU_CONTEXTMENU_NEWBOXIMAGE = 'SU_CONTEXTMENU_NEWBOXIMAGE';
+export const SU_CONTEXTMENU_NEWBOXLINE = 'SU_CONTEXTMENU_NEWBOXLINE';
 export const SU_CONTEXTMENU_COPYBOXTEXTONGROUP = 'SU_CONTEXTMENU_COPYBOXTEXTONGROUP';
 export const SU_CONTEXTMENU_COPYBOXTEXT = 'SU_CONTEXTMENU_COPYBOXTEXT';
 export const SU_CONTEXTMENU_COPYBOXIMAGE = 'SU_CONTEXTMENU_COPYBOXIMGE';
+export const SU_CONTEXTMENU_COPYBOXLINE = 'SU_CONTEXTMENU_COPYBOXLINE';
 export const SU_CONTEXTMENU_SOZAIUNLINK = 'SU_CONTEXTMENU_SOZAIUNLINK';
 export const SU_CONTEXTMENU_BOXREMOVE = 'SU_CONTEXTMENU_BOXREMOVE';
 export const SU_CONTEXTMENU_BOXTOFRONT = 'SU_CONTEXTMENU_BOXTOFRONT';
@@ -51,6 +53,17 @@ export const SU_ContextMenu_NewBoxImage = (payload = {}) => {
     };
 }
 
+export const SU_ContextMenu_NewBoxLine = (payload = {}) => {
+    return {
+        type: SU_CONTEXTMENU_NEWBOXLINE,
+        payload: {
+            cur_x: payload.cur_x,
+            cur_y: payload.cur_y,
+            hoko: payload.hoko,
+        },
+    };
+}
+
 export const SU_ContextMenu_CopyBoxTextOnGroup = (payload = {}) => {
     return {
         type: SU_CONTEXTMENU_COPYBOXTEXTONGROUP,
@@ -77,6 +90,17 @@ export const SU_ContextMenu_CopyBoxText = (payload = {}) => {
 export const SU_ContextMenu_CopyBoxImage = (payload = {}) => {
     return {
         type: SU_CONTEXTMENU_COPYBOXIMAGE,
+        payload: {
+            cur_x: payload.cur_x,
+            cur_y: payload.cur_y,
+            box_id: payload.box_id,
+        },
+    };
+}
+
+export const SU_ContextMenu_CopyBoxLine = (payload = {}) => {
+    return {
+        type: SU_CONTEXTMENU_COPYBOXLINE,
         payload: {
             cur_x: payload.cur_x,
             cur_y: payload.cur_y,

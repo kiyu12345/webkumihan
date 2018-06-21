@@ -34,6 +34,7 @@ import {
 import {
     SAGA_CONTEXTMENU_NEWBOXTEXT,
     SAGA_CONTEXTMENU_NEWBOXIMAGE,
+    SAGA_CONTEXTMENU_NEWBOXLINE,
     SAGA_CONTEXTMENU_BOXTOFRONT,
     SAGA_CONTEXTMENU_BOXTOBACK,
 } from '../actions_saga/contextmenu.js';
@@ -121,6 +122,7 @@ import {
 //                  padding_e: パディング値（終了）
 //                  width: 罫線の太さ
 //                  kind: 種類
+//                  color: カラー
 //              }
 //
 //              rect: {
@@ -531,6 +533,32 @@ export const boxs = (state = [], action) => {
         };
 
         boxs.push(box);
+
+        return boxs;
+
+        case SAGA_CONTEXTMENU_NEWBOXLINE:   // ボックスの新規作成（ラインボックス）
+            boxs = JSON.parse(JSON.stringify(state));
+
+            box = {
+                box_id:   action.payload.box_id,
+                group_id: action.payload.group_id,
+                group_no: action.payload.group_no,
+                type:     action.payload.type,
+                x1: action.payload.x1,
+                y1: action.payload.y1,
+                x2: action.payload.x2,
+                y2: action.payload.y2,
+                line: {
+                    hoko:      action.payload.line.hoko,
+                    padding_s: action.payload.line.padding_s,
+                    padding_e: action.payload.line.padding_e,
+                    width:     action.payload.line.width,
+                    kind:      action.payload.line.kind,
+                    color:     action.payload.line.color,
+                },
+            };
+
+            boxs.push(box);
 
         return boxs;
 

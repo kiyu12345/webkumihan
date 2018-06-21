@@ -3,6 +3,7 @@ export const SAGA_CONTEXTMENU_CLOSE = 'SAGA_CONTEXTMENU_CLOSE';
 
 export const SAGA_CONTEXTMENU_NEWBOXTEXT = 'SAGA_CONTEXTMENU_NEWBOXTEXT';
 export const SAGA_CONTEXTMENU_NEWBOXIMAGE = 'SAGA_CONTEXTMENU_NEWBOXIMAGE';
+export const SAGA_CONTEXTMENU_NEWBOXLINE = 'SAGA_CONTEXTMENU_NEWBOXLINE';
 
 export const SAGA_CONTEXTMENU_BOXTOFRONT = 'SAGA_CONTEXTMENU_BOXTOFRONT';
 export const SAGA_CONTEXTMENU_BOXTOBACK = 'SAGA_CONTEXTMENU_BOXTOBACK';
@@ -70,6 +71,31 @@ export const Saga_ContextMenu_NewBoxImage = (payload = {}) => {
 
             image: {
                 url: payload.image.url,
+            },
+        },
+    };
+}
+
+export const Saga_ContextMenu_NewBoxLine = (payload = {}) => {
+    return {
+        type: SAGA_CONTEXTMENU_NEWBOXLINE,
+        payload: {
+            box_id:   payload.box_id,
+            group_id: payload.group_id,
+            group_no: payload.group_no,
+            type:     payload.type,
+            x1: payload.x1,
+            y1: payload.y1,
+            x2: payload.x2,
+            y2: payload.y2,
+
+            line: {
+                hoko:      payload.line.hoko,
+                padding_s: payload.line.padding_s,
+                padding_e: payload.line.padding_e,
+                width:     payload.line.width,
+                kind:      payload.line.kind,
+                color:     payload.line.color,
             },
         },
     };

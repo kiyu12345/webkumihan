@@ -6,7 +6,7 @@ import HandleRMap from './HandleRMap.js';
 import HandleDMap from './HandleDMap.js';
 
 import { Define } from '../define.js';
-import { Zahyo }  from '../libs/zahyo.js';
+import { Zahyo, Grid }  from '../libs/zahyo.js';
 
 const styles = {
 
@@ -214,45 +214,13 @@ export default class SelectEditBox extends React.Component {
         let ru_x = Zahyo.luToruX(x, Define.svgimagesize.width);
         let ru_y = Zahyo.luToruY(y, Define.svgimagesize.height);
 
-        // X座標をグリッド幅で割って、余りが0の場合は、X座標決定
-        let amari, sho, minX, maxX;
-        amari = ru_x % Define.grid.width;
-        if (amari == 0) {
-            // X座標は決定
-        } else {
-            // グリッドの小さい方のX座標を求める
-            sho = Math.floor(ru_x / Define.grid.width);
-            minX = sho * Define.grid.width;
-            // グリッドの大きい方のX座標を求める
-            maxX = (sho + 1) * Define.grid.width;
-
-            // 余りが、グリッドの半分より大きければ大きい方、小さければ小さい方
-            if (amari >= (Define.grid.width / 2)) {
-                ru_x = maxX;
-            } else {
-                ru_x = minX;
-            }
-        }
-
-        // Y座標をグリッド高さで割って、余りが0の場合は、Y座標決定
-        let minY, maxY;
-        amari = ru_y % Define.grid.height;
-        if (amari == 0) {
-            // Y座標は決定
-        } else {
-            // グリッドの小さい方のY座標を求める
-            sho = Math.floor(ru_y / Define.grid.height);
-            minY = sho * Define.grid.height;
-            // グリッドの大きい方のX座標を求める
-            maxY = (sho + 1) * Define.grid.height;
-
-            // 余りが、グリッドの半分より大きければ大きい方、小さければ小さい方
-            if (amari >= (Define.grid.height / 2)) {
-                ru_y = maxY;
-            } else {
-                ru_y = minY;
-            }
-        }
+        [ru_x, ru_y] = Grid.snap(
+            ru_x, ru_y,
+            Define.svgimagesize.width,
+            Define.svgimagesize.height,
+            Define.grid.width,
+            Define.grid.height
+        );
 
         // 左上基点の座標に変換する
         x = Zahyo.ruToluX(ru_x, Define.svgimagesize.width);
@@ -370,6 +338,30 @@ export default class SelectEditBox extends React.Component {
         });        
     }
 
+    group_no() {
+        let html = [];
+
+        if (this.props.type == 'text'
+         || this.props.type == 'title') {
+            html.push(
+                <text
+                    x={this.state.x + 5}
+                    y={this.state.y + 20}
+                    style={{
+                        fontSize: 15,
+                        stroke: 'none',
+                        fill: 'white',
+                        fillOpacity: '0.7',
+                    }}
+                >
+                    {this.props.group_no}
+                </text>
+            );
+         }
+
+         return html;
+    }
+
     render() {
         return (
             <g>
@@ -396,18 +388,7 @@ export default class SelectEditBox extends React.Component {
                 />
 
                 {/* グループNo */}
-                <text
-                    x={this.state.x + 5}
-                    y={this.state.y + 20}
-                    style={{
-                        fontSize: 15,
-                        stroke: 'none',
-                        fill: 'white',
-                        fillOpacity: '0.7',
-                    }}
-                >
-                    {this.props.group_no}
-                </text>
+                {this.group_no()}
 
                 <HandleUMap
                     x={this.state.x}

@@ -49,6 +49,26 @@ export const Font = {
     ],
 }
 
+export const Line = [
+    {},
+    {
+        type: 'solid',
+        pattern: '',
+    },
+    {
+        type: 'dash',
+        pattern: '2 2',
+    },
+    {
+        type: 'dash',
+        pattern: '4 2',
+    },
+    {
+        type: 'dash',
+        pattern: '4 2 2 2'
+    },
+];
+
 export const PresenBox = {
     A: [
         {

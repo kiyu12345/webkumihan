@@ -40,7 +40,7 @@ export default class ImageBox extends React.Component {
                 y="0"
                 width={this.props.width}
                 height={this.props.height}
-                xlinkHref={this.props.imageUrl}
+                xlinkHref={this.props.image.url}
                 preserveAspectRatio={'xMidYMid meet'}
             />
         )

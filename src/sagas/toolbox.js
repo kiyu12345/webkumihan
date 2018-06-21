@@ -193,7 +193,7 @@ export default function* toolbox() {
         // ボックスを削除
         yield put(Saga_ToolBoxBoxData_BoxData_Delete(action.payload));
 
-        // ボックスリスト内に削除したボックスのグループ名が存在しなければ、
+        // ボックスリスト内に削除したボックスのグループIDが存在しなければ、
         // リンクリストも削除する
         boxs = yield select((state) => state.boxs);
         const groups = Box.getGroupAry(boxs);
@@ -239,7 +239,7 @@ export default function* toolbox() {
         const boxs  = yield select((state) => state.boxs);
         const links = yield select((state) => state.links);
         const group_id = Box.getLinkGroup(boxs, links, action.payload.sozai_id);
-        if (group_id >= 1) {
+        if (group_id != '') {
             const payload = {
                 group_id: group_id,
             }
