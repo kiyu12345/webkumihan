@@ -91,8 +91,8 @@ export default function* contextmenu() {
             Define.grid.height
         );
 
-        const new_box_id    = Box.getNewBoxId(boxs);
-        const new_group_id  = Box.getNewGroupId(boxs);
+        const new_box_id   = Box.getNewBoxId(boxs);
+        const new_group_id = Box.getNewGroupId(boxs);
 
         const payload = {
             box_id:   new_box_id,
@@ -157,8 +157,8 @@ export default function* contextmenu() {
             Define.grid.height
         );
 
-        const new_box_id    = Box.getNewBoxId(boxs);
-        const new_group_id  = Box.getNewGroupId(boxs);
+        const new_box_id   = Box.getNewBoxId(boxs);
+        const new_group_id = Box.getNewGroupId(boxs);
 
         const payload = {
             box_id:   new_box_id,
@@ -221,8 +221,8 @@ export default function* contextmenu() {
             Define.grid.height
         );
 
-        const new_box_id    = Box.getNewBoxId(boxs);
-        const new_group_id  = Box.getNewGroupId(boxs);
+        const new_box_id   = Box.getNewBoxId(boxs);
+        const new_group_id = Box.getNewGroupId(boxs);
 
         const payload = {
             box_id:   new_box_id,

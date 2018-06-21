@@ -80,6 +80,7 @@ import { Box } from '../libs/box.js';
 import { Sozai } from '../libs/sozai.js';
 
 import { PresenLink } from '../define.js';
+import { Saga_ContextMenu_NewBoxText, Saga_ContextMenu_NewBoxImage } from '../actions_saga/contextmenu.js';
 
 export default function* toolbox() {
     // 素材の初期処理
@@ -210,10 +211,22 @@ export default function* toolbox() {
 
     // ボックス情報ツールボックスの「新規作成」が押された
     yield takeEvery(SU_TOOLBOXBOXDATA_CREATEBUTTON_CLICK, function* (action) {
-        yield put(Saga_ToolBoxBoxData_BoxData_Create(action.payload));
+        const payload = {
+            cur_x: 300,
+            cur_y: 300,
+        };
 
-        // 流す
-        yield fork(nagashiExecBox, action.payload.box.box_id);
+        switch (action.payload.type) {
+        case 'text':
+            yield put(Saga_ContextMenu_NewBoxText(payload));
+            break;
+        case 'image':
+            yield put(Saga_ContextMenu_NewBoxImage(payload));
+            break;
+        case 'line':
+            payload.hoko = 'tate';
+            yield put(Saga_ContextMenu_NewBoxLine(payload));
+        }
     });
 
     // テキスト情報ツールボックスの「更新」が押された

@@ -25,7 +25,8 @@ export const SU_ToolBoxBoxData_CreateButton_Click = (payload = {}) => {
     return {
         type: SU_TOOLBOXBOXDATA_CREATEBUTTON_CLICK,
         payload: {
-            box: payload.box,
+            group_id: payload.group_id,
+            type:     payload.type,
         },
     };
 }
