@@ -1,5 +1,3 @@
-import { Zahyo } from '../libs/zahyo.js';
-
 import { TextGrid } from '../libs/textgrid.js';
 import { Box } from '../libs/box.js';
 
@@ -21,8 +19,8 @@ import {
 } from '../actions_saga/toolboxtextdata.js';
 
 import {
-    SAGA_TOOLBOXSOZAI_SOZAI_DELETE,
-} from '../actions_saga/toolboxsozai.js';
+    SAGA_TOOLBOXLINEDATA_LINEDATA_UPDATE,
+} from '../actions_saga/toolboxlinedata.js';
 
 import {
     SAGA_NAGASHIRESULT_CREATE,
@@ -250,9 +248,9 @@ export const boxs = (state = [], action) => {
         boxs = JSON.parse(JSON.stringify(state));
 
         for (let i = 0; i < boxs.length; i++) {
-            if (boxs[i].box_id == action.payload.box.box_id) {
-                boxs[i].group_id = action.payload.box.group_id;
-                boxs[i].group_no = action.payload.box.group_no;
+            if (boxs[i].box_id == action.payload.box_id) {
+                boxs[i].group_id = action.payload.group_id;
+                boxs[i].group_no = action.payload.group_no;
 
                 break;
             }
@@ -260,47 +258,63 @@ export const boxs = (state = [], action) => {
 
         return boxs;
 
-    case SAGA_TOOLBOXTEXTDATA_TEXTDATA_UPDATE:    // テキストボックスのテキスト情報の更新時
+    case SAGA_TOOLBOXTEXTDATA_TEXTDATA_UPDATE:    // テキスト情報ボックスのテキスト情報の更新時
         boxs = JSON.parse(JSON.stringify(state));
 
         for (let i = 0; i < boxs.length; i++) {
-            if (boxs[i].box_id == action.payload.box.box_id) {
-                switch (boxs[i].type) {
-                case 'text':
-                    boxs[i].text.padding_js = action.payload.box.text.padding_js;
-                    boxs[i].text.padding_je = action.payload.box.text.padding_je;
-                    boxs[i].text.padding_gs = action.payload.box.text.padding_gs;
-                    boxs[i].text.padding_ge = action.payload.box.text.padding_ge;
-                    boxs[i].text.kumihoko   = action.payload.box.text.kumihoko;
-                    boxs[i].text.gyokan     = action.payload.box.text.gyokan;
-                    boxs[i].text.font       = action.payload.box.text.font;
+            if (boxs[i].box_id == action.payload.box_id) {
+                boxs[i].text.padding_js = action.payload.text.padding_js;
+                boxs[i].text.padding_je = action.payload.text.padding_je;
+                boxs[i].text.padding_gs = action.payload.text.padding_gs;
+                boxs[i].text.padding_ge = action.payload.text.padding_ge;
+                break;
+            }
+        }
 
-                    // テキストグリッド
-                    if (boxs[i].text.kumihoko == 'tate') {
-                        areasize_j = boxs[i].y2 - boxs[i].y1;
-                        areasize_g = boxs[i].x2 - boxs[i].x1;
-                    } else {
-                        areasize_j = boxs[i].x2 - boxs[i].x1;
-                        areasize_g = boxs[i].y2 - boxs[i].y1;
-                    }
-                    const textgrid = TextGrid.getTextGridAry(
-                        areasize_j,  // エリアサイズ（字詰め方向）
-                        areasize_g,  // エリアサイズ（行送り方向）
-                        boxs[i].text.padding_js,  // パディング値（字詰め方向 開始）
-                        boxs[i].text.padding_je,  // パディング値（字詰め方向 終了）
-                        boxs[i].text.padding_gs,  // パディング値（行送り方向 開始）
-                        boxs[i].text.padding_ge,  // パディング値（行送り方向 終了）
-                        boxs[i].text.size_j,  // テキストサイズ（字詰め方向）
-                        boxs[i].text.size_g,  // テキストサイズ（行送り方向）
-                        boxs[i].text.gyokan,  // 行間
-                    );
-                    boxs[i].text.grid = textgrid;
+        for (let i = 0; i < boxs.length; i++) {
+            if (boxs[i].group_id == action.payload.group_id) {
+                boxs[i].text.kumihoko   = action.payload.text.kumihoko;
+                boxs[i].text.size_j     = action.payload.text.size_j;
+                boxs[i].text.size_g     = action.payload.text.size_g;
+                boxs[i].text.gyokan     = action.payload.text.gyokan;
+                boxs[i].text.font       = action.payload.text.font;
 
-                    break;
-
-                case 'image':
-                    break;
+                // テキストグリッド
+                if (boxs[i].text.kumihoko == 'tate') {
+                    areasize_j = boxs[i].y2 - boxs[i].y1;
+                    areasize_g = boxs[i].x2 - boxs[i].x1;
+                } else {
+                    areasize_j = boxs[i].x2 - boxs[i].x1;
+                    areasize_g = boxs[i].y2 - boxs[i].y1;
                 }
+                const textgrid = TextGrid.getTextGridAry(
+                    areasize_j,  // エリアサイズ（字詰め方向）
+                    areasize_g,  // エリアサイズ（行送り方向）
+                    boxs[i].text.padding_js,  // パディング値（字詰め方向 開始）
+                    boxs[i].text.padding_je,  // パディング値（字詰め方向 終了）
+                    boxs[i].text.padding_gs,  // パディング値（行送り方向 開始）
+                    boxs[i].text.padding_ge,  // パディング値（行送り方向 終了）
+                    boxs[i].text.size_j,  // テキストサイズ（字詰め方向）
+                    boxs[i].text.size_g,  // テキストサイズ（行送り方向）
+                    boxs[i].text.gyokan,  // 行間
+                );
+                boxs[i].text.grid = textgrid;
+            }
+        }
+
+        return boxs;
+
+    case SAGA_TOOLBOXLINEDATA_LINEDATA_UPDATE:    // ライン情報ボックスのライン情報の更新時
+        boxs = JSON.parse(JSON.stringify(state));
+
+        for (let i = 0; i < boxs.length; i++) {
+            if (boxs[i].box_id == action.payload.box_id) {
+                boxs[i].line.hoko      = action.payload.line.hoko;
+                boxs[i].line.padding_s = action.payload.line.padding_s;
+                boxs[i].line.padding_e = action.payload.line.padding_e;
+                boxs[i].line.width     = action.payload.line.width;
+                boxs[i].line.kind      = action.payload.line.kind;
+                boxs[i].line.color     = action.payload.line.color;
 
                 break;
             }
@@ -536,29 +550,29 @@ export const boxs = (state = [], action) => {
 
         return boxs;
 
-        case SAGA_CONTEXTMENU_NEWBOXLINE:   // ボックスの新規作成（ラインボックス）
-            boxs = JSON.parse(JSON.stringify(state));
+    case SAGA_CONTEXTMENU_NEWBOXLINE:   // ボックスの新規作成（ラインボックス）
+        boxs = JSON.parse(JSON.stringify(state));
 
-            box = {
-                box_id:   action.payload.box_id,
-                group_id: action.payload.group_id,
-                group_no: action.payload.group_no,
-                type:     action.payload.type,
-                x1: action.payload.x1,
-                y1: action.payload.y1,
-                x2: action.payload.x2,
-                y2: action.payload.y2,
-                line: {
-                    hoko:      action.payload.line.hoko,
-                    padding_s: action.payload.line.padding_s,
-                    padding_e: action.payload.line.padding_e,
-                    width:     action.payload.line.width,
-                    kind:      action.payload.line.kind,
-                    color:     action.payload.line.color,
-                },
-            };
+        box = {
+            box_id:   action.payload.box_id,
+            group_id: action.payload.group_id,
+            group_no: action.payload.group_no,
+            type:     action.payload.type,
+            x1: action.payload.x1,
+            y1: action.payload.y1,
+            x2: action.payload.x2,
+            y2: action.payload.y2,
+            line: {
+                hoko:      action.payload.line.hoko,
+                padding_s: action.payload.line.padding_s,
+                padding_e: action.payload.line.padding_e,
+                width:     action.payload.line.width,
+                kind:      action.payload.line.kind,
+                color:     action.payload.line.color,
+            },
+        };
 
-            boxs.push(box);
+        boxs.push(box);
 
         return boxs;
 

@@ -34,6 +34,7 @@ export const toolboxs = (state = [
         w: 200,
         h: 40,
         view: 'true',
+        remember_view: 'true',
     },
     {
         toolbox_id: 2,
@@ -43,6 +44,7 @@ export const toolboxs = (state = [
         w: 200,
         h: 140,
         view: 'true',
+        remember_view: 'true',
     },
     {
         toolbox_id: 3,
@@ -52,33 +54,47 @@ export const toolboxs = (state = [
         w: 200,
         h: 160,
         view: 'false',
+        remember_view: 'false',
     },
     {
         toolbox_id: 4,
+        type: 'linedata',
+        x: 0,
+        y: 0,
+        w: 200,
+        h: 160,
+        view: 'false',
+        remember_view: 'false',
+    },
+    {
+        toolbox_id: 5,
         type: 'sozai',
         x: 0,
         y: 0,
         w: 200,
         h: 400,
         view: 'true',
+        remember_view: 'true',
     },
     {
-        toolbox_id: 5,
+        toolbox_id: 6,
         type: 'link',
         x: 0,
         y: 0,
         w: 200,
         h: 470,
         view: 'false',
+        remember_view: 'false',
     },
     {
-        toolbox_id: 6,
+        toolbox_id: 7,
         type: 'presen',
         x: 0,
         y: 0,
         w: 200,
         h: 100,
         view: 'true',
+        remember_view: 'true',
     },
 ], action) => {
     let toolboxs;
@@ -106,15 +122,29 @@ export const toolboxs = (state = [
     case SAGA_SELECTBOX_BOX_SELECT:   // ボックスを選択した場合
         toolboxs = JSON.parse(JSON.stringify(state));
 
+        // ツールボックスのON/OFFを切り替える
         for (let i = 0; i < toolboxs.length; i++) {
-            if (toolboxs[i].type == 'textdata') {
+            switch (toolboxs[i].type) {
+            case 'textdata':    // テキスト情報ツールボックス
                 if (action.payload.type == 'text') {
                     toolboxs[i].view = 'true';
                 } else {
                     toolboxs[i].view = 'false';
                 }
-                // break;
+                break;
+            case 'linedata':    // ライン情報ツールボックス
+                if (action.payload.type == 'line') {
+                    toolboxs[i].view = 'true';
+                } else {
+                    toolboxs[i].view = 'false';
+                }
+                break;
             }
+        }
+
+        // 現在の表示状態を覚えておく
+        for (let i = 0; i < toolboxs.length; i++) {
+            toolboxs[i].remember_view = toolboxs[i].view;
         }
 
         return toolboxs;
@@ -122,11 +152,19 @@ export const toolboxs = (state = [
     case SAGA_SELECTBOX_BOX_NONSELECT:   // ボックスの選択を解除した場合
         toolboxs = JSON.parse(JSON.stringify(state));
 
+        // ボックス種別によるツールボックスの表示をOFFにする
         for (let i = 0; i < toolboxs.length; i++) {
-            if (toolboxs[i].type == 'textdata') {
+            switch (toolboxs[i].type) {
+            case 'textdata':    // テキスト情報ツールボックス
+            case 'linedata':    // ライン情報ツールボックス
                 toolboxs[i].view = 'false';
                 break;
             }
+        }
+
+        // 現在の表示状態を覚えておく
+        for (let i = 0; i < toolboxs.length; i++) {
+            toolboxs[i].remember_view = toolboxs[i].view;
         }
 
         return toolboxs;
@@ -134,13 +172,14 @@ export const toolboxs = (state = [
     case SAGA_EDITONOFF_CHANGE:     // 編集状態のON/OFFが切り替えられた
         toolboxs = JSON.parse(JSON.stringify(state));
 
-        for (let i = 0; i < toolboxs.length; i++) {
-            if (action.payload.onoff == 'on') {
-                toolboxs[i].view = 'true';
-                if (toolboxs[i].type == 'link') {
-                    toolboxs[i].view = 'false';
-                }
-            } else {
+        if (action.payload.onoff == 'on') {
+            // 覚えておいたツールボックスの表示状態に戻す
+            for (let i = 0; i < toolboxs.length; i++) {
+                toolboxs[i].view = toolboxs[i].remember_view;
+            }
+        } else {
+            // 必要なツールボックスを残して、他は非表示にする
+            for (let i = 0; i < toolboxs.length; i++) {
                 toolboxs[i].view = 'false';
                 if (toolboxs[i].type == 'presen' || toolboxs[i].type == 'scale') {
                     toolboxs[i].view = 'true';

@@ -6,7 +6,7 @@ import { focusbox } from './focusbox.js';
 import { toolboxs } from './toolboxs.js';
 import { sozai } from './sozai.js';
 import { links } from './links.js';
-import { lines } from './lines.js';
+// import { lines } from './lines.js';
 import { editonoff } from './editonoff.js';
 import { dandd } from './dandd.js';
 import { contextmenu } from './contextmenu.js';
@@ -18,7 +18,7 @@ const rootReducer = combineReducers({
     toolboxs,
     sozai,
     links,
-    lines,
+    // lines,
     editonoff,
     dandd,
     contextmenu,

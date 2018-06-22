@@ -26,6 +26,10 @@ import {
 } from '../actions_saga/contextmenu.js';
 
 import {
+    Saga_SelectBox_Box_Select,
+} from '../actions_saga/selectbox.js';
+
+import {
     nagashiExec,
     nagashiExecGroup,
     nagashiExecBox,
@@ -118,6 +122,15 @@ export default function* contextmenu() {
         };
 
         yield put(Saga_ContextMenu_NewBoxText(payload));
+
+        // 選択させる
+        const selectbox = {
+            box_id:   new_box_id,
+            group_id: new_group_id,
+            group_no: 1,
+            type:     'text',
+        }
+        yield put(Saga_SelectBox_Box_Select(selectbox));
     });
 
     // ボックスの新規作成（画像ボックス）
@@ -176,6 +189,15 @@ export default function* contextmenu() {
         };
 
         yield put(Saga_ContextMenu_NewBoxImage(payload));
+
+        // 選択させる
+        const selectbox = {
+            box_id:   new_box_id,
+            group_id: new_group_id,
+            group_no: 1,
+            type:     'image',
+        }
+        yield put(Saga_SelectBox_Box_Select(selectbox));
     });
 
     // ボックスの新規作成（ラインボックス）
@@ -238,13 +260,22 @@ export default function* contextmenu() {
                 hoko: action.payload.hoko,
                 padding_s: 0,
                 padding_e: 0,
-                width: 1,
+                width: 0.5,
                 kind: 1,
                 color: '#000000',
             },
         };
 
         yield put(Saga_ContextMenu_NewBoxLine(payload));
+
+        // 選択させる
+        const selectbox = {
+            box_id:   new_box_id,
+            group_id: new_group_id,
+            group_no: 1,
+            type:     'line',
+        }
+        yield put(Saga_SelectBox_Box_Select(selectbox));
     });
 
     // テキストボックスの複製（グループ化する）
@@ -321,6 +352,15 @@ export default function* contextmenu() {
 
         // 流しを更新
         yield fork(nagashiExecGroup, group_id);
+
+        // 選択させる
+        const selectbox = {
+            box_id:   new_box_id,
+            group_id: action.payload.group_id,
+            group_no: new_group_no,
+            type:     'text',
+        }
+        yield put(Saga_SelectBox_Box_Select(selectbox));
     });
 
     // テキストボックスの複製
@@ -390,6 +430,15 @@ export default function* contextmenu() {
         };
 
         yield put(Saga_ContextMenu_NewBoxText(payload));
+
+        // 選択させる
+        const selectbox = {
+            box_id:   new_box_id,
+            group_id: new_group_id,
+            group_no: 1,
+            type:     'text',
+        }
+        yield put(Saga_SelectBox_Box_Select(selectbox));
     });
 
     // 画像ボックスの複製
@@ -451,9 +500,18 @@ export default function* contextmenu() {
         };
 
         yield put(Saga_ContextMenu_NewBoxImage(payload));
+
+        // 選択させる
+        const selectbox = {
+            box_id:   new_box_id,
+            group_id: new_group_id,
+            group_no: 1,
+            type:     'image',
+        }
+        yield put(Saga_SelectBox_Box_Select(selectbox));
     });
 
-    // 画像ボックスの複製
+    // ラインボックスの複製
     yield takeEvery(SU_CONTEXTMENU_COPYBOXLINE, function* (action) {
         const boxs = yield select((state) => state.boxs);
 
@@ -517,6 +575,15 @@ export default function* contextmenu() {
         };
 
         yield put(Saga_ContextMenu_NewBoxLine(payload));
+
+        // 選択させる
+        const selectbox = {
+            box_id:   new_box_id,
+            group_id: new_group_id,
+            group_no: 1,
+            type:     'line',
+        }
+        yield put(Saga_SelectBox_Box_Select(selectbox));
     });
 
     // 素材をはずす

@@ -26,6 +26,13 @@ import {
 } from '../actions_saga/toolboxtextdata.js';
 
 import {
+    SU_TOOLBOXLINEDATA_UPDATEBUTTON_CLICK,
+} from '../actions_su/toolboxlinedata.js';
+import {
+    Saga_ToolBoxLineData_LineData_Update,
+} from '../actions_saga/toolboxlinedata.js';
+
+import {
     SU_TOOLBOXSOZAI_UPDATEBUTTON_CLICK,
     SU_TOOLBOXSOZAI_DELETEBUTTON_CLICK,
     SU_TOOLBOXSOZAI_CREATEBUTTON_CLICK,
@@ -46,6 +53,12 @@ import {
     Saga_ToolBoxLink_Link_Create,
     Saga_ToolBoxLink_Link_Delete,
 } from '../actions_saga/toolboxlink.js';
+
+import {
+    SU_ContextMenu_NewBoxText,
+    SU_ContextMenu_NewBoxImage,
+    SU_ContextMenu_NewBoxLine,
+} from '../actions_su/contextmenu.js';
 
 import {
     SU_TOOLBOXPRESEN_LAYOUTCALLBUTTON_CLICK,
@@ -80,7 +93,8 @@ import { Box } from '../libs/box.js';
 import { Sozai } from '../libs/sozai.js';
 
 import { PresenLink } from '../define.js';
-import { Saga_ContextMenu_NewBoxText, Saga_ContextMenu_NewBoxImage } from '../actions_saga/contextmenu.js';
+import { SU_SelectBox_Box_NonSelect } from '../actions_su/selectbox.js';
+
 
 export default function* toolbox() {
     // 素材の初期処理
@@ -126,6 +140,17 @@ export default function* toolbox() {
             break;
 
         case 'textdata':   // テキスト情報ツールボックス
+            payload = {
+                toolbox_id: toolboxs[i].toolbox_id,
+                x: Zahyo.windowArea().w - toolboxs[i].w - 20,
+                y: 195,
+            };
+
+            yield put(Saga_ToolBox_MoveEnd(payload));
+
+            break;
+
+        case 'linedata':   // ライン情報ツールボックス
             payload = {
                 toolbox_id: toolboxs[i].toolbox_id,
                 x: Zahyo.windowArea().w - toolboxs[i].w - 20,
@@ -213,19 +238,19 @@ export default function* toolbox() {
     yield takeEvery(SU_TOOLBOXBOXDATA_CREATEBUTTON_CLICK, function* (action) {
         const payload = {
             cur_x: 300,
-            cur_y: 300,
+            cur_y: 100,
         };
 
         switch (action.payload.type) {
         case 'text':
-            yield put(Saga_ContextMenu_NewBoxText(payload));
+            yield put(SU_ContextMenu_NewBoxText(payload));
             break;
         case 'image':
-            yield put(Saga_ContextMenu_NewBoxImage(payload));
+            yield put(SU_ContextMenu_NewBoxImage(payload));
             break;
         case 'line':
             payload.hoko = 'tate';
-            yield put(Saga_ContextMenu_NewBoxLine(payload));
+            yield put(SU_ContextMenu_NewBoxLine(payload));
         }
     });
 
@@ -234,7 +259,15 @@ export default function* toolbox() {
         yield put(Saga_ToolBoxTextData_TextData_Update(action.payload));
 
         // 流しを更新
-        yield fork(nagashiExecBox, action.payload.box.box_id);
+        yield fork(nagashiExecBox, action.payload.box_id);
+    });
+
+    // ライン情報ツールボックスの「更新」が押された
+    yield takeEvery(SU_TOOLBOXLINEDATA_UPDATEBUTTON_CLICK, function* (action) {
+        yield put(Saga_ToolBoxLineData_LineData_Update(action.payload));
+
+        // 流しを更新
+        yield fork(nagashiExecBox, action.payload.box_id);
     });
 
     // 素材リストツールボックスの「更新」が押された
@@ -290,6 +323,9 @@ export default function* toolbox() {
 
     // プレゼン用ツールボックスの「レイアウト呼び出し」が押された
     yield takeEvery(SU_TOOLBOXPRESEN_LAYOUTCALLBUTTON_CLICK, function* (action) {
+        // ボックスの選択を解除しておく
+        yield put(SU_SelectBox_Box_NonSelect());
+        
         yield put(Saga_Layout_Call(action.payload));
     });
 

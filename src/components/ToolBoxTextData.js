@@ -84,19 +84,20 @@ export default class ToolBoxTextData extends React.Component {
             return;
         }
 
-        box.id = this.props.box.id;
-        box.text.padding_js = this.state.padding_js;
-        box.text.padding_je = this.state.padding_je;
-        box.text.padding_gs = this.state.padding_gs;
-        box.text.padding_ge = this.state.padding_ge;
-        box.text.kumihoko = this.state.kumihoko;
-        box.text.size_j = this.state.size_j;
-        box.text.size_g = this.state.size_g;
-        box.text.gyokan = this.state.gyokan;
-        box.text.font = this.state.font;
-
         this.props.onClickUpdateButton({
-            box: box,
+            box_id:   this.props.box.box_id,
+            group_id: this.props.box.group_id,
+            text: {
+                padding_js: this.state.padding_js,
+                padding_je: this.state.padding_je,
+                padding_gs: this.state.padding_gs,
+                padding_ge: this.state.padding_ge,
+                kumihoko:   this.state.kumihoko,
+                size_j:     this.state.size_j,
+                size_g:     this.state.size_g,
+                gyokan:     this.state.gyokan,
+                font:       this.state.font,
+            },
         });
     }
 

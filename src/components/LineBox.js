@@ -26,7 +26,7 @@ export default class LineBox extends React.Component {
                 height={this.props.height}
                 style={{
                     stroke: 'none',
-                    fill: 'lightpink',
+                    fill: 'lightcyan',
                     opacity: '0.3',
                 }}
             />
@@ -50,13 +50,13 @@ export default class LineBox extends React.Component {
             sy = sy + linedata.padding_s;
             ey = ey - linedata.padding_e;
         } else {                                // 横罫
-            sx = 0;
+            sx = box_w;
             sy = box_h / 2;
-            ex = box_w;
+            ex = 0;
             ey = sy;
 
-            sx = sx + linedata.padding_s;
-            ex = ex - linedata.padding_e;
+            sx = sx - linedata.padding_s;
+            ex = ex + linedata.padding_e;
         }
 
         // 線種

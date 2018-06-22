@@ -15,4 +15,24 @@ export const String = {
 
         return num;
     },
+
+    toFloat: (value) => {
+        if (value == '') {
+            return '';
+        }
+
+        let ret = '';
+
+        for (let i = 0; i < value.length; i++) {
+            let moji = value.slice(i, i + 1);
+
+            if ((moji >= '0' && moji <= '9') || (moji === '.')) {
+                ret += moji;
+            } else {
+                break;
+            }
+        }
+
+        return ret;
+    },
 }

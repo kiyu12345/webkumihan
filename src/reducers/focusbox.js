@@ -66,7 +66,8 @@ export const focusbox = (state = {box_id: 0, group_id: 0, group_no: 0, type: ''}
             group_no: action.payload.box.group_no,
             type:     action.payload.box.type,
         };
-        
+
+/***
     case SAGA_CONTEXTMENU_NEWBOXTEXT:           // コンテキストメニュの「新規作成 テキストボックス」
         return {
             box_id:   action.payload.box_id,
@@ -90,6 +91,7 @@ export const focusbox = (state = {box_id: 0, group_id: 0, group_no: 0, type: ''}
             group_no: action.payload.group_no,
             type:     action.payload.type,
         };
+***/
 
     default:
         return state;

@@ -1,12 +1,12 @@
 import { connect } from 'react-redux';
 
-import ToolBoxTextData from './ToolBoxTextData.js';
+import ToolBoxLineData from './ToolBoxLineData.js';
 
 import { Box } from '../libs/box.js';
 
 import {
-    SU_ToolBoxTextData_UpdateButton_Click,
-} from '../actions_su/toolboxtextdata.js';
+    SU_ToolBoxLineData_UpdateButton_Click,
+} from '../actions_su/toolboxlinedata.js';
 
 
 // mapStateToProps
@@ -28,8 +28,6 @@ const mergeProps = (state, dispatch, props) => {
     // フォーカスされているボックス情報
     const box = Box.getBox(state.boxs, state.focusbox.box_id);
 
-console.log(state.focusbox.box_id);
-console.log(box);
     return {
         // xxx: yyy,
         // onXxxx: (xxx) => {
@@ -39,16 +37,16 @@ console.log(box);
         // ...props,
         box: box,
         onClickUpdateButton: (payload) => {
-            dispatch.dispatch(SU_ToolBoxTextData_UpdateButton_Click(payload));
+            dispatch.dispatch(SU_ToolBoxLineData_UpdateButton_Click(payload));
         },
     };
 }
 
 // connect
-const ToolBoxTextDataMap = connect(
+const ToolBoxLineDataMap = connect(
     mapStateToProps,
     mapDispatchToProps,
     mergeProps
-)(ToolBoxTextData);
+)(ToolBoxLineData);
 
-export default ToolBoxTextDataMap;
+export default ToolBoxLineDataMap;

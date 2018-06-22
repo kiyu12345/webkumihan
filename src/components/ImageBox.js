@@ -26,8 +26,8 @@ export default class ImageBox extends React.Component {
                 height={this.props.height}
                 style={{
                     stroke: 'none',
-                    fill: 'lightcyan',
-                    opacity: '0.5',
+                    fill: 'lightpink',
+                    opacity: '0.3',
                 }}
             />
         )

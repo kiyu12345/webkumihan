@@ -91,18 +91,8 @@ export default class ToolBoxBoxData extends React.Component {
             return;
         }
 
-        // グループIDが入力されている場合で、既に同じグループIDが存在する場合は、
-        // 新規作成できない
-        if (this.state.group_id != '') {
-            if (this.props.isSameGroup(this.state.group_id) == true) {
-                alert('同じグループIDのボックスが既に存在するため、作成できません');
-                return;
-            }
-        }
-
         this.props.onClickCreateButton({
-            group_id: this.state.group_id,
-            type:     this.state.type,
+            type: this.state.type,
         });
     }
 
@@ -224,6 +214,7 @@ export default class ToolBoxBoxData extends React.Component {
                                 type="text"
                                 value={this.state.group_id}
                                 style={{...styles.input, width: '100px'}}
+                                disabled="disabled"
                                 onChange={(e) => this.setState({group_id: e.target.value})}
                             />
                 </div>

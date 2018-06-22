@@ -87,7 +87,6 @@ export default class Boxs extends React.Component {
                         );
 
                     case 'line':
-console.log(box);
                         return (
                             <LineBoxMap
                                 box_id={box.box_id}
