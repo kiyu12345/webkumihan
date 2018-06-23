@@ -72,12 +72,20 @@ export default class ToolBoxSozai extends React.Component {
 
         this.button = '';
 
+        let sozai = '';
+        for (let i = 0; i < props.sozai.length; i++) {
+            if (props.sozai[i].select == 'on') {
+                sozai = props.sozai[i];
+                break;
+            }
+        }
+
         this.state = {
-            sozai_id: '',
+            sozai_id: sozai.sozai_id,
             input_id: '',
-            type: '',
-            text: '',
-            imageUrl: '',
+            type: sozai.type,
+            text: sozai.text,
+            imageUrl: sozai.imageUrl,
         };
     }
    
@@ -100,7 +108,7 @@ export default class ToolBoxSozai extends React.Component {
             });
         } else {
             this.setState({
-                sozai_id: sozai.id,
+                sozai_id: sozai.sozai_id,
                 type: sozai.type,
                 text: sozai.text,
                 imageUrl: sozai.imageUrl,

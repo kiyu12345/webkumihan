@@ -6,6 +6,7 @@ import {
     SAGA_TOOLBOXSOZAI_SOZAI_DELETE,
     SAGA_TOOLBOXSOZAI_SOZAI_CREATE,
     SAGA_TOOLBOXSOZAI_SOZAI_SELECT,
+    SAGA_TOOLBOXSOZAI_SOZAI_NONSELECT,
     SAGA_TOOLBOXSOZAI_SOZAI_TOGGLE,
 } from '../actions_saga/toolboxsozai.js';
 
@@ -55,6 +56,15 @@ export const sozai = (state = [], action) => {
                 lists[i].select = 'on';
                 break;
             }
+        }
+
+        return lists;
+
+    case SAGA_TOOLBOXSOZAI_SOZAI_NONSELECT:
+        lists = JSON.parse(JSON.stringify(state));
+
+        for (let i = 0; i < lists.length; i++) {
+            lists[i].select = '';
         }
 
         return lists;

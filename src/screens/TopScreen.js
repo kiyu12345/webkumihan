@@ -141,9 +141,6 @@ export default class TopScreen extends React.Component {
         for (let i = 0; i < this.props.toolboxs.length; i++) {
             switch (this.props.toolboxs[i].type) {
             case 'scale':   // 拡大縮小ツールボックス
-                if (this.props.toolboxs[i].view == 'false') {
-                    break;
-                }
                 toolboxs.push(
                     <ToolBoxMap
                         toolbox_id={this.props.toolboxs[i].toolbox_id}
@@ -159,9 +156,11 @@ export default class TopScreen extends React.Component {
                 break;
 
             case 'boxdata':   // ボックス情報ツールボックス
-                if (this.props.toolboxs[i].view == 'false') {
+                if (this.props.editonoff == 'on') {
+                } else {
                     break;
                 }
+
                 toolboxs.push(
                     <ToolBoxMap
                         toolbox_id={this.props.toolboxs[i].toolbox_id}
@@ -177,9 +176,12 @@ export default class TopScreen extends React.Component {
                 break;
 
             case 'textdata':   // テキスト情報ツールボックス
-                if (this.props.toolboxs[i].view == 'false') {
+                if (this.props.editonoff == 'on'
+                 && this.props.focusbox.type == 'text') {
+                } else {
                     break;
                 }
+
                 toolboxs.push(
                     <ToolBoxMap
                         toolbox_id={this.props.toolboxs[i].toolbox_id}
@@ -195,9 +197,12 @@ export default class TopScreen extends React.Component {
                 break;
 
             case 'linedata':   // ライン情報ツールボックス
-                if (this.props.toolboxs[i].view == 'false') {
+                if (this.props.editonoff == 'on'
+                 && this.props.focusbox.type == 'line') {
+                } else {
                     break;
                 }
+
                 toolboxs.push(
                     <ToolBoxMap
                         toolbox_id={this.props.toolboxs[i].toolbox_id}
@@ -213,9 +218,11 @@ export default class TopScreen extends React.Component {
                 break;
 
             case 'sozai':    // 素材リストツールボックス
-                if (this.props.toolboxs[i].view == 'false') {
+                if (this.props.editonoff == 'on') {
+                } else {
                     break;
                 }
+
                 toolboxs.push(
                     <ToolBoxMap
                         toolbox_id={this.props.toolboxs[i].toolbox_id}
@@ -231,9 +238,10 @@ export default class TopScreen extends React.Component {
                 break;
 
             case 'link':    // リンクリストツールボックス
-                if (this.props.toolboxs[i].view == 'false') {
+                if (true) {
                     break;
                 }
+
                 toolboxs.push(
                     <ToolBoxMap
                         toolbox_id={this.props.toolboxs[i].toolbox_id}
@@ -249,9 +257,11 @@ export default class TopScreen extends React.Component {
                 break;
 
             case 'presen':    // プレゼン用ツールボックス
-                if (this.props.toolboxs[i].view == 'false') {
+                if (true) {
+                } else {
                     break;
                 }
+
                 toolboxs.push(
                     <ToolBoxMap
                         toolbox_id={this.props.toolboxs[i].toolbox_id}

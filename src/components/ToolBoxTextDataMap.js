@@ -28,8 +28,6 @@ const mergeProps = (state, dispatch, props) => {
     // フォーカスされているボックス情報
     const box = Box.getBox(state.boxs, state.focusbox.box_id);
 
-console.log(state.focusbox.box_id);
-console.log(box);
     return {
         // xxx: yyy,
         // onXxxx: (xxx) => {

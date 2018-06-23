@@ -43,6 +43,7 @@ import {
     Saga_ToolBoxSozai_Sozai_Delete,
     Saga_ToolBoxSozai_Sozai_Create,
     Saga_ToolBoxSozai_Sozai_Toggle,
+    Saga_ToolBoxSozai_Sozai_NonSelect,
 } from '../actions_saga/toolboxsozai.js';
 
 import {
@@ -59,6 +60,13 @@ import {
     SU_ContextMenu_NewBoxImage,
     SU_ContextMenu_NewBoxLine,
 } from '../actions_su/contextmenu.js';
+
+import {
+    SU_SelectBox_Box_NonSelect,
+} from '../actions_su/selectbox.js';
+import {
+    Saga_SelectBox_Box_NonSelect,
+} from '../actions_saga/selectbox.js';
 
 import {
     SU_TOOLBOXPRESEN_LAYOUTCALLBUTTON_CLICK,
@@ -93,7 +101,6 @@ import { Box } from '../libs/box.js';
 import { Sozai } from '../libs/sozai.js';
 
 import { PresenLink } from '../define.js';
-import { SU_SelectBox_Box_NonSelect } from '../actions_su/selectbox.js';
 
 
 export default function* toolbox() {
@@ -408,6 +415,11 @@ export default function* toolbox() {
 
     // プレゼン用ツールボックスの「編集ON/OFF」が押された
     yield takeEvery(SU_TOOLBOXPRESEN_EDITONOFFBUTTON_CLICK, function* (action) {
+        // 編集OFFの場合、選択ボックスをOFFにする
+        if (action.payload.onoff == 'off') {
+            yield put(Saga_SelectBox_Box_NonSelect());
+        }
+
         yield put(Saga_EditOnOff_Change(action.payload));
     });
 }

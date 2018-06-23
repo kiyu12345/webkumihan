@@ -71,7 +71,7 @@ export default function* selectbox() {
         // 選択したボックスのグループ名がリンクリストにあれば、その素材を選択させる
         const links = yield select((state) => state.links);
         const boxs  = yield select((state) => state.boxs);
-        const sozai_id = Link.getSozaiIdFromBoxId(links, boxs, action.payload.id);
+        const sozai_id = Link.getSozaiIdFromBoxId(links, boxs, action.payload.box_id);
         if (sozai_id != '') {
             yield put(Saga_ToolBoxSozai_Sozai_Select({sozai_id: sozai_id}));
         }

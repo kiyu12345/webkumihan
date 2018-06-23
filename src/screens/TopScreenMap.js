@@ -29,6 +29,8 @@ const mergeProps = (state, dispatch, props) => {
         //     dispatch.dispatch(SU_Xxxxxx_Xxxxx_Xxxx());
         // },
         toolboxs: state.toolboxs,
+        focusbox: state.focusbox,
+        editonoff: state.editonoff,
         dandd: state.dandd,
         scale: state.scale,
 
