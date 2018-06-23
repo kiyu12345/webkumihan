@@ -1456,7 +1456,7 @@ export const PresenBox = {
             },
         },
         {
-            box_id: 55,
+            box_id: 56,
             group_id: 'KeiH009',
             group_no: 1,
             type: 'line',
@@ -1475,7 +1475,7 @@ export const PresenBox = {
             },
         },
         {
-            box_id: 56,
+            box_id: 57,
             group_id: 'KeiH010',
             group_no: 1,
             type: 'line',
@@ -1494,7 +1494,7 @@ export const PresenBox = {
             },
         },
         {
-            box_id: 57,
+            box_id: 58,
             group_id: 'KeiH011',
             group_no: 1,
             type: 'line',
@@ -1513,7 +1513,7 @@ export const PresenBox = {
             },
         },
         {
-            box_id: 58,
+            box_id: 59,
             group_id: 'KeiH012',
             group_no: 1,
             type: 'line',
@@ -1532,7 +1532,7 @@ export const PresenBox = {
             },
         },
         {
-            box_id: 59,
+            box_id: 60,
             group_id: 'KeiH013',
             group_no: 1,
             type: 'line',
