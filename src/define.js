@@ -61,7 +61,6 @@ export const Line = [
     {},
     {
         type: 'solid',
-        pattern: '',
     },
     {
         type: 'dash',
@@ -75,6 +74,10 @@ export const Line = [
         type: 'dash',
         pattern: '8 4 4 4'
     },
+    {
+        type: 'double',
+        space: 3,
+    }
 ];
 
 export const PresenBox = {
@@ -1298,8 +1301,8 @@ export const PresenBox = {
                 hoko: 'tate',
                 padding_s: 10,
                 padding_e: 10,
-                width: 2,
-                kind: 2,
+                width: 0.5,
+                kind: 5,
                 color: '#000',
             },
         },

@@ -27,7 +27,7 @@ const styles = {
     },
     listbox: {
         width: '100%',
-        height: '115px',
+        height: '200px',
         // paddingTop: '5px',
         overflowY: 'scroll',
         outline: '1px solid #a8a8a8',
@@ -77,6 +77,14 @@ export default class ToolBoxSozai extends React.Component {
             if (props.sozai[i].select == 'on') {
                 sozai = props.sozai[i];
                 break;
+            }
+        }
+        if (sozai == '') {
+            sozai = {
+                sozai_id: '',
+                sozai_type: '',
+                text: '',
+                imageUrl: '',
             }
         }
 
@@ -328,6 +336,7 @@ export default class ToolBoxSozai extends React.Component {
     }
 
     sozaiarea() {
+console.log(this.state);
         let html;
         if (this.state.sozai_id == '') {
             html = [

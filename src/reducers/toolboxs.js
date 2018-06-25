@@ -64,7 +64,7 @@ export const toolboxs = (state = [
         x: 0,
         y: 0,
         w: 200,
-        h: 400,
+        h: 485,
     },
     {
         toolbox_id: 6,

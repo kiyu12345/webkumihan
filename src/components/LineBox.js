@@ -34,6 +34,8 @@ export default class LineBox extends React.Component {
     }
 
     line() {
+        let html = [];
+
         const box_x = this.props.x;
         const box_y = this.props.y;
         const box_w = this.props.width;
@@ -63,27 +65,104 @@ export default class LineBox extends React.Component {
         let linestyle = {};
         switch (Line[linedata.kind].type) {
         case 'solid':
+            html.push(
+                <line
+                    x1={sx}
+                    y1={sy}
+                    x2={ex}
+                    y2={ey}
+                    style={{
+                        stroke: linedata.color,
+                        strokeWidth: linedata.width,
+                        fill: 'none',
+                        ...linestyle,
+                    }}
+                />
+            );
             break;
         case 'dash':
             linestyle = {
                 strokeDasharray: Line[linedata.kind].pattern,
+            };
+            html.push(
+                <line
+                    x1={sx}
+                    y1={sy}
+                    x2={ex}
+                    y2={ey}
+                    style={{
+                        stroke: linedata.color,
+                        strokeWidth: linedata.width,
+                        fill: 'none',
+                        ...linestyle,
+                    }}
+                />
+            );
+            break;
+        case 'double':
+            if (this.props.line.hoko == 'tate') {   // 縦罫
+                html.push(
+                    <line
+                        x1={sx - (Line[linedata.kind].space / 2)}
+                        y1={sy}
+                        x2={ex - (Line[linedata.kind].space / 2)}
+                        y2={ey}
+                        style={{
+                            stroke: linedata.color,
+                            strokeWidth: linedata.width,
+                            fill: 'none',
+                            ...linestyle,
+                        }}
+                    />
+                );
+                html.push(
+                    <line
+                        x1={sx + (Line[linedata.kind].space / 2)}
+                        y1={sy}
+                        x2={ex + (Line[linedata.kind].space / 2)}
+                        y2={ey}
+                        style={{
+                            stroke: linedata.color,
+                            strokeWidth: linedata.width,
+                            fill: 'none',
+                            ...linestyle,
+                        }}
+                    />
+                );
+            } else {                                // 横罫
+                html.push(
+                    <line
+                        x1={sx}
+                        y1={sy - (Line[linedata.kind].space / 2)}
+                        x2={ex}
+                        y2={ey - (Line[linedata.kind].space / 2)}
+                        style={{
+                            stroke: linedata.color,
+                            strokeWidth: linedata.width,
+                            fill: 'none',
+                            ...linestyle,
+                        }}
+                    />
+                );
+                html.push(
+                    <line
+                        x1={sx}
+                        y1={sy + (Line[linedata.kind].space / 2)}
+                        x2={ex}
+                        y2={ey + (Line[linedata.kind].space / 2)}
+                        style={{
+                            stroke: linedata.color,
+                            strokeWidth: linedata.width,
+                            fill: 'none',
+                            ...linestyle,
+                        }}
+                    />
+                );
             }
+            break;
         }
 
-        return (
-            <line
-                x1={sx}
-                y1={sy}
-                x2={ex}
-                y2={ey}
-                style={{
-                    stroke: linedata.color,
-                    strokeWidth: linedata.width,
-                    fill: 'none',
-                    ...linestyle,
-                }}
-            />
-        )
+        return html;
     }
 
 

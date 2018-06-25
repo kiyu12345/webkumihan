@@ -106,6 +106,56 @@ export default class SelectEditBox extends React.Component {
             this.props.sozaiRemove({
                 group_id: this.state.group_id,
             });
+            return;
+        }
+
+        // 「←↑→↓」が押された場合
+        let x, y;
+        switch (e.keyCode) {
+        case 37: // ←
+            x = this.state.x;
+            x -= 1;
+            if (x < 0) {
+                x = 0;
+            }
+            this.setState({
+                x: x,
+            });
+            this.endMoveBox();
+            return;
+        case 38: // ↑
+            y = this.state.y;
+            y -= 1;
+            if (y < 0) {
+                y = 0;
+            }
+            this.setState({
+                y: y,
+            });
+            this.endMoveBox();
+            return;
+        case 39: // →
+            x = this.state.x;
+            x += 1;
+            if (x > Define.svgimagesize.width - this.state.w) {
+                x = Define.svgimagesize.width - this.state.w;
+            }
+            this.setState({
+                x: x,
+            });
+            this.endMoveBox();
+            return;
+        case 40: // ↓
+            y = this.state.y;
+            y += 1;
+            if (y > Define.svgimagesize.height - this.state.h) {
+                y = Define.svgimagesize.height - this.state.h;
+            }
+            this.setState({
+                y: y,
+            });
+            this.endMoveBox();
+            return;
         }
     }
     
@@ -190,6 +240,11 @@ export default class SelectEditBox extends React.Component {
         // ベースクリックのイベントを登録する
         this.addBaseClickEvent();
 
+        // 移動終了処理
+        this.endMoveBox();
+    }
+
+    endMoveBox() {
         // 移動終了処理（右上基点の座標を渡す）
         const z = Zahyo.luToruAreaToRect(this.state.x,
                                          this.state.y,

@@ -70,8 +70,8 @@ export default class ToolBoxLineData extends React.Component {
             return;
         }
 
-        if (this.state.kind < 1 || this.state.kind > 4) {
-            alert('「種別」は、1 ～ 4 で入力してください');
+        if (this.state.kind < 1 || this.state.kind > 5) {
+            alert('「種別」は、1 ～ 5 で入力してください');
             return;
         }
 
