@@ -79,8 +79,8 @@ export default class ToolBoxTextData extends React.Component {
             return;
         }
 
-        if (this.state.font < 1 || this.state.font > 4) {
-            alert('「フォントNo」は、1 ～ 4 で入力してください');
+        if (this.state.font < 1 || this.state.font > 3) {
+            alert('「フォントNo」は、1 ～ 3 で入力してください');
             return;
         }
 

@@ -71,7 +71,11 @@ export default class SvgImage extends React.Component {
                     ...styles.container,
                 }}
             >
-                <style>{Font.fontface}</style>
+                <defs>
+                    <style type="text/css">
+                        {Font.fontface}
+                    </style>
+                </defs>
 
                 {/* グリッドの描画 */}
                 {grid}

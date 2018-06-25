@@ -122,7 +122,7 @@ export default class SelectEditBox extends React.Component {
                 x: x,
             });
             this.endMoveBox();
-            return;
+            return false;
         case 38: // ↑
             y = this.state.y;
             y -= 1;
@@ -133,7 +133,7 @@ export default class SelectEditBox extends React.Component {
                 y: y,
             });
             this.endMoveBox();
-            return;
+            return false;
         case 39: // →
             x = this.state.x;
             x += 1;
@@ -144,7 +144,7 @@ export default class SelectEditBox extends React.Component {
                 x: x,
             });
             this.endMoveBox();
-            return;
+            return false;
         case 40: // ↓
             y = this.state.y;
             y += 1;
@@ -155,7 +155,7 @@ export default class SelectEditBox extends React.Component {
                 y: y,
             });
             this.endMoveBox();
-            return;
+            return false;
         }
     }
     
