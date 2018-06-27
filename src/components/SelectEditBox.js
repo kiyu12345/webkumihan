@@ -109,7 +109,9 @@ export default class SelectEditBox extends React.Component {
         // 「Ctrl」キーがダウンされた場合
         if (e.keyCode == 17) {
             this.keyPlus = 'ctrl';
-            return;
+            e.stopPropagation();
+            e.preventDefault();
+            return false;
         }
 
         // 「Delete」キーが押された場合
