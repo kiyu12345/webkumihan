@@ -62,8 +62,6 @@ export default class SelectEditBox extends React.Component {
 
         // キー入力のイベントを登録する
         this.addKeyPressEvent();
-
-        this.keyPlus = '';  // Shiftキー:'shift'
     }
 
     componentWillReceiveProps(nextProps) {
@@ -106,14 +104,6 @@ export default class SelectEditBox extends React.Component {
     }
     // キーダウン処理
     keyDown(e) {
-        // 「Ctrl」キーがダウンされた場合
-        if (e.keyCode == 16) {
-            this.keyPlus = 'shift';
-            e.stopPropagation();
-            e.preventDefault();
-            return false;
-        }
-
         // 「Delete」キーが押された場合
         if (e.keyCode == 46) {
             this.props.sozaiRemove({
@@ -124,7 +114,7 @@ export default class SelectEditBox extends React.Component {
 
         // 「←↑→↓」が押された場合
         let x, y;
-        if (this.keyPlus == 'shift') {
+        if (e.shiftKey == true) {
             switch (e.keyCode) {
             case 37: // ←
                 x = this.state.x;
