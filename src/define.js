@@ -203,7 +203,7 @@ export const PresenBox = {
                 size_j: 9,
                 size_g: 9,
                 gyokan: 5,
-                font: 4,
+                font: 3,
 
                 grid: [],
                 result: [],
@@ -477,7 +477,7 @@ export const PresenBox = {
                 size_j: 8,
                 size_g: 12,
                 gyokan: 8,
-                font: 4,
+                font: 3,
 
                 grid: [],
                 result: [],
@@ -503,7 +503,7 @@ export const PresenBox = {
                 size_j: 7,
                 size_g: 7,
                 gyokan: 10,
-                font: 4,
+                font: 3,
 
                 grid: [],
                 result: [],
@@ -737,7 +737,7 @@ export const PresenBox = {
                 size_j: 10,
                 size_g: 10,
                 gyokan: 5,
-                font: 4,
+                font: 3,
 
                 grid: [],
                 result: [],
@@ -789,7 +789,7 @@ export const PresenBox = {
                 size_j: 12,
                 size_g: 12,
                 gyokan: 5,
-                font: 4,
+                font: 3,
 
                 grid: [],
                 result: [],
@@ -893,7 +893,7 @@ export const PresenBox = {
                 size_j: 9,
                 size_g: 14,
                 gyokan: 5,
-                font: 4,
+                font: 3,
 
                 grid: [],
                 result: [],
@@ -919,7 +919,7 @@ export const PresenBox = {
                 size_j: 9,
                 size_g: 14,
                 gyokan: 5,
-                font: 4,
+                font: 3,
 
                 grid: [],
                 result: [],

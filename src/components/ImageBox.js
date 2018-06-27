@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Zahyo } from '../libs/zahyo.js';
+import { Base64 } from '../libs/base64.js';
 
 const styles = {
     container: {
@@ -11,6 +11,40 @@ const styles = {
 export default class ImageBox extends React.Component {
     constructor(props) {
         super(props);
+
+        this.imageobj = new Image;
+
+        this.imageurl = props.image.url;
+
+        this.state = {
+            base64: '',
+        };
+
+        if (props.image.url != '') {
+            this.imageload();
+        }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.imageurl = nextProps.image.url;
+
+        if (this.imageurl != '') {
+            this.imageload();
+        } else {
+            this.setState({
+                base64: '',
+            });
+        }
+    }
+
+    imageload() {
+        this.imageobj.src = this.imageurl;
+
+        this.imageobj.onload = () => {
+            this.setState({
+                base64: Base64.ImageToBase64(this.imageobj, 'image/jpeg'),
+            });
+        }
     }
 
     box() {
@@ -40,7 +74,8 @@ export default class ImageBox extends React.Component {
                 y="0"
                 width={this.props.width}
                 height={this.props.height}
-                xlinkHref={this.props.image.url}
+                // xlinkHref={this.props.image.url}
+                xlinkHref={this.state.base64}
                 preserveAspectRatio={'xMidYMid meet'}
             />
         )

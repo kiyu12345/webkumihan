@@ -57,10 +57,13 @@ export default class SelectEditBox extends React.Component {
         // ベースクリックのイベントを登録する
         this.addBaseClickEvent();
 
-        this.keyPress = this.keyPress.bind(this);
+        this.keyDown = this.keyDown.bind(this);
+        this.keyUp   = this.keyUp.bind(this);
 
         // キー入力のイベントを登録する
         this.addKeyPressEvent();
+
+        this.keyPlus = '';  // Ctrlキー:'ctrl'
     }
 
     componentWillReceiveProps(nextProps) {
@@ -93,14 +96,22 @@ export default class SelectEditBox extends React.Component {
 
     // キー入力のイベント登録処理
     addKeyPressEvent() {
-        document.addEventListener('keydown', this.keyPress, false);
+        document.addEventListener('keydown', this.keyDown, false);
+        document.addEventListener('keyup', this.keyUp, false);
     }
     // キー入力のイベント削除処理
     removeKeyPressEvent() {
-        document.removeEventListener('keydown', this.keyPress);
+        document.removeEventListener('keydown', this.keyDown);
+        document.removeEventListener('keyup', this.keyUp);
     }
-    // キー入力処理
-    keyPress(e) {
+    // キーダウン処理
+    keyDown(e) {
+        // 「Ctrl」キーがダウンされた場合
+        if (e.keyCode == 17) {
+            this.keyPlus = 'ctrl';
+            return;
+        }
+
         // 「Delete」キーが押された場合
         if (e.keyCode == 46) {
             this.props.sozaiRemove({
@@ -111,54 +122,64 @@ export default class SelectEditBox extends React.Component {
 
         // 「←↑→↓」が押された場合
         let x, y;
-        switch (e.keyCode) {
-        case 37: // ←
-            x = this.state.x;
-            x -= 1;
-            if (x < 0) {
-                x = 0;
+        if (this.keyPlus == 'ctrl') {
+            switch (e.keyCode) {
+            case 37: // ←
+                x = this.state.x;
+                x -= 1;
+                if (x < 0) {
+                    x = 0;
+                }
+                this.setState({
+                    x: x,
+                });
+                this.endMoveBox();
+                return false;
+            case 38: // ↑
+                y = this.state.y;
+                y -= 1;
+                if (y < 0) {
+                    y = 0;
+                }
+                this.setState({
+                    y: y,
+                });
+                this.endMoveBox();
+                return false;
+            case 39: // →
+                x = this.state.x;
+                x += 1;
+                if (x > Define.svgimagesize.width - this.state.w) {
+                    x = Define.svgimagesize.width - this.state.w;
+                }
+                this.setState({
+                    x: x,
+                });
+                this.endMoveBox();
+                return false;
+            case 40: // ↓
+                y = this.state.y;
+                y += 1;
+                if (y > Define.svgimagesize.height - this.state.h) {
+                    y = Define.svgimagesize.height - this.state.h;
+                }
+                this.setState({
+                    y: y,
+                });
+                this.endMoveBox();
+                return false;
             }
-            this.setState({
-                x: x,
-            });
-            this.endMoveBox();
-            return false;
-        case 38: // ↑
-            y = this.state.y;
-            y -= 1;
-            if (y < 0) {
-                y = 0;
-            }
-            this.setState({
-                y: y,
-            });
-            this.endMoveBox();
-            return false;
-        case 39: // →
-            x = this.state.x;
-            x += 1;
-            if (x > Define.svgimagesize.width - this.state.w) {
-                x = Define.svgimagesize.width - this.state.w;
-            }
-            this.setState({
-                x: x,
-            });
-            this.endMoveBox();
-            return false;
-        case 40: // ↓
-            y = this.state.y;
-            y += 1;
-            if (y > Define.svgimagesize.height - this.state.h) {
-                y = Define.svgimagesize.height - this.state.h;
-            }
-            this.setState({
-                y: y,
-            });
-            this.endMoveBox();
-            return false;
         }
     }
-    
+    // キーアップ処理
+    keyUp(e) {
+        // Ctrlキーがアップされた場合
+        if (e.keyCode == 17) {
+            this.keyPlus = '';
+            return;
+        }
+    }
+
     // ベースクリックのイベント登録処理
     addBaseClickEvent() {
         document.getElementById('viewbox').addEventListener('click', this.baseClick, false);
