@@ -6,6 +6,7 @@ import { GennoMinchoRegularSubBase64 } from './fonts/GennoMinchoRegularSubBase64
 import { GennoMinchoBoldSubBase64 }    from './fonts/GennoMinchoBoldSubBase64.js';
 import { HigashiOmeGothicSubBase64 }   from './fonts/HigashiOmeGothicSubBase64.js';
 
+
 export const Define = {
     // ベースSVGイメージサイズ
     svgimagesize: {
