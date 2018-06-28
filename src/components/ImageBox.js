@@ -26,6 +26,7 @@ export default class ImageBox extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
+console.log(nextProps.image.url);
         this.imageurl = nextProps.image.url;
 
         if (this.imageurl != '') {
@@ -68,6 +69,10 @@ export default class ImageBox extends React.Component {
     }
 
     image() {
+        if (this.state.base64 == '') {
+            return '';
+        }
+
         return (
             <image
                 x="0"

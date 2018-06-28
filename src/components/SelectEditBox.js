@@ -104,8 +104,9 @@ export default class SelectEditBox extends React.Component {
     }
     // キーダウン処理
     keyDown(e) {
-        // 「Delete」キーが押された場合
-        if (e.keyCode == 46) {
+        // 「Delete」または「BackSpace」キーが押された場合
+        if (e.keyCode == 46
+         || e.keyCode == 8) {
             this.props.sozaiRemove({
                 group_id: this.state.group_id,
             });
