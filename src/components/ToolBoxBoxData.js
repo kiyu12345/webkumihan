@@ -25,6 +25,10 @@ const styles = {
         height: '9px',
         fontSize: '9px',
     },
+    select: {
+        height: '18px',
+        fontSize: '9px',
+    },
 };
 
 export default class ToolBoxBoxData extends React.Component {
@@ -83,11 +87,12 @@ export default class ToolBoxBoxData extends React.Component {
         // タイプチェック
         if (this.state.type != 'text'
          && this.state.type != 'image'
-         && this.state.type != 'line'
+         && this.state.type != 'vline'
+         && this.state.type != 'hline'
          && this.state.type != 'title'
          && this.state.type != 'haikei'
          && this.state.type != 'rect') {
-            alert('「タイプ」は text,image,line,title,haikei,rect のいずれかを入力してください');
+            alert('「タイプ」を選択してください');
             return;
         }
 
@@ -97,6 +102,23 @@ export default class ToolBoxBoxData extends React.Component {
     }
 
     henshu() {
+        let type = '';
+        switch (this.props.box.type) {
+        case 'text':
+            type = 'テキストボックス';
+            break;
+        case 'image':
+            type = '画像ボックス';
+            break;
+        case 'line':
+            if (this.props.box.line.hoko == 'tate') {
+                type = '縦ラインボックス';
+            } else {
+                type = '横ラインボックス';
+            }
+            break;
+        }
+
         return (
             <div
                 style={styles.container}
@@ -123,7 +145,7 @@ export default class ToolBoxBoxData extends React.Component {
                         ...styles.line
                     }}
                 >
-                    タイプ： <span style={{color: 'green'}}>{this.props.box.type}</span>
+                    タイプ： <span style={{color: 'green'}}>{type}</span>
                 </div>
                 <div
                     style={{
@@ -198,12 +220,27 @@ export default class ToolBoxBoxData extends React.Component {
                         ...styles.line
                     }}
                 >
+                { /* }
                     タイプ： <input
                                 type="text"
                                 value={this.state.type}
                                 style={{...styles.input, width: '50px'}}
                                 onChange={(e) => this.setState({type: e.target.value})}
                             />
+                { */ }
+                    タイプ： <select
+                                style={{
+                                    ...styles.select,
+                                    width: '100px',
+                                }}
+                                onChange={(e) => this.setState({type: e.target.value})}
+                            >
+                            <option value=""></option>
+                            <option value="text">テキストボックス</option>
+                            <option value="image">画像ボックス</option>
+                            <option value="vline">縦ラインボックス</option>
+                            <option value="hline">横ラインボックス</option>
+                            </select>
                 </div>
                 <div
                     style={{

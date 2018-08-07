@@ -255,9 +255,14 @@ export default function* toolbox() {
         case 'image':
             yield put(SU_ContextMenu_NewBoxImage(payload));
             break;
-        case 'line':
+        case 'vline':
             payload.hoko = 'tate';
             yield put(SU_ContextMenu_NewBoxLine(payload));
+            break;
+        case 'hline':
+            payload.hoko = 'yoko';
+            yield put(SU_ContextMenu_NewBoxLine(payload));
+            break;
         }
     });
 

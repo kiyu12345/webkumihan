@@ -25,6 +25,10 @@ const styles = {
         height: '9px',
         fontSize: '9px',
     },
+    select: {
+        height: '18px',
+        fontSize: '9px',
+    }
 };
 
 export default class ToolBoxLineData extends React.Component {
@@ -99,12 +103,24 @@ export default class ToolBoxLineData extends React.Component {
                         ...styles.line
                     }}
                 >
+                { /* }
                     方向 <input
                                 type="text"
                                 value={this.state.hoko}
                                 style={{...styles.input, width: '50px'}}
                                 onChange={(e) => this.setState({hoko: e.target.value})}
                     />
+                { */ }
+                    方向 <select
+                            style={{
+                                ...styles.select,
+                                width: '80px',
+                            }}
+                            onChange={(e) => this.setState({hoko: e.target.value})}
+                        >
+                        <option value="tate" selected={(this.state.hoko == 'tate') ? true : false}>たて</option>
+                        <option value="yoko" selected={(this.state.hoko == 'yoko') ? true : false}>よこ</option>
+                        </select>
                 </div>
                 <div
                     style={{
@@ -147,12 +163,27 @@ export default class ToolBoxLineData extends React.Component {
                         ...styles.line
                     }}
                 >
+                { /* }
                     種類 <input
                             type="text"
                             value={this.state.kind}
                             style={{...styles.input, width: '50px'}}
                             onChange={(e) => this.setState({kind: String.toNumeric(e.target.value)})}
                     />
+                { */ }
+                    種類 <select
+                            style={{
+                                ...styles.select,
+                                width: '100px',
+                            }}
+                            onChange={(e) => this.setState({kind: e.target.value})}
+                        >
+                        <option value="1" selected={(this.state.kind == 1) ? true : false}>実線</option>
+                        <option value="2" selected={(this.state.kind == 2) ? true : false}>破線１</option>
+                        <option value="3" selected={(this.state.kind == 3) ? true : false}>破線２</option>
+                        <option value="4" selected={(this.state.kind == 4) ? true : false}>破線３</option>
+                        <option value="5" selected={(this.state.kind == 5) ? true : false}>二重線</option>
+                        </select>
                 </div>
                 <div
                     style={{

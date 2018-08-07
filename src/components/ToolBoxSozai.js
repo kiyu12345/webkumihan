@@ -25,6 +25,10 @@ const styles = {
     input: {
         height: '9px',
     },
+    select: {
+        height: '18px',
+        fontSize: '9px',
+    },
     listbox: {
         width: '100%',
         height: '200px',
@@ -166,7 +170,7 @@ export default class ToolBoxSozai extends React.Component {
         }
 
         if (this.state.type != 'text' && this.state.type != 'image') {
-            alert('「タイプ」は text または image と入力してください');
+            alert('「タイプ」を選択してください');
             return;
         }
 
@@ -266,6 +270,7 @@ export default class ToolBoxSozai extends React.Component {
                         ...styles.line,
                     }}
                 >
+{ /*** }
                     タイプ：<input
                                 type="text"
                                 style={{
@@ -275,9 +280,31 @@ export default class ToolBoxSozai extends React.Component {
                                 value={this.state.type}
                                 onChange={(e) => this.setState({type: e.target.value})}
                             />
+{ ***/ }
+                    タイプ：<select
+                                style={{
+                                    ...styles.select,
+                                    width: '80px',
+                                }}
+                                onChange={(e) => this.setState({type: e.target.value})}
+                            >
+                            <option value=""></option>
+                            <option value="text">テキスト</option>
+                            <option value="image">画像URL</option>
+                            </select>
                 </div>
             ];
         } else {
+            let type = '';
+            switch (this.state.type) {
+            case 'text':
+                type = 'テキスト';
+                break;
+            case 'image':
+                type = '画像';
+                break;
+            }
+
             html = [
                 <div
                     style={{
@@ -291,7 +318,7 @@ export default class ToolBoxSozai extends React.Component {
                         ...styles.line,
                     }}
                 >
-                    タイプ：{this.state.type}
+                    タイプ：{type}
                 </div>
             ];
         }
@@ -336,7 +363,6 @@ export default class ToolBoxSozai extends React.Component {
     }
 
     sozaiarea() {
-console.log(this.state);
         let html;
         if (this.state.sozai_id == '') {
             html = [

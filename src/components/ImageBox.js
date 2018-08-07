@@ -26,7 +26,6 @@ export default class ImageBox extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-console.log(nextProps.image.url);
         this.imageurl = nextProps.image.url;
 
         if (this.imageurl != '') {
@@ -39,11 +38,15 @@ console.log(nextProps.image.url);
     }
 
     imageload() {
+        //this.imageobj.crossOrigin = 'anonymous';
         this.imageobj.src = this.imageurl;
+
+        // MimeType を取得
+        const mimetype = Base64.getMimeType(this.imageurl);
 
         this.imageobj.onload = () => {
             this.setState({
-                base64: Base64.ImageToBase64(this.imageobj, 'image/jpeg'),
+                base64: Base64.ImageToBase64(this.imageobj, mimetype),
             });
         }
     }

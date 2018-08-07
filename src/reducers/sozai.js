@@ -22,7 +22,7 @@ import {
 //              type: 'text':テキスト 'image':画像
 //              text: テキスト
 //              mojiObjAry: 文字オブジェクト配列
-//              image: 画像
+//              imageUrl: 画像
 //          },
 //          .....
 //      ]
@@ -151,7 +151,7 @@ export const sozai = (state = [], action) => {
             // 文字オブジェクト配列を作成してセットする
             mojiObjAry: Text.createMojiObjAry(action.payload.text),
 
-            image: action.payload.image,
+            imageUrl: action.payload.imageUrl,
 
             select: 'on',
         };
