@@ -66,7 +66,7 @@ const styles = {
 
 const Color = {
     text: 'lightyellow',
-    image: 'lightcyan',
+    image: 'lightpink',
     select: 'red',
 };
 

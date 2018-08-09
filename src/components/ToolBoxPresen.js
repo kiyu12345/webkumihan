@@ -71,6 +71,16 @@ export default class ToolBoxPresen extends React.Component {
                 >
                     lay B
                 </div>
+                <div
+                    style={{
+                        ...styles.button,
+                        float: 'left',
+                        marginLeft: '5px',
+                    }}
+                    onClick={() => this.props.onCallLayout({pattern: 'C'})}
+                >
+                    lay C
+                </div>
 
                 <div
                     style={{
@@ -104,6 +114,16 @@ export default class ToolBoxPresen extends React.Component {
                 >
                     Soz B
                 </div>
+                <div
+                    style={{
+                        ...styles.button2,
+                        float: 'left',
+                        marginLeft: '5px',
+                    }}
+                    onClick={() => this.props.onCallSozai({pattern: 'C'})}
+                >
+                    Soz C
+                </div>
 
                 <div
                     style={{
@@ -128,6 +148,17 @@ export default class ToolBoxPresen extends React.Component {
                 >
                     Lik B
                 </div>
+                <div
+                    style={{
+                        ...styles.button2,
+                        float: 'left',
+                        marginLeft: '5px',
+                        backgroundColor: 'lightyellow',
+                    }}
+                    onClick={() => this.props.onCallLink({pattern: 'C'})}
+                >
+                    Lik C
+                </div>
                 <div style={{clear: 'both'}}></div>
 
                 <div
@@ -140,6 +171,18 @@ export default class ToolBoxPresen extends React.Component {
                     onClick={() => this.download()}
                 >DL
                 </div>
+                { /* }
+                <div
+                    style={{
+                        ...styles.button2,
+                        float: 'right',
+                        marginRight: '0px',
+                        backgroundColor: 'orange',
+                    }}
+                    onClick={() => this.test()}
+                >TES
+                </div>
+                { */ }
             </div>
         )
     }
