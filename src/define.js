@@ -1562,8 +1562,22 @@ export const PresenBox = {
     ],
 
     C: [
-        { // 新聞名「ひかり」
+        { // 新聞名の画像「花」
             box_id: 1,
+            group_id: '新聞名画像',
+            group_no: 1,
+            type: 'image',
+            x1: 70,
+            y1: 310,
+            x2: 120,
+            y2: 370,
+    
+            image: {
+                url: '',
+            },
+        },
+        { // 新聞名「ひかり」
+            box_id: 2,
             group_id: '新聞名',
             group_no: 1,
             type: 'text',
@@ -1586,20 +1600,6 @@ export const PresenBox = {
                 grid: [],
                 result: [],
                 afure: 0,
-            },
-        },
-        { // 新聞名の画像「花」
-            box_id: 2,
-            group_id: '新聞名画像',
-            group_no: 1,
-            type: 'image',
-            x1: 70,
-            y1: 310,
-            x2: 120,
-            y2: 370,
-    
-            image: {
-                url: '',
             },
         },
         { // 「小平七小」
@@ -1751,7 +1751,7 @@ export const PresenBox = {
                 gyokan: 5,
                 size_j: 38,
                 size_g: 38,
-                font: 3,
+                font: 2,
 
                 grid: [],
                 result: [],
@@ -1942,8 +1942,22 @@ export const PresenBox = {
                 url: '',
             },
         },
-        { // 記事03 タイトル01 「一月の目標」
+        { // 記事03 画像「おはようございます」
             box_id: 17,
+            group_id: 'K03画像01',
+            group_no: 1,
+            type: 'image',
+            x1: 560,
+            y1: 530,
+            x2: 770,
+            y2: 680,
+    
+            image: {
+                url: '',
+            },
+        },
+        { // 記事03 タイトル01 「一月の目標」
+            box_id: 18,
             group_id: 'K03タイトル01',
             group_no: 1,
             type: 'text',
@@ -1969,7 +1983,7 @@ export const PresenBox = {
             },
         },
         { // 記事03 タイトル02 「元気よくあいさつしよう」
-            box_id: 18,
+            box_id: 19,
             group_id: 'K03タイトル02',
             group_no: 1,
             type: 'text',
@@ -1981,7 +1995,7 @@ export const PresenBox = {
             text: {
                 padding_js: 10,
                 padding_je: 10,
-                padding_gs: 10,
+                padding_gs: 12,
                 padding_ge: 10,
                 kumihoko: 'tate',
                 gyokan: 5,
@@ -1995,7 +2009,7 @@ export const PresenBox = {
             },
         },
         { // 記事03 本文 グループ01
-            box_id: 19,
+            box_id: 20,
             group_id: 'K03本文',
             group_no: 1,
             type: 'text',
@@ -2021,7 +2035,7 @@ export const PresenBox = {
             },
         },
         { // 記事03 本文 グループ02
-            box_id: 20,
+            box_id: 21,
             group_id: 'K03本文',
             group_no: 2,
             type: 'text',
@@ -2047,7 +2061,7 @@ export const PresenBox = {
             },
         },
         { // 記事03 本文 グループ03
-            box_id: 21,
+            box_id: 22,
             group_id: 'K03本文',
             group_no: 3,
             type: 'text',
@@ -2073,7 +2087,7 @@ export const PresenBox = {
             },
         },
         { // 記事03 本文 グループ04
-            box_id: 22,
+            box_id: 23,
             group_id: 'K03本文',
             group_no: 4,
             type: 'text',
@@ -2099,7 +2113,7 @@ export const PresenBox = {
             },
         },
         { // 記事03 本文 グループ05
-            box_id: 23,
+            box_id: 24,
             group_id: 'K03本文',
             group_no: 5,
             type: 'text',
@@ -2125,7 +2139,7 @@ export const PresenBox = {
             },
         },
         { // 記事03 本文 グループ06
-            box_id: 24,
+            box_id: 25,
             group_id: 'K03本文',
             group_no: 6,
             type: 'text',
@@ -2151,7 +2165,7 @@ export const PresenBox = {
             },
         },
         { // 記事03 本文 グループ07
-            box_id: 25,
+            box_id: 26,
             group_id: 'K03本文',
             group_no: 7,
             type: 'text',
@@ -2177,7 +2191,7 @@ export const PresenBox = {
             },
         },
         { // 記事03 本文 グループ08
-            box_id: 26,
+            box_id: 27,
             group_id: 'K03本文',
             group_no: 8,
             type: 'text',
@@ -2200,20 +2214,6 @@ export const PresenBox = {
                 grid: [],
                 result: [],
                 afure: 0,
-            },
-        },
-        { // 記事03 画像「おはようございます」
-            box_id: 27,
-            group_id: 'K03画像01',
-            group_no: 1,
-            type: 'image',
-            x1: 560,
-            y1: 530,
-            x2: 770,
-            y2: 680,
-    
-            image: {
-                url: '',
             },
         },
         { // 記事04 タイトル01「三学期スタート！気をぬかずがんばろう」
@@ -2342,12 +2342,12 @@ export const PresenBox = {
             x1: 500,
             y1: 980,
             x2: 710,
-            y2: 1030,
+            y2: 1040,
     
             text: {
                 padding_js: 40,
                 padding_je: 20,
-                padding_gs: 5,
+                padding_gs: 13,
                 padding_ge: 5,
                 kumihoko: 'yoko',
                 gyokan: 5,
@@ -2368,12 +2368,12 @@ export const PresenBox = {
             x1: 360,
             y1: 980,
             x2: 500,
-            y2: 1030,
+            y2: 1040,
     
             text: {
                 padding_js: 10,
                 padding_je: 10,
-                padding_gs: 12,
+                padding_gs: 20,
                 padding_ge: 10,
                 kumihoko: 'yoko',
                 gyokan: 5,
@@ -2502,6 +2502,349 @@ export const PresenBox = {
                 grid: [],
                 result: [],
                 afure: 0,
+            },
+        },
+
+        { // ここから縦罫
+            box_id: 40,
+            group_id: '縦罫001',
+            group_no: 1,
+            type: 'line',
+            x1: 200,
+            y1: 60,
+            x2: 220,
+            y2: 540,
+
+            line: {
+                hoko: 'tate',
+                padding_s: 5,
+                padding_e: 10,
+                width: 3,
+                kind: 1,
+                color: '#000',
+            },
+        },
+        {
+            box_id: 41,
+            group_id: '縦罫002',
+            group_no: 1,
+            type: 'line',
+            x1: 510,
+            y1: 60,
+            x2: 540,
+            y2: 690,
+
+            line: {
+                hoko: 'tate',
+                padding_s: 5,
+                padding_e: 10,
+                width: 4,
+                kind: 4,
+                color: 'blue',
+            },
+        },
+        {
+            box_id: 42,
+            group_id: '縦罫003',
+            group_no: 1,
+            type: 'line',
+            x1: 300,
+            y1: 520,
+            x2: 320,
+            y2: 1140,
+
+            line: {
+                hoko: 'tate',
+                padding_s: 8,
+                padding_e: 0,
+                width: 1.5,
+                kind: 5,
+                color: '#000',
+            },
+        },
+        {
+            box_id: 43,
+            group_id: '縦罫004',
+            group_no: 1,
+            type: 'line',
+            x1: 600,
+            y1: 200,
+            x2: 630,
+            y2: 570,
+
+            line: {
+                hoko: 'tate',
+                padding_s: 0,
+                padding_e: 0,
+                width: 0.5,
+                kind: 1,
+                color: '#000',
+            },
+        },
+        {
+            box_id: 44,
+            group_id: '縦罫005',
+            group_no: 1,
+            type: 'line',
+            x1: 670,
+            y1: 200,
+            x2: 700,
+            y2: 570,
+
+            line: {
+                hoko: 'tate',
+                padding_s: 0,
+                padding_e: 0,
+                width: 0.5,
+                kind: 1,
+                color: '#000',
+            },
+        },
+        { // ここから横罫
+            box_id: 45,
+            group_id: '横罫001',
+            group_no: 1,
+            type: 'line',
+            x1: 60,
+            y1: 350,
+            x2: 210,
+            y2: 380,
+
+            line: {
+                hoko: 'yoko',
+                padding_s: 5,
+                padding_e: 0,
+                width: 1,
+                kind: 1,
+                color: '#000',
+            },
+        },
+        {
+            box_id: 46,
+            group_id: '横罫002',
+            group_no: 1,
+            type: 'line',
+            x1: 60,
+            y1: 520,
+            x2: 210,
+            y2: 540,
+
+            line: {
+                hoko: 'yoko',
+                padding_s: 5,
+                padding_e: 0,
+                width: 3,
+                kind: 1,
+                color: '#000',
+            },
+        },
+        {
+            box_id: 47,
+            group_id: '横罫003',
+            group_no: 1,
+            type: 'line',
+            x1: 520,
+            y1: 670,
+            x2: 780,
+            y2: 690,
+
+            line: {
+                hoko: 'yoko',
+                padding_s: 5,
+                padding_e: 5,
+                width: 4,
+                kind: 4,
+                color: 'blue',
+            },
+        },
+        {
+            box_id: 48,
+            group_id: '横罫004',
+            group_no: 1,
+            type: 'line',
+            x1: 290,
+            y1: 370,
+            x2: 510,
+            y2: 390,
+
+            line: {
+                hoko: 'yoko',
+                padding_s: 0,
+                padding_e: 0,
+                width: 0.5,
+                kind: 1,
+                color: '#000',
+            },
+        },
+        {
+            box_id: 49,
+            group_id: '横罫005',
+            group_no: 1,
+            type: 'line',
+            x1: 320,
+            y1: 520,
+            x2: 510,
+            y2: 540,
+
+            line: {
+                hoko: 'yoko',
+                padding_s: 0,
+                padding_e: 0,
+                width: 3,
+                kind: 3,
+                color: 'magenta',
+            },
+        },
+        {
+            box_id: 50,
+            group_id: '横罫006',
+            group_no: 1,
+            type: 'line',
+            x1: 70,
+            y1: 670,
+            x2: 300,
+            y2: 690,
+
+            line: {
+                hoko: 'yoko',
+                padding_s: 0,
+                padding_e: 0,
+                width: 2,
+                kind: 3,
+                color: 'green',
+            },
+        },
+        {
+            box_id: 51,
+            group_id: '横罫007',
+            group_no: 1,
+            type: 'line',
+            x1: 150,
+            y1: 820,
+            x2: 300,
+            y2: 840,
+
+            line: {
+                hoko: 'yoko',
+                padding_s: 5,
+                padding_e: 3,
+                width: 0.5,
+                kind: 1,
+                color: '#000',
+            },
+        },
+        {
+            box_id: 52,
+            group_id: '横罫008',
+            group_no: 1,
+            type: 'line',
+            x1: 150,
+            y1: 970,
+            x2: 300,
+            y2: 990,
+
+            line: {
+                hoko: 'yoko',
+                padding_s: 5,
+                padding_e: 3,
+                width: 0.5,
+                kind: 1,
+                color: '#000',
+            },
+        },
+        {
+            box_id: 53,
+            group_id: '横罫009',
+            group_no: 1,
+            type: 'line',
+            x1: 410,
+            y1: 670,
+            x2: 510,
+            y2: 690,
+
+            line: {
+                hoko: 'yoko',
+                padding_s: 5,
+                padding_e: 3,
+                width: 0.5,
+                kind: 1,
+                color: '#000',
+            },
+        },
+        {
+            box_id: 54,
+            group_id: '横罫010',
+            group_no: 1,
+            type: 'line',
+            x1: 410,
+            y1: 820,
+            x2: 770,
+            y2: 840,
+
+            line: {
+                hoko: 'yoko',
+                padding_s: 5,
+                padding_e: 12,
+                width: 0.5,
+                kind: 1,
+                color: '#000',
+            },
+        },
+        {
+            box_id: 55,
+            group_id: '横罫011',
+            group_no: 1,
+            type: 'line',
+            x1: 320,
+            y1: 972,
+            x2: 780,
+            y2: 992,
+
+            line: {
+                hoko: 'yoko',
+                padding_s: 0,
+                padding_e: 5,
+                width: 3,
+                kind: 1,
+                color: '#000',
+            },
+        },
+        {
+            box_id: 56,
+            group_id: '横罫012',
+            group_no: 1,
+            type: 'line',
+            x1: 610,
+            y1: 190,
+            x2: 690,
+            y2: 210,
+
+            line: {
+                hoko: 'yoko',
+                padding_s: 5,
+                padding_e: 5,
+                width: 0.5,
+                kind: 1,
+                color: '#000',
+            },
+        },
+        {
+            box_id: 57,
+            group_id: '横罫013',
+            group_no: 1,
+            type: 'line',
+            x1: 610,
+            y1: 560,
+            x2: 690,
+            y2: 580,
+
+            line: {
+                hoko: 'yoko',
+                padding_s: 5,
+                padding_e: 5,
+                width: 0.5,
+                kind: 1,
+                color: '#000',
             },
         },
     ],
@@ -2700,7 +3043,7 @@ export const PresenSozai = {
             imageUrl: '',
         },
         {
-            sozai_id: '新聞けい示  委員会',
+            sozai_id: '新聞けい示委員会',
             type: 'text',
             text: '新聞けい示  委員会 ',
             mojiObjAry: [],
@@ -2786,7 +3129,7 @@ export const PresenSozai = {
         {
             sozai_id: '記事３本文',
             type: 'text',
-            text: ' 一月十六日の朝会で、一月の目標「元気よく、あいさつしよう。」と指田先生がおっしゃっていました。みなさんは、ちゃんと、あいさつできていますか？あいさつができることは、とても素晴らしい事ですが、ちゃんと自分からあいさつできていますか？「そういえば、あいさつしてないね。」と思ったら、一月の目標でもあるのであいさつをするように心がけましょう。      （下山）',
+            text: ' 一月十六日の朝会で、一月の目標「元気よく、あいさつしよう。」と指田先生がおっしゃっていました。みなさんは、ちゃんと、あいさつできていますか？あいさつができることは、とても素晴らしい事ですが、ちゃんと自分からあいさつできていますか？「そういえば、あいさつしてないね。」と思ったら、一月の目標でもあるのであいさつをするように心がけましょう。     （下山）',
             mojiObjAry: [],
             imageUrl: '',
         },
@@ -2845,6 +3188,41 @@ export const PresenSozai = {
             text: '',
             mojiObjAry: [],
             imageUrl: 'image/nawatobi.png',
+        },
+        {
+            sozai_id: '（１）２０１２年１月２０日',
+            type: 'text',
+            text: '（１）２０１２年１月２０日 ',
+            mojiObjAry: [],
+            imageUrl: '',
+        },
+        {
+            sozai_id: 'ひかり（高）',
+            type: 'text',
+            text: 'ひかり（高） ',
+            mojiObjAry: [],
+            imageUrl: '',
+        },
+        {
+            sozai_id: '１７１号',
+            type: 'text',
+            text: '１７１号 ',
+            mojiObjAry: [],
+            imageUrl: '',
+        },
+        {
+            sozai_id: 'ひかり（画像）',
+            type: 'image',
+            text: '',
+            mojiObjAry: [],
+            imageUrl: 'image/hikari.png',
+        },
+        {
+            sozai_id: 'ろうか（画像）',
+            type: 'image',
+            text: '',
+            mojiObjAry: [],
+            imageUrl: 'image/rouka.png',
         },
     ],
 };
@@ -3004,5 +3382,116 @@ export const PresenLink = {
             sozai_id: 'K09絵解き',
         },
 
+    ],
+
+    C: [
+        {
+            group_id: '新聞名画像',
+            sozai_id: '花',
+        },
+        {
+            group_id: '新聞名',
+            sozai_id: 'ひかり',
+        },
+        {
+            group_id: '小平七小',
+            sozai_id: '小平七小',
+        },
+        {
+            group_id: '新聞けい示委員会',
+            sozai_id: '新聞けい示委員会',
+        },
+        {
+            group_id: '１面５－４',
+            sozai_id: '１面５－４',
+        },
+        {
+            group_id: '２面６－１',
+            sozai_id: '２面６－１',
+        },
+        {
+            group_id: 'K01タイトル01',
+            sozai_id: 'ろうかを走らない',
+        },
+        {
+            group_id: 'K01タイトル02',
+            sozai_id: '日本一になろう',
+        },
+        {
+            group_id: 'K01本文',
+            sozai_id: '記事１本文',
+        },
+        {
+            group_id: 'K02タイトル01',
+            sozai_id: '丁ねいに書いた！',
+        },
+        {
+            group_id: 'K02本文',
+            sozai_id: '記事２本文',
+        },
+        {
+            group_id: 'K02画像01',
+            sozai_id: '筆',
+        },
+        {
+            group_id: 'K02画像02',
+            sozai_id: 'お正月',
+        },
+        {
+            group_id: 'K03画像01',
+            sozai_id: 'おはようございます',
+        },
+        {
+            group_id: 'K03タイトル01',
+            sozai_id: '一月の目標',
+        },
+        {
+            group_id: 'K03タイトル02',
+            sozai_id: '元気よくあいさつしよう',
+        },
+        {
+            group_id: 'K03本文',
+            sozai_id: '記事３本文',
+        },
+        {
+            group_id: 'K04タイトル01',
+            sozai_id: '三学期スタート！',
+        },
+        {
+            group_id: 'K04本文',
+            sozai_id: '記事４本文',
+        },
+        {
+            group_id: 'K04画像01',
+            sozai_id: 'ファイト',
+        },
+        {
+            group_id: 'K05タイトル01',
+            sozai_id: '大なわ',
+        },
+        {
+            group_id: 'K05タイトル02',
+            sozai_id: 'で楽しく',
+        },
+        {
+            group_id: 'K05本文',
+            sozai_id: '記事５本文',
+        },
+        {
+            group_id: 'K05画像01',
+            sozai_id: 'なわとび',
+        },
+        {
+            group_id: 'R日付',
+            sozai_id: '（１）２０１２年１月２０日',
+        },
+        {
+            group_id: 'R新聞名',
+            sozai_id: 'ひかり（高）',
+        },
+        {
+            group_id: 'R号',
+            sozai_id: '１７１号',
+        },
     ],
 };

@@ -6,7 +6,7 @@ import { Font } from '../define.js';
 
 const styles = {
     container: {
-        backgroundColor: 'yellow',
+        //backgroundColor: 'yellow',
     },
 }; 
 

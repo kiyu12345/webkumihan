@@ -4,7 +4,7 @@ import { Base64 } from '../libs/base64.js';
 
 const styles = {
     container: {
-        backgroundColor: 'yellow',
+        //backgroundColor: 'yellow',
     },
 }; 
 
