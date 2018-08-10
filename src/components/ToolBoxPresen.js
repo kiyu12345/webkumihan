@@ -165,6 +165,17 @@ export default class ToolBoxPresen extends React.Component {
                     style={{
                         ...styles.button2,
                         float: 'right',
+                        marginRight: '45px',
+                        backgroundColor: 'orange',
+                    }}
+                    onClick={alert("テスト")}
+                >EXP
+                </div>
+
+                <div
+                    style={{
+                        ...styles.button2,
+                        float: 'right',
                         marginRight: '0px',
                         backgroundColor: 'orange',
                     }}
