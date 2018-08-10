@@ -83,7 +83,7 @@ export const Saga_ContextMenu_NewBoxLine = (payload = {}) => {
             box_id:   payload.box_id,
             group_id: payload.group_id,
             group_no: payload.group_no,
-            type:     payload.type,
+            type:     'line',
             x1: payload.x1,
             y1: payload.y1,
             x2: payload.x2,

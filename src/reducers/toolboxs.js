@@ -33,7 +33,6 @@ export const toolboxs = (state = [
         y: 0,
         w: 200,
         h: 40,
-        view: 'true',
     },
     {
         toolbox_id: 2,
@@ -42,7 +41,6 @@ export const toolboxs = (state = [
         y: 0,
         w: 200,
         h: 140,
-        view: 'true',
     },
     {
         toolbox_id: 3,
@@ -51,34 +49,38 @@ export const toolboxs = (state = [
         y: 0,
         w: 200,
         h: 160,
-        view: 'false',
     },
     {
         toolbox_id: 4,
+        type: 'linedata',
+        x: 0,
+        y: 0,
+        w: 200,
+        h: 160,
+    },
+    {
+        toolbox_id: 5,
         type: 'sozai',
         x: 0,
         y: 0,
         w: 200,
-        h: 400,
-        view: 'true',
+        h: 485,
     },
     {
-        toolbox_id: 5,
+        toolbox_id: 6,
         type: 'link',
         x: 0,
         y: 0,
         w: 200,
         h: 470,
-        view: 'false',
     },
     {
-        toolbox_id: 6,
+        toolbox_id: 7,
         type: 'presen',
         x: 0,
         y: 0,
         w: 200,
         h: 100,
-        view: 'true',
     },
 ], action) => {
     let toolboxs;
@@ -100,53 +102,6 @@ export const toolboxs = (state = [
         const toolbox = toolboxs.slice(i, i + 1);
         toolboxs.splice(i, 1);
         toolboxs = toolboxs.concat(toolbox);
-
-        return toolboxs;
-
-    case SAGA_SELECTBOX_BOX_SELECT:   // ボックスを選択した場合
-        toolboxs = JSON.parse(JSON.stringify(state));
-
-        for (let i = 0; i < toolboxs.length; i++) {
-            if (toolboxs[i].type == 'textdata') {
-                if (action.payload.type == 'text') {
-                    toolboxs[i].view = 'true';
-                } else {
-                    toolboxs[i].view = 'false';
-                }
-                // break;
-            }
-        }
-
-        return toolboxs;
-
-    case SAGA_SELECTBOX_BOX_NONSELECT:   // ボックスの選択を解除した場合
-        toolboxs = JSON.parse(JSON.stringify(state));
-
-        for (let i = 0; i < toolboxs.length; i++) {
-            if (toolboxs[i].type == 'textdata') {
-                toolboxs[i].view = 'false';
-                break;
-            }
-        }
-
-        return toolboxs;
-
-    case SAGA_EDITONOFF_CHANGE:     // 編集状態のON/OFFが切り替えられた
-        toolboxs = JSON.parse(JSON.stringify(state));
-
-        for (let i = 0; i < toolboxs.length; i++) {
-            if (action.payload.onoff == 'on') {
-                toolboxs[i].view = 'true';
-                if (toolboxs[i].type == 'link') {
-                    toolboxs[i].view = 'false';
-                }
-            } else {
-                toolboxs[i].view = 'false';
-                if (toolboxs[i].type == 'presen' || toolboxs[i].type == 'scale') {
-                    toolboxs[i].view = 'true';
-                }
-            }
-        }
 
         return toolboxs;
 

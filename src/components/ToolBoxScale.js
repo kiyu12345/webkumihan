@@ -34,7 +34,7 @@ export default class ToolBoxScale extends React.Component {
                     ...styles.per,
                     float: 'left',
                 }}>
-                    {this.props.scale} %
+                    {this.props.scale}%
                 </div>
                 <div
                     style={{

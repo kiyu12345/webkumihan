@@ -6,6 +6,7 @@ import {
     SAGA_TOOLBOXSOZAI_SOZAI_DELETE,
     SAGA_TOOLBOXSOZAI_SOZAI_CREATE,
     SAGA_TOOLBOXSOZAI_SOZAI_SELECT,
+    SAGA_TOOLBOXSOZAI_SOZAI_NONSELECT,
     SAGA_TOOLBOXSOZAI_SOZAI_TOGGLE,
 } from '../actions_saga/toolboxsozai.js';
 
@@ -21,7 +22,7 @@ import {
 //              type: 'text':テキスト 'image':画像
 //              text: テキスト
 //              mojiObjAry: 文字オブジェクト配列
-//              image: 画像
+//              imageUrl: 画像
 //          },
 //          .....
 //      ]
@@ -55,6 +56,15 @@ export const sozai = (state = [], action) => {
                 lists[i].select = 'on';
                 break;
             }
+        }
+
+        return lists;
+
+    case SAGA_TOOLBOXSOZAI_SOZAI_NONSELECT:
+        lists = JSON.parse(JSON.stringify(state));
+
+        for (let i = 0; i < lists.length; i++) {
+            lists[i].select = '';
         }
 
         return lists;
@@ -141,7 +151,7 @@ export const sozai = (state = [], action) => {
             // 文字オブジェクト配列を作成してセットする
             mojiObjAry: Text.createMojiObjAry(action.payload.text),
 
-            image: action.payload.image,
+            imageUrl: action.payload.imageUrl,
 
             select: 'on',
         };

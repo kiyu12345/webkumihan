@@ -6,6 +6,7 @@ import ToolBoxMap from '../components/ToolBoxMap.js';
 import ToolBoxScaleMap from '../components/ToolBoxScaleMap.js';
 import ToolBoxBoxDataMap from '../components/ToolBoxBoxDataMap.js';
 import ToolBoxTextDataMap from '../components/ToolBoxTextDataMap.js';
+import ToolBoxLineDataMap from '../components/ToolBoxLineDataMap.js';
 import ToolBoxSozaiMap from '../components/ToolBoxSozaiMap.js';
 import ToolBoxLinkMap from '../components/ToolBoxLinkMap.js';
 import ToolBoxPresenMap from '../components/ToolBoxPresenMap.js';
@@ -140,9 +141,6 @@ export default class TopScreen extends React.Component {
         for (let i = 0; i < this.props.toolboxs.length; i++) {
             switch (this.props.toolboxs[i].type) {
             case 'scale':   // 拡大縮小ツールボックス
-                if (this.props.toolboxs[i].view == 'false') {
-                    break;
-                }
                 toolboxs.push(
                     <ToolBoxMap
                         toolbox_id={this.props.toolboxs[i].toolbox_id}
@@ -158,9 +156,11 @@ export default class TopScreen extends React.Component {
                 break;
 
             case 'boxdata':   // ボックス情報ツールボックス
-                if (this.props.toolboxs[i].view == 'false') {
+                if (this.props.editonoff == 'on') {
+                } else {
                     break;
                 }
+
                 toolboxs.push(
                     <ToolBoxMap
                         toolbox_id={this.props.toolboxs[i].toolbox_id}
@@ -176,9 +176,12 @@ export default class TopScreen extends React.Component {
                 break;
 
             case 'textdata':   // テキスト情報ツールボックス
-                if (this.props.toolboxs[i].view == 'false') {
+                if (this.props.editonoff == 'on'
+                 && this.props.focusbox.type == 'text') {
+                } else {
                     break;
                 }
+
                 toolboxs.push(
                     <ToolBoxMap
                         toolbox_id={this.props.toolboxs[i].toolbox_id}
@@ -186,17 +189,40 @@ export default class TopScreen extends React.Component {
                         y={this.props.toolboxs[i].y}
                         w={this.props.toolboxs[i].w}
                         h={this.props.toolboxs[i].h}
-                        title="ﾎﾞｯｸｽﾃｷｽﾄ情報"
+                        title="テキスト情報"
                     >
                         <ToolBoxTextDataMap />
                     </ToolBoxMap>
                 );
                 break;
 
-            case 'sozai':    // 素材リストツールボックス
-                if (this.props.toolboxs[i].view == 'false') {
+            case 'linedata':   // ライン情報ツールボックス
+                if (this.props.editonoff == 'on'
+                 && this.props.focusbox.type == 'line') {
+                } else {
                     break;
                 }
+
+                toolboxs.push(
+                    <ToolBoxMap
+                        toolbox_id={this.props.toolboxs[i].toolbox_id}
+                        x={this.props.toolboxs[i].x}
+                        y={this.props.toolboxs[i].y}
+                        w={this.props.toolboxs[i].w}
+                        h={this.props.toolboxs[i].h}
+                        title="ライン情報"
+                    >
+                        <ToolBoxLineDataMap />
+                    </ToolBoxMap>
+                );
+                break;
+
+            case 'sozai':    // 素材リストツールボックス
+                if (this.props.editonoff == 'on') {
+                } else {
+                    break;
+                }
+
                 toolboxs.push(
                     <ToolBoxMap
                         toolbox_id={this.props.toolboxs[i].toolbox_id}
@@ -212,9 +238,10 @@ export default class TopScreen extends React.Component {
                 break;
 
             case 'link':    // リンクリストツールボックス
-                if (this.props.toolboxs[i].view == 'false') {
+                if (true) {
                     break;
                 }
+
                 toolboxs.push(
                     <ToolBoxMap
                         toolbox_id={this.props.toolboxs[i].toolbox_id}
@@ -230,9 +257,11 @@ export default class TopScreen extends React.Component {
                 break;
 
             case 'presen':    // プレゼン用ツールボックス
-                if (this.props.toolboxs[i].view == 'false') {
+                if (true) {
+                } else {
                     break;
                 }
+
                 toolboxs.push(
                     <ToolBoxMap
                         toolbox_id={this.props.toolboxs[i].toolbox_id}

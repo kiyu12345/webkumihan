@@ -26,7 +26,7 @@ export default class LineBox extends React.Component {
                 height={this.props.height}
                 style={{
                     stroke: 'none',
-                    fill: 'lightpink',
+                    fill: 'lightcyan',
                     opacity: '0.3',
                 }}
             />
@@ -34,6 +34,8 @@ export default class LineBox extends React.Component {
     }
 
     line() {
+        let html = [];
+
         const box_x = this.props.x;
         const box_y = this.props.y;
         const box_w = this.props.width;
@@ -50,40 +52,117 @@ export default class LineBox extends React.Component {
             sy = sy + linedata.padding_s;
             ey = ey - linedata.padding_e;
         } else {                                // 横罫
-            sx = 0;
+            sx = box_w;
             sy = box_h / 2;
-            ex = box_w;
+            ex = 0;
             ey = sy;
 
-            sx = sx + linedata.padding_s;
-            ex = ex - linedata.padding_e;
+            sx = sx - linedata.padding_s;
+            ex = ex + linedata.padding_e;
         }
 
         // 線種
         let linestyle = {};
         switch (Line[linedata.kind].type) {
         case 'solid':
+            html.push(
+                <line
+                    x1={sx}
+                    y1={sy}
+                    x2={ex}
+                    y2={ey}
+                    style={{
+                        stroke: linedata.color,
+                        strokeWidth: linedata.width,
+                        fill: 'none',
+                        ...linestyle,
+                    }}
+                />
+            );
             break;
         case 'dash':
             linestyle = {
                 strokeDasharray: Line[linedata.kind].pattern,
+            };
+            html.push(
+                <line
+                    x1={sx}
+                    y1={sy}
+                    x2={ex}
+                    y2={ey}
+                    style={{
+                        stroke: linedata.color,
+                        strokeWidth: linedata.width,
+                        fill: 'none',
+                        ...linestyle,
+                    }}
+                />
+            );
+            break;
+        case 'double':
+            if (this.props.line.hoko == 'tate') {   // 縦罫
+                html.push(
+                    <line
+                        x1={sx - (Line[linedata.kind].space / 2)}
+                        y1={sy}
+                        x2={ex - (Line[linedata.kind].space / 2)}
+                        y2={ey}
+                        style={{
+                            stroke: linedata.color,
+                            strokeWidth: linedata.width,
+                            fill: 'none',
+                            ...linestyle,
+                        }}
+                    />
+                );
+                html.push(
+                    <line
+                        x1={sx + (Line[linedata.kind].space / 2)}
+                        y1={sy}
+                        x2={ex + (Line[linedata.kind].space / 2)}
+                        y2={ey}
+                        style={{
+                            stroke: linedata.color,
+                            strokeWidth: linedata.width,
+                            fill: 'none',
+                            ...linestyle,
+                        }}
+                    />
+                );
+            } else {                                // 横罫
+                html.push(
+                    <line
+                        x1={sx}
+                        y1={sy - (Line[linedata.kind].space / 2)}
+                        x2={ex}
+                        y2={ey - (Line[linedata.kind].space / 2)}
+                        style={{
+                            stroke: linedata.color,
+                            strokeWidth: linedata.width,
+                            fill: 'none',
+                            ...linestyle,
+                        }}
+                    />
+                );
+                html.push(
+                    <line
+                        x1={sx}
+                        y1={sy + (Line[linedata.kind].space / 2)}
+                        x2={ex}
+                        y2={ey + (Line[linedata.kind].space / 2)}
+                        style={{
+                            stroke: linedata.color,
+                            strokeWidth: linedata.width,
+                            fill: 'none',
+                            ...linestyle,
+                        }}
+                    />
+                );
             }
+            break;
         }
 
-        return (
-            <line
-                x1={sx}
-                y1={sy}
-                x2={ex}
-                y2={ey}
-                style={{
-                    stroke: linedata.color,
-                    strokeWidth: linedata.width,
-                    fill: 'none',
-                    ...linestyle,
-                }}
-            />
-        )
+        return html;
     }
 
 

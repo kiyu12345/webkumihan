@@ -7,7 +7,9 @@ export const SU_ToolBoxBoxData_UpdateButton_Click = (payload = {}) => {
     return {
         type: SU_TOOLBOXBOXDATA_UPDATEBUTTON_CLICK,
         payload: {
-            box: payload.box,
+            box_id: payload.box_id,
+            group_id: payload.group_id,
+            group_no: payload.group_no,
         },
     };
 }
@@ -25,7 +27,7 @@ export const SU_ToolBoxBoxData_CreateButton_Click = (payload = {}) => {
     return {
         type: SU_TOOLBOXBOXDATA_CREATEBUTTON_CLICK,
         payload: {
-            box: payload.box,
+            type: payload.type,
         },
     };
 }

@@ -25,6 +25,10 @@ const styles = {
         height: '9px',
         fontSize: '9px',
     },
+    select: {
+        height: '18px',
+        fontSize: '9px',
+    },
 };
 
 export default class ToolBoxBoxData extends React.Component {
@@ -80,54 +84,41 @@ export default class ToolBoxBoxData extends React.Component {
     }
 
     clickCreateButton() {
-        let box = this.props.box;
-
-        if (this.state.box_id === ''
-         || this.state.group_id === ''
-         || this.state.group_no === ''
-         || this.state.type === '') {
-            alert('全ての項目を入力してください');
-            return;
-        }
-
-        // IDが既存の場合は、作成できない
-        if (this.props.checkKizonId(this.state.id)) {
-            alert('このボックスIDは既に存在します');
-            return;
-        }
-
         // タイプチェック
-        if (this.state.type != 'text' && this.state.type != 'image') {
-            alert('「タイプ」は text または image と入力してください');
+        if (this.state.type != 'text'
+         && this.state.type != 'image'
+         && this.state.type != 'vline'
+         && this.state.type != 'hline'
+         && this.state.type != 'title'
+         && this.state.type != 'haikei'
+         && this.state.type != 'rect') {
+            alert('「タイプ」を選択してください');
             return;
         }
-
-        // グループ名とNoのチェック
-        if (this.props.isSameGroupAndNo(this.state.group_id, this.state.group_no) == true) {
-            alert('同じグループ名とグループNoのボックスが存在します');
-            return;
-        }
-
-        // 指定のグループ名でボックスを作れるかをチェック
-        // （既存のグループ名と同じグループのボックスを作成する場合、タイプが text でなければならない）
-        if (this.state.type != 'text') {
-            if (this.props.isSameGroup(this.state.group_id) == true) {
-                alert('同じグループ名のボックスがあります。ボックスを作成できません。')
-                return;
-            }
-        }
-
-        box.box_id   = this.state.box_id;
-        box.group_id = this.state.group_id;
-        box.group_no = this.state.group_no;
-        box.type     = this.state.type;
 
         this.props.onClickCreateButton({
-            box: box,
+            type: this.state.type,
         });
     }
 
     henshu() {
+        let type = '';
+        switch (this.props.box.type) {
+        case 'text':
+            type = 'テキストボックス';
+            break;
+        case 'image':
+            type = '画像ボックス';
+            break;
+        case 'line':
+            if (this.props.box.line.hoko == 'tate') {
+                type = '縦ラインボックス';
+            } else {
+                type = '横ラインボックス';
+            }
+            break;
+        }
+
         return (
             <div
                 style={styles.container}
@@ -154,7 +145,7 @@ export default class ToolBoxBoxData extends React.Component {
                         ...styles.line
                     }}
                 >
-                    タイプ： <span style={{color: 'green'}}>{this.props.box.type}</span>
+                    タイプ： <span style={{color: 'green'}}>{type}</span>
                 </div>
                 <div
                     style={{
@@ -220,6 +211,7 @@ export default class ToolBoxBoxData extends React.Component {
                                 type="text"
                                 value={this.state.box_id}
                                 style={{...styles.input, width: '50px'}}
+                                disabled="disabled"
                                 onChange={(e) => this.setState({box_id: e.target.value})}
                             />
                 </div>
@@ -228,12 +220,27 @@ export default class ToolBoxBoxData extends React.Component {
                         ...styles.line
                     }}
                 >
+                { /* }
                     タイプ： <input
                                 type="text"
                                 value={this.state.type}
                                 style={{...styles.input, width: '50px'}}
                                 onChange={(e) => this.setState({type: e.target.value})}
                             />
+                { */ }
+                    タイプ： <select
+                                style={{
+                                    ...styles.select,
+                                    width: '100px',
+                                }}
+                                onChange={(e) => this.setState({type: e.target.value})}
+                            >
+                            <option value=""></option>
+                            <option value="text">テキストボックス</option>
+                            <option value="image">画像ボックス</option>
+                            <option value="vline">縦ラインボックス</option>
+                            <option value="hline">横ラインボックス</option>
+                            </select>
                 </div>
                 <div
                     style={{
@@ -244,6 +251,7 @@ export default class ToolBoxBoxData extends React.Component {
                                 type="text"
                                 value={this.state.group_id}
                                 style={{...styles.input, width: '100px'}}
+                                disabled="disabled"
                                 onChange={(e) => this.setState({group_id: e.target.value})}
                             />
                 </div>
@@ -256,6 +264,7 @@ export default class ToolBoxBoxData extends React.Component {
                             type="text"
                             value={this.state.group_no}
                             style={{...styles.input, width: '20px'}}
+                            disabled="disabled"
                             onChange={(e) => this.setState({group_no: String.toNumeric(e.target.value)})}
                         />
                 </div>

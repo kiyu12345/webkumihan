@@ -25,6 +25,10 @@ const styles = {
         height: '9px',
         fontSize: '9px',
     },
+    select: {
+        height: '18px',
+        fontSize: '9px',
+    },
 };
 
 export default class ToolBoxTextData extends React.Component {
@@ -79,25 +83,80 @@ export default class ToolBoxTextData extends React.Component {
             return;
         }
 
-        if (this.state.font < 1 || this.state.font > 4) {
-            alert('「フォントNo」は、1 ～ 4 で入力してください');
+        if (this.state.font < 1 || this.state.font > 3) {
+            alert('「フォントNo」は、1 ～ 3 で入力してください');
             return;
         }
 
-        box.id = this.props.box.id;
-        box.text.padding_js = this.state.padding_js;
-        box.text.padding_je = this.state.padding_je;
-        box.text.padding_gs = this.state.padding_gs;
-        box.text.padding_ge = this.state.padding_ge;
-        box.text.kumihoko = this.state.kumihoko;
-        box.text.size_j = this.state.size_j;
-        box.text.size_g = this.state.size_g;
-        box.text.gyokan = this.state.gyokan;
-        box.text.font = this.state.font;
-
         this.props.onClickUpdateButton({
-            box: box,
+            box_id:   this.props.box.box_id,
+            group_id: this.props.box.group_id,
+            text: {
+                padding_js: this.state.padding_js,
+                padding_je: this.state.padding_je,
+                padding_gs: this.state.padding_gs,
+                padding_ge: this.state.padding_ge,
+                kumihoko:   this.state.kumihoko,
+                size_j:     this.state.size_j,
+                size_g:     this.state.size_g,
+                gyokan:     this.state.gyokan,
+                font:       this.state.font,
+            },
         });
+    }
+
+    htmlMojiSizeJOption() {
+        let html = [];
+
+        for (let size = 6; size <= 50; size++) {
+            html.push(
+                <option value={size} selected={(this.state.size_j == size) ? true : false}>{size} pt</option>
+            );
+        }
+
+        for (let size = 60; size <= 100; size += 10) {
+            html.push(
+                <option value={size} selected={(this.state.size_j == size) ? true : false}>{size} pt</option>
+            );
+        }
+
+        return html;
+    }
+
+    htmlMojiSizeOption(mojisize) {
+        let html = [];
+
+        for (let size = 6; size <= 50; size++) {
+            html.push(
+                <option value={size} selected={(mojisize == size) ? true : false}>{size} pt</option>
+            );
+        }
+
+        for (let size = 60; size <= 100; size += 10) {
+            html.push(
+                <option value={size} selected={(mojisize == size) ? true : false}>{size} pt</option>
+            );
+        }
+
+        return html;
+    }
+
+    htmlMojiSizeGOption() {
+        let html = [];
+
+        for (let size = 6; size <= 50; size++) {
+            html.push(
+                <option value={size} selected={(this.state.size_g == size) ? true : false}>{size} pt</option>
+            );
+        }
+
+        for (let size = 60; size <= 100; size += 10) {
+            html.push(
+                <option value={size} selected={(this.state.size_g == size) ? true : false}>{size} pt</option>
+            );
+        }
+
+        return html;
     }
 
 
@@ -151,12 +210,24 @@ export default class ToolBoxTextData extends React.Component {
                         ...styles.line
                     }}
                 >
+                { /* }
                     組方向 <input
                                 type="text"
                                 value={this.state.kumihoko}
                                 style={{...styles.input, width: '50px'}}
                                 onChange={(e) => this.setState({kumihoko: e.target.value})}
                     />
+                { */ }
+                    組方向 <select
+                                style={{
+                                    ...styles.select,
+                                    width: '50px',
+                                }}
+                                onChange={(e) => this.setState({kumihoko: e.target.value})}
+                           >
+                           <option value="tate" selected={(this.state.kumihoko == 'tate') ? true : false}>たて</option>
+                           <option value="yoko" selected={(this.state.kumihoko == 'yoko') ? true : false}>よこ</option>
+                           </select>
                     &nbsp;
                     行間 <input
                                 type="text"
@@ -170,36 +241,71 @@ export default class ToolBoxTextData extends React.Component {
                         ...styles.line
                     }}
                 >
+                { /* }
                     文字サイズ（字詰）<input
                                         type="text"
                                         value={this.state.size_j}
                                         style={{...styles.input, width: '30px'}}
                                         onChange={(e) => this.setState({size_j: String.toNumeric(e.target.value)})}
                     />
+                { */ }
+                    文字サイズ（字詰）<select
+                                        style={{
+                                            ...styles.select,
+                                            width: '60px',
+                                        }}
+                                        onChange={(e) => this.setState({size_j: parseInt(e.target.value)})}
+                                    >
+                                    { this.htmlMojiSizeOption(this.state.size_j) }
+                                    </select>
                 </div>
                 <div
                     style={{
                         ...styles.line
                     }}
                 >
+                { /* }
                     文字サイズ（行送）<input
                                 type="text"
                                 value={this.state.size_g}
                                 style={{...styles.input, width: '30px'}}
                                 onChange={(e) => this.setState({size_g: String.toNumeric(e.target.value)})}
                     />
+                { */ }
+                    文字サイズ（行送）<select
+                                        style={{
+                                            ...styles.select,
+                                            width: '60px',
+                                        }}
+                                        onChange={(e) => this.setState({size_g: parseInt(e.target.value)})}
+                                    >
+                                    { this.htmlMojiSizeOption(this.state.size_g) }
+                                    </select>
                 </div>
                 <div
                     style={{
                         ...styles.line
                     }}
                 >
+                { /* }
                     フォントNo.<input
                                 type="text"
                                 value={this.state.font}
                                 style={{...styles.input, width: '30px'}}
                                 onChange={(e) => this.setState({font: String.toNumeric(e.target.value)})}
                     />
+                { */ }
+                    フォント <select
+                                style={{
+                                    ...styles.select,
+                                    width: '100px',
+                                }}
+                                onChange={(e) => this.setState({font: e.target.value})}
+                            >
+                            <option value="1" selected={(this.state.font == 1) ? true : false}>明朝（細）</option>
+                            <option value="2" selected={(this.state.font == 2) ? true : false}>明朝（太）</option>
+                            <option value="3" selected={(this.state.font == 3) ? true : false}>ゴシック</option>
+                            </select>
                 </div>
                 <div
                     style={{

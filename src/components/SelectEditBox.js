@@ -57,10 +57,14 @@ export default class SelectEditBox extends React.Component {
         // ベースクリックのイベントを登録する
         this.addBaseClickEvent();
 
-        this.keyPress = this.keyPress.bind(this);
+        this.keyDown = this.keyDown.bind(this);
+        this.keyUp   = this.keyUp.bind(this);
 
         // キー入力のイベントを登録する
         this.addKeyPressEvent();
+
+        // シフトキーが押されているかどうか
+        this.shiftKey = false;
     }
 
     componentWillReceiveProps(nextProps) {
@@ -93,22 +97,91 @@ export default class SelectEditBox extends React.Component {
 
     // キー入力のイベント登録処理
     addKeyPressEvent() {
-        document.addEventListener('keydown', this.keyPress, false);
+        document.addEventListener('keydown', this.keyDown, false);
+        document.addEventListener('keyup', this.keyUp, false);
     }
     // キー入力のイベント削除処理
     removeKeyPressEvent() {
-        document.removeEventListener('keydown', this.keyPress);
+        document.removeEventListener('keydown', this.keyDown);
+        document.removeEventListener('keyup', this.keyUp);
     }
-    // キー入力処理
-    keyPress(e) {
-        // 「Delete」キーが押された場合
-        if (e.keyCode == 46) {
+    // キーダウン処理
+    keyDown(e) {
+        // 「Shift」キーが押された場合
+        if (e.shiftKey == true) {
+            this.shiftKey = true;
+        } else {
+            this.shiftKey = false;
+        }
+
+        // 「Delete」または「BackSpace」キーが押された場合
+        if ((this.shiftKey == true)
+         && (e.keyCode == 46 || e.keyCode == 8)) {
             this.props.sozaiRemove({
                 group_id: this.state.group_id,
             });
+            return;
+        }
+
+        // 「←↑→↓」が押された場合
+        let x, y;
+        if (this.shiftKey == true) {
+            switch (e.keyCode) {
+            case 37: // ←
+                x = this.state.x;
+                x -= 1;
+                if (x < 0) {
+                    x = 0;
+                }
+                this.setState({
+                    x: x,
+                });
+                this.endMoveBox();
+                return false;
+            case 38: // ↑
+                y = this.state.y;
+                y -= 1;
+                if (y < 0) {
+                    y = 0;
+                }
+                this.setState({
+                    y: y,
+                });
+                this.endMoveBox();
+                return false;
+            case 39: // →
+                x = this.state.x;
+                x += 1;
+                if (x > Define.svgimagesize.width - this.state.w) {
+                    x = Define.svgimagesize.width - this.state.w;
+                }
+                this.setState({
+                    x: x,
+                });
+                this.endMoveBox();
+                return false;
+            case 40: // ↓
+                y = this.state.y;
+                y += 1;
+                if (y > Define.svgimagesize.height - this.state.h) {
+                    y = Define.svgimagesize.height - this.state.h;
+                }
+                this.setState({
+                    y: y,
+                });
+                this.endMoveBox();
+                return false;
+            }
         }
     }
-    
+    // キーアップ処理
+    keyUp(e) {
+        // Shiftキーがアップされた場合
+        if (e.shiftKey == false) {
+            this.shiftKey = false;
+        }
+    }
+
     // ベースクリックのイベント登録処理
     addBaseClickEvent() {
         document.getElementById('viewbox').addEventListener('click', this.baseClick, false);
@@ -190,6 +263,11 @@ export default class SelectEditBox extends React.Component {
         // ベースクリックのイベントを登録する
         this.addBaseClickEvent();
 
+        // 移動終了処理
+        this.endMoveBox();
+    }
+
+    endMoveBox() {
         // 移動終了処理（右上基点の座標を渡す）
         const z = Zahyo.luToruAreaToRect(this.state.x,
                                          this.state.y,
@@ -210,6 +288,11 @@ export default class SelectEditBox extends React.Component {
     // グリッドスナップ処理
     //
     gridsnap(x, y) {
+        // Shiftキーが押されていたら、スナップしない
+        if (this.shiftKey == true) {
+            return [x, y];
+        }
+
         // 右上基点の座標に変換する
         let ru_x = Zahyo.luToruX(x, Define.svgimagesize.width);
         let ru_y = Zahyo.luToruY(y, Define.svgimagesize.height);
