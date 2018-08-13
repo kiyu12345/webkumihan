@@ -50,13 +50,14 @@ export default class ToolBoxPresen extends React.Component {
         let f = document.createElement('input');
         f.addEventListener('change', (e) => {
             let file = e.target.files[0];
-            console.log(file);
+            // console.log(file);
             let reader = new FileReader();
             reader.onload = () => {
                 let json = reader.result;
+                // console.log(JSON.parse(json));
                 if(this.isJSON(json)) {
                     json = JSON.parse(json);
-                    console.log(json);
+                    // console.log(json);
                     this.props.onImportLayout({json: json});
                 } else {
                     alert('jsonファイルを選択してください。');
@@ -71,10 +72,16 @@ export default class ToolBoxPresen extends React.Component {
     }
 
     exportJSON() {
-        let expboxs = JSON.stringify(this.props.boxs);
-        console.log(expboxs);
+        let expboxs =  '"boxs":' + JSON.stringify(this.props.boxs);
+        let expsozais = '"sozais":' + JSON.stringify(this.props.sozais);
+        let explinks = '"links":' + JSON.stringify(this.props.links);
+        let expstring = '{' +expboxs + ',' + expsozais + ',' + explinks + '}';
+        // console.log(expboxs);
+        // console.log(expsozais);
+        // console.log(explinks);
+        // console.log(expstring);
 
-        let jsonblob = new Blob([expboxs], {type: 'text/plain'});
+        let jsonblob = new Blob([expstring], {type: 'text/plain'});
         let filename = "WEB組版_EXPORT_" + this.dateFormat(new Date(), "YYYYMMDD-hhmmss") + ".json";
         if(navigator.msSaveBlob) {
             navigator.msSaveOrOpenBlob(jsonblob,filename);
