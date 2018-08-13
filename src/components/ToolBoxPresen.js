@@ -123,7 +123,7 @@ export default class ToolBoxPresen extends React.Component {
                     }}
                     onClick={() => this.props.onCallLayout({pattern: 'A'})}
                 >
-                    lay A
+                    Lay A
                 </div>
                 <div
                     style={{
@@ -133,7 +133,7 @@ export default class ToolBoxPresen extends React.Component {
                     }}
                     onClick={() => this.props.onCallLayout({pattern: 'B'})}
                 >
-                    lay B
+                    Lay B
                 </div>
                 <div
                     style={{
@@ -143,7 +143,7 @@ export default class ToolBoxPresen extends React.Component {
                     }}
                     onClick={() => this.props.onCallLayout({pattern: 'C'})}
                 >
-                    lay C
+                    Lay C
                 </div>
 
                 <div
@@ -210,7 +210,7 @@ export default class ToolBoxPresen extends React.Component {
                     }}
                     onClick={() => this.props.onCallLink({pattern: 'B'})}
                 >
-                    Lik B
+                    Lnk B
                 </div>
                 <div
                     style={{
@@ -221,7 +221,7 @@ export default class ToolBoxPresen extends React.Component {
                     }}
                     onClick={() => this.props.onCallLink({pattern: 'C'})}
                 >
-                    Lik C
+                    Lnk C
                 </div>
                 <div style={{clear: 'both'}}></div>
 

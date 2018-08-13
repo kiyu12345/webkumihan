@@ -142,8 +142,40 @@ export default class ToolBox extends React.Component {
         return [x, y];
     }
 
+    help() {
+        alert(
+            'Lay A : レイアウトＡ（サンプルレイアウト）の呼び出し\n' +
+            'Soz A : レイアウトＡ用の素材の呼び出し\n' +
+            '\n' +
+            'Lay B : レイアウトＢ（本格紙面）の呼び出し\n' +
+            'Soz B : レイアウトＢ用の素材の呼び出し\n' +
+            'Lnk B : レイアウトＢに、レイアウトＢ用の素材を流す\n' +
+            '\n' +
+            'Lay C : レイアウトＣ（小学生新聞）の呼び出し\n' +
+            'Soz C : レイアウトＣ用の素材の呼び出し\n' +
+            'Lnk C : レイアウトＣに、レイアウトＣ用の素材を流す\n' +
+            '\n' +
+            'E On : 編集モードON\n' +
+            'E Off : 編集モードOFF\n\n'+
+            'DL : SVGファイルとしてダウンロード（E Off にしておくこと）' 
+            );
+    }
+
 
     render() {
+        // プレゼン用ツールボックスの場合、ヘルプボタンを入れる
+        let help = '';
+        if (this.props.title == 'プレゼン用') {
+            help = <span
+                        style={{
+                            fontSize: '6px',
+                            color: 'blue',
+                            textDecoration: 'underline',
+                            cursor: 'pointer',
+                        }}
+                        onClick={(e) => this.help()}>ヘルプ</span>;
+        }
+
         return (
             <div
                 style={{
@@ -163,7 +195,7 @@ export default class ToolBox extends React.Component {
                     style={styles.title}
                     onMouseDown={(e) => this.mouseDown(e)}
                 >
-                    {this.props.title}
+                    {this.props.title}　　{help}
                 </div>
 
                 <div style={{

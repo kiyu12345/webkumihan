@@ -34,6 +34,15 @@ export const Saga_Link_Call = (payload = {}) => {
     };
 }
 
+export const Saga_EditOnOff_Change = (payload = {}) => {
+    return {
+        type: SAGA_EDITONOFF_CHANGE,
+        payload: {
+            onoff: payload.onoff,
+        },
+    };
+}
+
 export const Saga_Layout_Import = (payload = {}) => {
     return {
         type: SAGA_LAYOUT_IMPORT,
