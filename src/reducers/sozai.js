@@ -12,6 +12,7 @@ import {
 
 import {
     SAGA_SOZAI_CALL,
+    SAGA_LAYOUT_IMPORT,
 } from '../actions_saga/toolboxpresen.js';
 
 // ====================
@@ -34,6 +35,18 @@ export const sozai = (state = [], action) => {
     switch (action.type) {
     case SAGA_SOZAI_CALL:
         lists = JSON.parse(JSON.stringify(PresenSozai[action.payload.pattern]));
+
+        for (let i = 0; i < lists.length; i++) {
+            if (lists[i].type == 'text') {
+                // 文字オブジェクト配列を作成してセットする
+                lists[i].mojiObjAry = Text.createMojiObjAry(lists[i].text);
+            }
+        }
+        
+        return lists;
+
+    case SAGA_LAYOUT_IMPORT:
+        lists = action.payload.json.sozais;
 
         for (let i = 0; i < lists.length; i++) {
             if (lists[i].type == 'text') {

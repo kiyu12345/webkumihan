@@ -184,9 +184,9 @@ export const boxs = (state = [], action) => {
 
         return boxs;
 
-        case SAGA_LAYOUT_IMPORT:  // レイアウト読込（エクスポートしたJSONファイルの読み込み）
-        boxs = action.payload.json;
-console.log(boxs);
+    case SAGA_LAYOUT_IMPORT:  // レイアウト読込（エクスポートしたJSONファイルの読み込み）
+        boxs = action.payload.json.boxs;
+
         for (let i = 0; i < boxs.length; i++) {
             switch (boxs[i].type) {
             case 'text':

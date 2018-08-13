@@ -46,6 +46,8 @@ const mergeProps = (state, dispatch, props) => {
         //     dispatch.dispatch(SU_ToolBoxPresen_100PerButton_Click());
         // },
         boxs: state.boxs,
+        sozais: state.sozai,
+        links: state.links,
         onCallLayout: (payload) => {
             dispatch.dispatch(SU_ToolBoxPresen_LayoutCallButton_Click(payload));
         },

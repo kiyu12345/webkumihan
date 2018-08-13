@@ -10,6 +10,7 @@ import {
 import {
     SAGA_LINK_CALL,
     SAGA_LAYOUT_CALL,
+    SAGA_LAYOUT_IMPORT,
 } from '../actions_saga/toolboxpresen.js';
 
 // ====================
@@ -39,9 +40,14 @@ export const links = (state = [], action) => {
     switch (action.type) {
     case SAGA_LINK_CALL:
         lists = JSON.parse(JSON.stringify(action.payload.links));
-
+        console.log(lists);
         return lists;
+    
+    case SAGA_LAYOUT_IMPORT:  // レイアウト読込（エクスポートしたJSONファイルの読み込み）
+            lists = action.payload.json.links;
         
+        return lists;
+
     case SAGA_TOOLBOXLINK_LINK_CREATE:
         lists = JSON.parse(JSON.stringify(state));
 
