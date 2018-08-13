@@ -8,6 +8,7 @@ import {
     SU_ToolBoxPresen_LinkCallButton_Click,
     
     SU_ToolBoxPresen_EditOnOffButton_Click,
+    SU_ToolBoxPresen_LayoutImportButton_Click,
 } from '../actions_su/toolboxpresen.js';
 
 
@@ -60,6 +61,9 @@ const mergeProps = (state, dispatch, props) => {
         },
         onEditOffClick: () => {
             dispatch.dispatch(SU_ToolBoxPresen_EditOnOffButton_Click({onoff: 'off'}));
+        },
+        onImportLayout: (payload) => {
+            dispatch.dispatch(SU_ToolBoxPresen_LayoutImportButton_Click(payload));
         },
     };
 }

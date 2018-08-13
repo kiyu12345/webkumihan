@@ -74,6 +74,7 @@ import {
     SU_TOOLBOXPRESEN_LINKCALLBUTTON_CLICK,
 
     SU_TOOLBOXPRESEN_EDITONOFFBUTTON_CLICK,
+    SU_TOOLBOXPRESEN_LAYOUTIMPORTBUTTON_CLICK,
 } from '../actions_su/toolboxpresen.js';
 import {
     Saga_Layout_Call,
@@ -81,6 +82,7 @@ import {
     Saga_Link_Call,
     
     Saga_EditOnOff_Change,
+    Saga_Layout_Import,
 } from '../actions_saga/toolboxpresen.js';
 
 import {
@@ -427,4 +429,13 @@ export default function* toolbox() {
 
         yield put(Saga_EditOnOff_Change(action.payload));
     });
+
+    // プレゼン用ツールボックスの「インポート」が押された
+    yield takeEvery(SU_TOOLBOXPRESEN_LAYOUTIMPORTBUTTON_CLICK, function* (action) {
+        
+        yield put(Saga_SelectBox_Box_NonSelect());
+
+        yield put(Saga_Layout_Import(action.payload));
+    });
+
 }

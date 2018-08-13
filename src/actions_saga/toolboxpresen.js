@@ -4,6 +4,8 @@ export const SAGA_LINK_CALL = 'SAGA_LINK_CALL';
 
 export const SAGA_EDITONOFF_CHANGE = 'SAGA_EDITONOFF_CHANGE';
 
+export const SAGA_LAYOUT_IMPORT = 'SAGA_LAYOUT_IMPORT';
+
 
 export const Saga_Layout_Call = (payload = {}) => {
     return {
@@ -32,11 +34,13 @@ export const Saga_Link_Call = (payload = {}) => {
     };
 }
 
-export const Saga_EditOnOff_Change = (payload = {}) => {
+export const Saga_Layout_Import = (payload = {}) => {
     return {
-        type: SAGA_EDITONOFF_CHANGE,
+        type: SAGA_LAYOUT_IMPORT,
         payload: {
-            onoff: payload.onoff,
+            json: payload.json,
         },
     };
 }
+
+
