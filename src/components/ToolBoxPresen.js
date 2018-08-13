@@ -72,7 +72,7 @@ export default class ToolBoxPresen extends React.Component {
 
     exportJSON() {
         let expboxs = JSON.stringify(this.props.boxs);
-        //console.log(expboxs);
+        console.log(expboxs);
 
         let jsonblob = new Blob([expboxs], {type: 'text/plain'});
         let filename = "WEB組版_EXPORT_" + this.dateFormat(new Date(), "YYYYMMDD-hhmmss") + ".json";
@@ -82,7 +82,9 @@ export default class ToolBoxPresen extends React.Component {
             let a = document.createElement('a');
             a.href = window.URL.createObjectURL(jsonblob);
             a.setAttribute('download', filename);
+            document.body.appendChild(a);
             a.click();
+            document.body.removeChild(a);
         }
 
     }
