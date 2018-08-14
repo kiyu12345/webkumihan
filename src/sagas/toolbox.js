@@ -434,8 +434,80 @@ export default function* toolbox() {
     yield takeEvery(SU_TOOLBOXPRESEN_LAYOUTIMPORTBUTTON_CLICK, function* (action) {
         
         yield put(Saga_SelectBox_Box_NonSelect());
+        
+        if("links" in action.payload.json){
+            // プレゼン用リンクリストを得る
+            const plinklist = action.payload.json.links;
+            console.log(plinklist);
+            // ボックスリストを得る
+            const boxs = yield select((state) => state.boxs);
+            // 素材リストを得る
+            const sozais = yield select((state) => state.sozai);
 
-        yield put(Saga_Layout_Import(action.payload));
+            let linklist = [];
+            for (let i = 0; i < plinklist.length; i++) {
+                const group_id = plinklist[i].group_id;
+                const sozai_id = plinklist[i].sozai_id;
+
+                // ボックスリストからグループNo配列を得る
+                const group_no_ary = Box.getGroupNoAry(boxs, group_id);
+
+                // ボックスリストにグループがなければ、無視
+                if (group_no_ary.length <= 0) {
+                    continue;
+                }
+
+                // ボックスを得る
+                const box_id = Box.getBoxId(boxs, group_id, group_no_ary[0]);
+                const box = Box.getBox(boxs, box_id);
+
+                // 素材リストから素材を得る
+                const sozai = Sozai.getSozai(sozais, sozai_id);
+
+                // 素材リストに素材が存在しなければ、無視
+                if (sozai == '') {
+                    continue;
+                }
+
+                // ボックスと素材の種類が異なっていれば、無視
+                if (box.type != sozai.type) {
+                    continue;
+                }
+
+                // 正しいリンクリストとして作成する
+                linklist.push({
+                    group_id: group_id,
+                    sozai_id: sozai_id,
+                });
+            }
+
+            // 作成したリンクリストを整理（重複をカット）する
+            const newlinklist = linklist.filter((x, i, self) => {
+                if (firstIndex(self, x) === i) {
+                    return true;
+                }
+                return false;
+            });
+            function firstIndex(list, obj) {
+                for (let i = 0; i < list.length; i++) {
+                    if (list[i].group_id == obj.group_id
+                    && list[i].sozai_id == obj.sozai_id) {
+                        return i;
+                    }
+                }
+
+                return -1;
+            }
+
+            // 流し処理を行う
+            for (let i = 0; i < newlinklist.length; i++) {
+                yield fork(nagashiExec, newlinklist[i].group_id, newlinklist[i].sozai_id);
+            }
+            console.log(newlinklist);
+            yield put(Saga_Link_Call({links: newlinklist}));
+        }else{
+            yield put(Saga_Layout_Import(action.payload));
+        }
     });
 
 }
