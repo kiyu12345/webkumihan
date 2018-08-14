@@ -58,7 +58,9 @@ export default class ToolBoxPresen extends React.Component {
                 if(this.isJSON(json)) {
                     json = JSON.parse(json);
                     // console.log(json);
-                    this.props.onImportLayout({json: json});
+                    this.props.onImportLayout({json: {boxs: json.boxs, sozais: json.sozais}});
+                    this.props.onImportLayout({json: {links: json.links}});
+                    
                 } else {
                     alert('jsonファイルを選択してください。');
                 }
