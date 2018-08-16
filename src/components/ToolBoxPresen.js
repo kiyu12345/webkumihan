@@ -46,6 +46,81 @@ export default class ToolBoxPresen extends React.Component {
         a.click();
     }
 
+    importJSON(){
+        let f = document.createElement('input');
+        f.addEventListener('change', (e) => {
+            let file = e.target.files[0];
+            // console.log(file);
+            let reader = new FileReader();
+            reader.onload = () => {
+                let json = reader.result;
+                // console.log(JSON.parse(json));
+                if(this.isJSON(json)) {
+                    json = JSON.parse(json);
+                    // console.log(json);
+                    this.props.onImportLayout({json: {boxs: json.boxs, sozais: json.sozais}});
+                    this.props.onImportLayout({json: {links: json.links}});
+                    
+                } else {
+                    alert('jsonファイルを選択してください。');
+                }
+            };
+
+            reader.readAsText(file);
+        });
+
+        f.type = 'file';
+        f.click();
+    }
+
+    exportJSON() {
+        let expboxs =  '"boxs":' + JSON.stringify(this.props.boxs);
+        let expsozais = '"sozais":' + JSON.stringify(this.props.sozais);
+        let explinks = '"links":' + JSON.stringify(this.props.links);
+        let expstring = '{' +expboxs + ',' + expsozais + ',' + explinks + '}';
+        // console.log(expboxs);
+        // console.log(expsozais);
+        // console.log(explinks);
+        // console.log(expstring);
+
+        let jsonblob = new Blob([expstring], {type: 'text/plain'});
+        let filename = "WEB組版_EXPORT_" + this.dateFormat(new Date(), "YYYYMMDD-hhmmss") + ".json";
+        if(navigator.msSaveBlob) {
+            navigator.msSaveOrOpenBlob(jsonblob,filename);
+        } else {
+            let a = document.createElement('a');
+            a.href = window.URL.createObjectURL(jsonblob);
+            a.setAttribute('download', filename);
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
+
+    }
+
+    dateFormat(d, format){
+        if (!format) format = 'YYYYMMDD-hhmmss';
+        format = format.replace(/YYYY/g, d.getFullYear());
+        format = format.replace(/MM/g, ('0' + (d.getMonth() + 1)).slice(-2));
+        format = format.replace(/DD/g, ('0' + d.getDate()).slice(-2));
+        format = format.replace(/hh/g, ('0' + d.getHours()).slice(-2));
+        format = format.replace(/mm/g, ('0' + d.getMinutes()).slice(-2));
+        format = format.replace(/ss/g, ('0' + d.getSeconds()).slice(-2));
+        return format;
+    }
+
+    isJSON(arg) {
+        arg = (typeof arg === "function") ? arg() : arg;
+        if (typeof arg  !== "string") {
+            return false;
+        }
+        try {
+            arg = (!JSON) ? eval("(" + arg + ")") : JSON.parse(arg);
+            return true;
+        } catch (e) {
+            return false;
+        }
+    }
 
     render() {
         return (
@@ -171,7 +246,30 @@ export default class ToolBoxPresen extends React.Component {
                     onClick={() => this.download()}
                 >DL
                 </div>
-                { /* }
+ 
+                <div
+                    style={{
+                        ...styles.button2,
+                        float: 'right',
+                        marginRight: '8px',
+                        backgroundColor: 'springgreen',
+                    }}
+                onClick={() => this.exportJSON()}
+                >EXP
+                </div>
+
+                <div
+                    style={{
+                        ...styles.button2,
+                        float: 'right',
+                        marginRight: '5px',
+                        backgroundColor: 'deepskyblue',
+                    }}
+                onClick={() => this.importJSON()}
+                >IMP
+                </div>
+
+               { /* }
                 <div
                     style={{
                         ...styles.button2,

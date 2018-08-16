@@ -40,6 +40,7 @@ import {
 
 import {
     SAGA_LAYOUT_CALL,
+    SAGA_LAYOUT_IMPORT,
 } from '../actions_saga/toolboxpresen.js';
 
 
@@ -145,6 +146,46 @@ export const boxs = (state = [], action) => {
     switch (action.type) {
     case SAGA_LAYOUT_CALL:  // レイアウト呼び出し（define.js 定義のものの呼び出し）
         boxs = JSON.parse(JSON.stringify(PresenBox[action.payload.pattern]));
+
+        for (let i = 0; i < boxs.length; i++) {
+            switch (boxs[i].type) {
+            case 'text':
+                // テキストグリッド
+                if (boxs[i].text.kumihoko == 'tate') {
+                    areasize_j = boxs[i].y2 - boxs[i].y1;
+                    areasize_g = boxs[i].x2 - boxs[i].x1;
+                } else {
+                    areasize_j = boxs[i].x2 - boxs[i].x1;
+                    areasize_g = boxs[i].y2 - boxs[i].y1;
+                }
+                const textgrid = TextGrid.getTextGridAry(
+                    areasize_j,  // エリアサイズ（字詰め方向）
+                    areasize_g,  // エリアサイズ（行送り方向）
+                    boxs[i].text.padding_js,  // パディング値（字詰め方向 開始）
+                    boxs[i].text.padding_je,  // パディング値（字詰め方向 終了）
+                    boxs[i].text.padding_gs,  // パディング値（行送り方向 開始）
+                    boxs[i].text.padding_ge,  // パディング値（行送り方向 終了）
+                    boxs[i].text.size_j,  // テキストサイズ（字詰め方向）
+                    boxs[i].text.size_g,  // テキストサイズ（行送り方向）
+                    boxs[i].text.gyokan,  // 行間
+                );
+                boxs[i].text.grid = textgrid;
+                boxs[i].text.result = [];
+                boxs[i].text.afure = '';
+
+                break;
+
+            case 'image':
+                boxs[i].image.url = '';
+                
+                break;
+            }
+        }
+
+        return boxs;
+
+    case SAGA_LAYOUT_IMPORT:  // レイアウト読込（エクスポートしたJSONファイルの読み込み）
+        boxs = action.payload.json.boxs;
 
         for (let i = 0; i < boxs.length; i++) {
             switch (boxs[i].type) {
