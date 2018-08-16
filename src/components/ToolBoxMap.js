@@ -6,6 +6,9 @@ import {
     SU_ToolBox_MoveEnd,
 } from '../actions_su/toolbox.js';
 
+import {
+    SU_ToolBox_Focus_Change,
+} from '../actions_su/toolboxfocus.js';
 
 // mapStateToProps
 const mapStateToProps = (state, props) => {
@@ -33,6 +36,10 @@ const mergeProps = (state, dispatch, props) => {
 
         endMoveBox: (payload) => {
             dispatch.dispatch(SU_ToolBox_MoveEnd(payload));
+        },
+
+        onFocusChange: (payload) => {
+            dispatch.dispatch(SU_ToolBox_Focus_Change(payload));
         },
     };
 }

@@ -30,6 +30,7 @@ const mapDispatchToProps = (dispatch, props) => {
 
 // mergeProps 
 const mergeProps = (state, dispatch, props) => {
+console.log(state.toolboxfocus);
     return {
         // xxx: yyy,
         // onXxxx: (xxx) => {
@@ -38,6 +39,7 @@ const mergeProps = (state, dispatch, props) => {
         // },
         ...props,
         scale: state.scale,
+        toolboxfocus: state.toolboxfocus,
 
         endMoveBox: (payload) => {
             dispatch.dispatch(SU_SelectBox_EditBox_MoveEnd(payload));

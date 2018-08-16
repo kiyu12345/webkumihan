@@ -84,6 +84,13 @@ import {
 } from '../actions_saga/toolboxpresen.js';
 
 import {
+    SU_TOOLBOX_FOCUS_CHANGE,
+} from '../actions_su/toolboxfocus.js';
+import {
+    Saga_ToolBoxFocus_Change,
+} from '../actions_saga/toolboxfocus.js';
+
+import {
     Saga_NagashiResult_Create,
     Saga_Nagashi_Remove,
 } from '../actions_saga/nagashi.js';
@@ -101,7 +108,6 @@ import { Box } from '../libs/box.js';
 import { Sozai } from '../libs/sozai.js';
 
 import { PresenLink } from '../define.js';
-
 
 export default function* toolbox() {
     // 素材の初期処理
@@ -427,4 +433,11 @@ export default function* toolbox() {
 
         yield put(Saga_EditOnOff_Change(action.payload));
     });
+
+
+    // ツールボックスへのフォーカスが変更された
+    yield takeEvery(SU_TOOLBOX_FOCUS_CHANGE, function* (action) {
+        yield put(Saga_ToolBoxFocus_Change(action.payload));
+    });
+
 }

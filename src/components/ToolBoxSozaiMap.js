@@ -64,7 +64,7 @@ const mergeProps = (state, dispatch, props) => {
 
         sozaiMouseDown: (payload) => {
             dispatch.dispatch(SU_DAndD_MouseDown(payload));
-        }
+        },
     };
 }
 

@@ -10,6 +10,7 @@ import { links } from './links.js';
 import { editonoff } from './editonoff.js';
 import { dandd } from './dandd.js';
 import { contextmenu } from './contextmenu.js';
+import { toolboxfocus } from './toolboxfocus.js';
 
 const rootReducer = combineReducers({
     scale,
@@ -22,6 +23,7 @@ const rootReducer = combineReducers({
     editonoff,
     dandd,
     contextmenu,
+    toolboxfocus,
 });
 
 export default rootReducer;

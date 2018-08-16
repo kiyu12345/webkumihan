@@ -190,6 +190,9 @@ export default class ToolBox extends React.Component {
                     e.preventDefault();
                     return false;
                 }}
+
+                onFocus={(e) => this.props.onFocusChange({focus: 'in'})}
+                onBlur={(e) => this.props.onFocusChange({focus: 'out'})}
             >
                 <div
                     style={styles.title}

@@ -107,6 +107,11 @@ export default class SelectEditBox extends React.Component {
     }
     // キーダウン処理
     keyDown(e) {
+        // ツールボックスにフォーカスがある場合、何もしない
+        if (this.props.toolboxfocus == 'in') {
+            return;
+        }
+
         // 「Shift」キーが押された場合
         if (e.shiftKey == true) {
             this.shiftKey = true;
@@ -115,8 +120,7 @@ export default class SelectEditBox extends React.Component {
         }
 
         // 「Delete」または「BackSpace」キーが押された場合
-        if ((this.shiftKey == true)
-         && (e.keyCode == 46 || e.keyCode == 8)) {
+        if (e.keyCode == 46 || e.keyCode == 8) {
             this.props.sozaiRemove({
                 group_id: this.state.group_id,
             });

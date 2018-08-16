@@ -360,12 +360,14 @@ export default class ContextMenu extends React.Component {
                 cur_y: cur_y,
                 box_id: this.props.focusbox.box_id,
             });
+            break;
         case 'line':    // ラインボックス
             this.props.copyBoxLine({
                 cur_x: cur_x,
                 cur_y: cur_y,
                 box_id: this.props.focusbox.box_id,
             });
+            break;
         case 'title':   // 見出しボックス
             break;
         }

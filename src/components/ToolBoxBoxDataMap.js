@@ -11,6 +11,9 @@ import {
     SU_ToolBoxBoxData_CreateButton_Click,
 } from '../actions_su/toolboxboxdata.js';
 
+import {
+    SU_ToolBox_Focus_Change,
+} from '../actions_su/toolboxfocus.js';
 
 // mapStateToProps
 const mapStateToProps = (state, props) => {
@@ -105,6 +108,10 @@ const mergeProps = (state, dispatch, props) => {
             }
 
             return false;
+        },
+
+        onFocusChange: (payload) => {
+            dispatch.dispatch(SU_ToolBox_Focus_Change(payload));
         },
     };
 }
