@@ -22,6 +22,9 @@ export default class SelectSonotaBox extends React.Component {
         e.stopPropagation();    // このイベントをこのレイヤーで止める。下レイヤーにある要素にイベントを起こさない
         e.preventDefault();     // ブラウザ標準機能のイベントを抑止する
 
+        // ツールボックスのフォーカスをアウトにする
+        this.props.onToolBoxFocusChange({focus: 'out'});
+
         this.props.onClickBox({
             box_id:   this.props.box_id,
             group_id: this.props.group_id,

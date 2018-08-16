@@ -17,7 +17,7 @@ const styles = {
     container: {
         position: 'relative',
         fontSize: '20px',
-        fontWeight: 'bold',
+        //fontWeight: 'bold',
         color: 'black',
         width: '100%',
         height: '100vh',

@@ -33,6 +33,7 @@ const mergeProps = (state, dispatch, props) => {
         //     dispatch.dispatch(SU_Xxxxxx_Xxxxx_Xxxx());
         // },
         ...props,
+        toolboxfocus: state.toolboxfocus,
 
         endMoveBox: (payload) => {
             dispatch.dispatch(SU_ToolBox_MoveEnd(payload));

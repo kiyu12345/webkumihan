@@ -214,6 +214,9 @@ export default class SelectEditBox extends React.Component {
         // ベースクリックのイベントを削除する
         this.removeBaseClickEvent();
 
+        // ツールボックスのフォーカスをアウトにする
+        this.props.onToolBoxFocusChange({focus: 'out'});
+
         // マウスムーブとマウスアップのイベントを登録する
         document.addEventListener('mousemove', this.mouseMove, false);
         document.addEventListener('mouseup',   this.mouseUp, false);

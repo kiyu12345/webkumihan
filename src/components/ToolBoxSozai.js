@@ -41,6 +41,7 @@ const styles = {
         width: '174px',
         height: '175px',
         marginTop: '5px',
+        fontWeight: 'normal',
     },
     imagebox: {
         display: 'table-cell',
@@ -89,7 +90,7 @@ export default class ToolBoxSozai extends React.Component {
         if (sozai == '') {
             sozai = {
                 sozai_id: '',
-                sozai_type: '',
+                sozai_type: 'text',
                 text: '',
                 imageUrl: '',
             }
@@ -117,7 +118,7 @@ export default class ToolBoxSozai extends React.Component {
             this.setState({
                 sozai_id: '',
                 input_id: '',
-                type: '',
+                type: 'text',
                 text: '',
                 imageUrl: '',
             });
@@ -291,7 +292,6 @@ export default class ToolBoxSozai extends React.Component {
                                 }}
                                 onChange={(e) => this.setState({type: e.target.value})}
                             >
-                            <option value=""></option>
                             <option value="text">テキスト</option>
                             <option value="image">画像URL</option>
                             </select>

@@ -81,10 +81,13 @@ export default class ViewBox extends React.Component {
                     e.stopPropagation();
                     e.preventDefault();
                     
-                    this.props.onContextMenu({
-                        x: e.pageX,
-                        y: e.pageY,
-                    });
+                    // エディットモードがONの場合のみ、コンテキストメニューを出す
+                    if (this.props.editonoff == 'on') {
+                        this.props.onContextMenu({
+                            x: e.pageX,
+                            y: e.pageY,
+                        });
+                    }
                 }}
             >
                 <SvgImageMap

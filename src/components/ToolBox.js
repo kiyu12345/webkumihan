@@ -5,6 +5,7 @@ const styles = {
         position: 'absolute',
         borderRadius: '5px',
         boxShadow: '0 0 2px gray',
+        fontWeight: 'bold',
     },
     title: {
         width: 'calc(100% - 2px - 20px)',
@@ -188,11 +189,11 @@ export default class ToolBox extends React.Component {
                 onClick={(e) => {
                     e.stopPropagation();
                     e.preventDefault();
+                    if (this.props.toolboxfocus == 'out') {
+                        this.props.onFocusChange({focus: 'in'});
+                    }
                     return false;
                 }}
-
-                onFocus={(e) => this.props.onFocusChange({focus: 'in'})}
-                onBlur={(e) => this.props.onFocusChange({focus: 'out'})}
             >
                 <div
                     style={styles.title}

@@ -31,6 +31,8 @@ const mergeProps = (state, dispatch, props) => {
         // },
         // ...props,
         contextmenu: state.contextmenu,
+        editonoff: state.editonoff,
+        
         onContextMenu: (payload) => {
             dispatch.dispatch(SU_ContextMenu_Open(payload));
         },

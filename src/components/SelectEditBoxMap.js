@@ -13,6 +13,10 @@ import {
     SU_ContextMenu_Close,
 } from '../actions_su/contextmenu.js';
 
+import {
+    SU_ToolBox_Focus_Change
+} from '../actions_su/toolboxfocus.js';
+
 
 // mapStateToProps
 const mapStateToProps = (state, props) => {
@@ -54,6 +58,10 @@ console.log(state.toolboxfocus);
 
         sozaiRemove: (payload) => {
             dispatch.dispatch(SU_SelectBox_EditBox_DeleteKeyPress(payload));
+        },
+
+        onToolBoxFocusChange: (payload) => {
+            dispatch.dispatch(SU_ToolBox_Focus_Change(payload));
         },
     };
 }

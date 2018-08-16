@@ -10,6 +10,11 @@ import {
     SU_ContextMenu_Close,
 } from '../actions_su/contextmenu.js';
 
+import {
+    SU_ToolBox_Focus_Change
+} from '../actions_su/toolboxfocus.js';
+
+
 // mapStateToProps
 const mapStateToProps = (state, props) => {
     return {
@@ -35,6 +40,10 @@ const mergeProps = (state, dispatch, props) => {
         ...props,
         onClickBox: (payload) => {
             dispatch.dispatch(SU_SelectBox_Box_Select(payload));
+        },
+
+        onToolBoxFocusChange: (payload) => {
+            dispatch.dispatch(SU_ToolBox_Focus_Change(payload));
         },
     };
 }

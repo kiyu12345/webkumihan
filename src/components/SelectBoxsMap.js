@@ -2,10 +2,6 @@ import { connect } from 'react-redux';
 
 import SelectBoxs from './SelectBoxs.js';
 
-// import {
-//     SU_SelectBox_Box_Select,
-// } from '../actions_su/selectbox.js';
-
 
 // mapStateToProps
 const mapStateToProps = (state, props) => {
