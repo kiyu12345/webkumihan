@@ -39,9 +39,9 @@ export const links = (state = [], action) => {
     switch (action.type) {
     case SAGA_LINK_CALL:
         lists = JSON.parse(JSON.stringify(action.payload.links));
-        
+
         return lists;
-    
+        
     case SAGA_TOOLBOXLINK_LINK_CREATE:
         lists = JSON.parse(JSON.stringify(state));
 
