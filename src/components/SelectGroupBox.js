@@ -70,6 +70,7 @@ export default class SelectGroupBox extends React.Component {
                     y={z.y + 20}
                     style={{
                         fontSize: 15,
+                        fontWeight: 'bold',
                         stroke: 'none',
                         fill: 'white',
                         fillOpacity: '0.7',

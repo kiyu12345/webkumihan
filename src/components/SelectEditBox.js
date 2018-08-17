@@ -1,9 +1,6 @@
 import React from 'react';
 
-import HandleUMap from './HandleUMap.js';
-import HandleLMap from './HandleLMap.js';
-import HandleRMap from './HandleRMap.js';
-import HandleDMap from './HandleDMap.js';
+import HandleMap from './HandleMap.js';
 
 import { Define } from '../define.js';
 import { Zahyo, Grid }  from '../libs/zahyo.js';
@@ -214,8 +211,12 @@ export default class SelectEditBox extends React.Component {
         // ベースクリックのイベントを削除する
         this.removeBaseClickEvent();
 
-        // ツールボックスのフォーカスをアウトにする
-        this.props.onToolBoxFocusChange({focus: 'out'});
+        // ツールボックスにフォーカスが当たっていた場合
+        // ツールボックスのフォーカスをOFFにして抜ける
+        if (this.props.toolboxfocus == 'in') {
+            this.props.onToolBoxFocusChange({focus: 'out'});
+            return;
+        }
 
         // マウスムーブとマウスアップのイベントを登録する
         document.addEventListener('mousemove', this.mouseMove, false);
@@ -439,6 +440,7 @@ export default class SelectEditBox extends React.Component {
                     y={this.state.y + 20}
                     style={{
                         fontSize: 15,
+                        fontWeight: 'bold',
                         stroke: 'none',
                         fill: 'white',
                         fillOpacity: '0.7',
@@ -451,6 +453,110 @@ export default class SelectEditBox extends React.Component {
 
          return html;
     }
+
+    realtimebox() {
+        let box = '';
+
+        // 角丸四角形
+        let x = this.state.x - (10 * 100 / this.props.scale);
+        let y = this.state.y - (30 * 100 / this.props.scale);
+        let rx = 10 * 100 / this.props.scale;
+        let ry = 10 * 100 / this.props.scale;
+        let width  = 180 * 100 / this.props.scale;
+        let height = 20  * 100 / this.props.scale;
+
+        // 三角形
+        let p1x = this.state.x + (5 * 100 / this.props.scale);
+        let p1y = this.state.y - (10 * 100 / this.props.scale);
+        let p2x = this.state.x + (15 * 100 / this.props.scale);
+        let p2y = p1y;
+        let p3x = this.state.x + (10 * 100 / this.props.scale);
+        let p3y = this.state.y;
+        let points = `${p1x},${p1y} ${p2x},${p2y} ${p3x},${p3y}`;
+
+        // テキスト
+        let area = Zahyo.luToruArea(this.state.x,
+                                    this.state.y,
+                                    this.state.w,
+                                    this.state.h,
+                                    Define.svgimagesize.width,
+                                    Define.svgimagesize.height);
+        let text = `x:${area.x} y:${area.y} w:${area.w} h:${area.h}`;
+        let t_size = 12 * 100 / this.props.scale;
+        let t_ichi_x = this.state.x + (0 * 100 / this.props.scale);
+        let t_ichi_y = this.state.y - (15 * 100 / this.props.scale);
+
+        box = (
+            <g>
+                <rect
+                    x={x}
+                    y={y}
+                    rx={rx}
+                    ry={ry}
+                    width={width}
+                    height={height}
+                    style={{
+                        fill: 'green',
+                        fillOpacity: '0.5',
+                        stroke: 'none',
+                    }}
+                />
+                <polygon
+                    points={points}
+                    style={{
+                        fill: 'green',
+                        fillOpacity: '0.5',
+                        stroke: 'none',
+                    }}
+                />
+                <text
+                    x={t_ichi_x}
+                    y={t_ichi_y}
+                    style={{
+                        fontSize: t_size,
+                        fontWeight: 'bold',
+                        fill: 'white',
+                        stroke: 'none',
+                    }}
+                >
+                    {text}
+                </text>
+            </g>
+        );
+
+        return box;
+    }
+
+    handles() {
+        let jsx = [];
+        let kind = ['leftup',     'centerup',    'rightup',
+                    'leftcenter',                'rightcenter',
+                    'leftdown',   'centerdown',  'rightdown'];
+
+        for (let i = 0; i < kind.length; i++) {
+            jsx.push(
+                <HandleMap
+                    kind={kind[i]}
+
+                    x={this.state.x}
+                    y={this.state.y}
+                    w={this.state.w}
+                    h={this.state.h}
+
+                    handleRefresh={this.state.handle_refresh}
+
+                    gridsnap={(x, y) => this.gridsnap(x, y)}
+                    handlestop={(x, y, w, h) => this.handlestop(x, y, w, h)}
+                    handleMouseDown={() => this.handleMouseDown()}
+                    handleMove={(x, y, w, h) => this.handleMove(x, y, w, h)}
+                    handleMouseUp={() => this.handleMouseUp()}
+                />
+            )
+        }
+
+        return jsx;
+    }
+
 
     render() {
         return (
@@ -480,62 +586,11 @@ export default class SelectEditBox extends React.Component {
                 {/* グループNo */}
                 {this.group_no()}
 
-                <HandleUMap
-                    x={this.state.x}
-                    y={this.state.y}
-                    w={this.state.w}
-                    h={this.state.h}
+                {/* ハンドル */}
+                { this.handles() }
 
-                    handleRefresh={this.state.handle_refresh}
-
-                    gridsnap={(x, y) => this.gridsnap(x, y)}
-                    handlestop={(x, y, w, h) => this.handlestop(x, y, w, h)}
-                    handleMouseDown={() => this.handleMouseDown()}
-                    handleMove={(x, y, w, h) => this.handleMove(x, y, w, h)}
-                    handleMouseUp={() => this.handleMouseUp()}
-                />
-                <HandleLMap
-                    x={this.state.x}
-                    y={this.state.y}
-                    w={this.state.w}
-                    h={this.state.h}
-
-                    handleRefresh={this.state.handle_refresh}
-
-                    gridsnap={(x, y) => this.gridsnap(x, y)}
-                    handlestop={(x, y, w, h) => this.handlestop(x, y, w, h)}
-                    handleMouseDown={() => this.handleMouseDown()}
-                    handleMove={(x, y, w, h) => this.handleMove(x, y, w, h)}
-                    handleMouseUp={() => this.handleMouseUp()}
-                />
-                <HandleRMap
-                    x={this.state.x}
-                    y={this.state.y}
-                    w={this.state.w}
-                    h={this.state.h}
-
-                    handleRefresh={this.state.handle_refresh}
-
-                    gridsnap={(x, y) => this.gridsnap(x, y)}
-                    handlestop={(x, y, w, h) => this.handlestop(x, y, w, h)}
-                    handleMouseDown={() => this.handleMouseDown()}
-                    handleMove={(x, y, w, h) => this.handleMove(x, y, w, h)}
-                    handleMouseUp={() => this.handleMouseUp()}
-                />
-                <HandleDMap
-                    x={this.state.x}
-                    y={this.state.y}
-                    w={this.state.w}
-                    h={this.state.h}
-
-                    handleRefresh={this.state.handle_refresh}
-
-                    gridsnap={(x, y) => this.gridsnap(x, y)}
-                    handlestop={(x, y, w, h) => this.handlestop(x, y, w, h)}
-                    handleMouseDown={() => this.handleMouseDown()}
-                    handleMove={(x, y, w, h) => this.handleMove(x, y, w, h)}
-                    handleMouseUp={() => this.handleMouseUp()}
-                />
+                {/* 編集ボックスの位置とサイズ情報 */}
+                { this.realtimebox() }
             </g> 
         )
     }

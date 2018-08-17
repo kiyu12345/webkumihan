@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import SelectEditBox from './SelectEditBox.js';
 
 import {
+    SU_SelectBox_Box_Select,
     SU_SelectBox_Box_NonSelect,
     SU_SelectBox_EditBox_MoveEnd,
     SU_SelectBox_EditBox_ChangeSize,
@@ -14,7 +15,7 @@ import {
 } from '../actions_su/contextmenu.js';
 
 import {
-    SU_ToolBox_Focus_Change
+    SU_ToolBox_Focus_Change,
 } from '../actions_su/toolboxfocus.js';
 
 
@@ -34,7 +35,6 @@ const mapDispatchToProps = (dispatch, props) => {
 
 // mergeProps 
 const mergeProps = (state, dispatch, props) => {
-console.log(state.toolboxfocus);
     return {
         // xxx: yyy,
         // onXxxx: (xxx) => {
@@ -62,6 +62,10 @@ console.log(state.toolboxfocus);
 
         onToolBoxFocusChange: (payload) => {
             dispatch.dispatch(SU_ToolBox_Focus_Change(payload));
+        },
+
+        onClickBox: (payload) => {
+            dispatch.dispatch(SU_SelectBox_Box_Select(payload));
         },
     };
 }
