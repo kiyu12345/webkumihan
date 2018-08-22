@@ -108,7 +108,6 @@ export default class ToolBoxPresen extends React.Component {
         // console.log(expsozais);
         // console.log(explinks);
         // console.log(expstring);
-        alert("OK");
 
         let jsonblob = new Blob([expstring], {type: 'text/plain'});
         let filename = "WEB組版_EXPORT_" + this.dateFormat(new Date(), "YYYYMMDD-hhmmss") + ".json";
