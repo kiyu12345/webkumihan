@@ -77,7 +77,7 @@ export default class ToolBoxPresen extends React.Component {
 
         // 余分なプロパティを削除
         let tmpboxs = this.props.boxs;
-        console.log(this.props.boxs);
+        // console.log(this.props.boxs);
         for(let key in tmpboxs){
             // console.log(tmpboxs[key]);
             if(tmpboxs[key].text){
@@ -89,16 +89,16 @@ export default class ToolBoxPresen extends React.Component {
                 }
             }
         };
-        console.log(tmpboxs);
+        // console.log(tmpboxs);
 
         let tmpsozais = this.props.sozais;
-        console.log(this.props.sozais);
+        // console.log(this.props.sozais);
         for(let key in tmpsozais){
             if(tmpsozais[key].mojiObjAry){
                 tmpsozais[key].mojiObjAry = [];
             }
         };
-        console.log(tmpsozais);
+        // console.log(tmpsozais);
 
         let expboxs =  '"boxs":' + JSON.stringify(tmpboxs);
         let expsozais = '"sozais":' + JSON.stringify(tmpsozais);
