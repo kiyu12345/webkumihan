@@ -74,8 +74,34 @@ export default class ToolBoxPresen extends React.Component {
     }
 
     exportJSON() {
-        let expboxs =  '"boxs":' + JSON.stringify(this.props.boxs);
-        let expsozais = '"sozais":' + JSON.stringify(this.props.sozais);
+
+        // 余分なプロパティを削除
+        let tmpboxs = this.props.boxs;
+        // console.log(this.props.boxs);
+        for(let key in tmpboxs){
+            // console.log(tmpboxs[key]);
+            if(tmpboxs[key].text){
+                if(tmpboxs[key].text.grid){
+                    tmpboxs[key].text.grid = [];
+                }
+                if(tmpboxs[key].text.result){
+                    tmpboxs[key].text.result = [];
+                }
+            }
+        };
+        // console.log(tmpboxs);
+
+        let tmpsozais = this.props.sozais;
+        // console.log(this.props.sozais);
+        for(let key in tmpsozais){
+            if(tmpsozais[key].mojiObjAry){
+                tmpsozais[key].mojiObjAry = [];
+            }
+        };
+        // console.log(tmpsozais);
+
+        let expboxs =  '"boxs":' + JSON.stringify(tmpboxs);
+        let expsozais = '"sozais":' + JSON.stringify(tmpsozais);
         let explinks = '"links":' + JSON.stringify(this.props.links);
         let expstring = '{' +expboxs + ',' + expsozais + ',' + explinks + '}';
         // console.log(expboxs);
