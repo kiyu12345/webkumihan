@@ -92,7 +92,8 @@ export default class ToolBoxSozai extends React.Component {
                 sozai_id: '',
                 sozai_type: 'text',
                 text: '',
-                imageUrl: '',
+                //imageUrl: '',
+                imageBase64: '',
             }
         }
 
@@ -101,7 +102,8 @@ export default class ToolBoxSozai extends React.Component {
             input_id: '',
             type: sozai.type,
             text: sozai.text,
-            imageUrl: sozai.imageUrl,
+            //imageUrl: sozai.imageUrl,
+            imageBase64: sozai.imageUrl,
         };
     }
    
@@ -120,19 +122,22 @@ export default class ToolBoxSozai extends React.Component {
                 input_id: '',
                 type: 'text',
                 text: '',
-                imageUrl: '',
+                //imageUrl: '',
+                imageBase64: '',
             });
         } else {
             this.setState({
                 sozai_id: sozai.sozai_id,
                 type: sozai.type,
                 text: sozai.text,
-                imageUrl: sozai.imageUrl,
+                //imageUrl: sozai.imageUrl,
+                imageBase64: sozai.imageUrl,
             });
         }
     }
 
     clickList(sozai) {
+console.log('sozai click');
         this.props.onClickSozaiList({sozai_id: sozai.sozai_id});
     }
 
@@ -141,7 +146,8 @@ export default class ToolBoxSozai extends React.Component {
             sozai_id: this.state.sozai_id,
             type: this.state.type,
             text: this.state.text,
-            imageUrl: this.state.imageUrl,
+            //imageUrl: this.state.imageUrl,
+            imageUrl: this.state.imageBase64,
         };
 
         this.props.onClickUpdateButton({
@@ -178,16 +184,17 @@ export default class ToolBoxSozai extends React.Component {
             return;
         }
 
-        let imageUrl = '';
-        if (this.state.type == 'image') {
-            imageUrl = this.state.text;
-        }
+        // let imageUrl = '';
+        // if (this.state.type == 'image') {
+        //     imageUrl = this.state.text;
+        // }
 
         this.props.onClickCreateButton({
             sozai_id: this.state.input_id,
             type: this.state.type,
             text: this.state.text,
-            imageUrl: imageUrl,
+            //imageUrl: imageUrl,
+            imageUrl: this.state.imageBase64,
         });
 
         this.setState({
@@ -195,9 +202,34 @@ export default class ToolBoxSozai extends React.Component {
         });
     }
 
+    imageUpload(){
+        let f = document.createElement('input');
+        f.addEventListener('change', (e) => {
+            let file = e.target.files[0];
+            if (!file || !file.type.match(/^image\/(jpeg|png|gif)/)){
+                alert('画像以外は非対応です。');
+                return;
+            }
+
+            let reader = new FileReader();
+            reader.onload = () => {
+                let imageBase64 = reader.result;
+            
+                this.setState({
+                    imageBase64: imageBase64,
+                });
+            };
+
+            reader.readAsDataURL(file);
+        });
+
+        f.type = 'file';
+        f.click();
+    }
+
     sozailist() {
         return (
-            this.props.sozai.map((rec, i) => {
+            this.props.sozai.map((rec) => {
                 let color;
                 switch (rec.type) {
                 case 'text':
@@ -214,7 +246,7 @@ export default class ToolBoxSozai extends React.Component {
 
                 return (
                     <div
-                        key={i}
+                        key={rec.sozai_id}
                         style={{
                             ...styles.sozailist,
                             backgroundColor: color,
@@ -293,7 +325,12 @@ export default class ToolBoxSozai extends React.Component {
                                     ...styles.select,
                                     width: '80px',
                                 }}
-                                onChange={(e) => this.setState({type: e.target.value})}
+                                onChange={(e) => {
+                                    this.setState({type: e.target.value});
+                                    if (e.target.value == 'image') {
+                                        this.imageUpload();
+                                    }
+                                }}
                             >
                             <option value="text">テキスト</option>
                             <option value="image">画像URL</option>
@@ -374,19 +411,19 @@ export default class ToolBoxSozai extends React.Component {
 
     sozaiarea() {
         let html;
-        if (this.state.sozai_id == '') {
-            html = [
-                <textarea
-                    key={1}
-                    id="toolboxsozaitextarea"
-                    value={this.state.text}
-                    style={{
-                        ...styles.textbox,
-                    }}
-                    onChange={(e) => this.setState({text: e.target.value})}
-                />
-            ];
-        } else {
+        // if (this.state.sozai_id == '') {
+        //     html = [
+        //         <textarea
+        //             key={1}
+        //             id="toolboxsozaitextarea"
+        //             value={this.state.text}
+        //             style={{
+        //                 ...styles.textbox,
+        //             }}
+        //             onChange={(e) => this.setState({text: e.target.value})}
+        //         />
+        //     ];
+        // } else {
             if (this.state.type == 'text') {
                 html = [
                     <textarea
@@ -409,7 +446,7 @@ export default class ToolBoxSozai extends React.Component {
                         }}
                     >
                         <img
-                            src={this.state.imageUrl}
+                            src={this.state.imageBase64}
                             style={{
                                 ...styles.img,
                             }}
@@ -417,7 +454,7 @@ export default class ToolBoxSozai extends React.Component {
                     </div>
                 ];
             }
-        }
+        // }
 
         return html;
     }

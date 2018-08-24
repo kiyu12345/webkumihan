@@ -331,7 +331,8 @@ export default class TopScreen extends React.Component {
                     ...objstyle,
                     left: this.state.x - (130 / 2) + 'px',
                     //top:  this.state.y - (130 / 2) + 'px',
-                    top:  this.state.y - 15 + 'px',
+                    // top:  this.state.y - 15 + 'px',
+                    top:  this.state.y + 1 + 'px',
                 }}
             >
                 {children}
