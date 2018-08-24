@@ -33,6 +33,7 @@ export default class SvgImage extends React.Component {
 
         html.push(
             <rect
+                key={1}
                 x={rz.x}
                 y={rz.y}
                 width={rz.w}

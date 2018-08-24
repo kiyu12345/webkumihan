@@ -473,6 +473,7 @@ export default class ContextMenu extends React.Component {
             // 新規ボックス（テキスト）
             item.push(
                 <div
+                    key={'cm_newboxtext'}
                     id="cm_newboxtext"
                     className={css(styles.item)}
                 >
@@ -482,6 +483,7 @@ export default class ContextMenu extends React.Component {
             // 新規ボックス（画像）
             item.push(
                 <div
+                    key={'cm_newboximage'}
                     id="cm_newboximage"
                     className={css(styles.item)}
                 >
@@ -491,6 +493,7 @@ export default class ContextMenu extends React.Component {
             // 新規ボックス（ライン縦）
             item.push(
                 <div
+                    key={'cm_newboxlinetate'}
                     id="cm_newboxlinetate"
                     className={css(styles.item)}
                 >
@@ -500,6 +503,7 @@ export default class ContextMenu extends React.Component {
             // 新規ボックス（ライン横）
             item.push(
                 <div
+                    key={'cm_newboxlineyoko'}
                     id="cm_newboxlineyoko"
                     className={css(styles.item)}
                 >
@@ -512,6 +516,7 @@ export default class ContextMenu extends React.Component {
              || this.props.focusbox.type == 'title') {
                 item.push(
                     <div
+                        key={'cm_copyboxongroup'}
                         id="cm_copyboxongroup"
                         className={css(styles.item)}
                     >
@@ -522,6 +527,7 @@ export default class ContextMenu extends React.Component {
             // ボックスを複製
             item.push(
                 <div
+                    key={'cm_copybox'}
                     id="cm_copybox"
                     className={css(styles.item)}
                 >
@@ -534,20 +540,24 @@ export default class ContextMenu extends React.Component {
         if (this.props.focusbox.box_id == '') {     // ボックスが選択されていない場合
         } else {                                    // ボックスが選択されている場合
             // <hr>
-            item.push(<hr/>);
+            item.push(<hr key={'hr_1'}/>);
 
             // 素材をはずす
-            item.push(
-                <div
-                    id="cm_sozaiunlink"
-                    className={css(styles.item)}
-                >
-                    素材をはずす
-                </div>
-            );
+            if (this.props.focusbox.type != 'line') {
+                item.push(
+                    <div
+                        key={'cm_sozaiunlink'}
+                        id="cm_sozaiunlink"
+                        className={css(styles.item)}
+                    >
+                        素材をはずす
+                    </div>
+                );
+            }
             // ボックスを削除
             item.push(
                 <div
+                    key={'cm_boxremove'}
                     id="cm_boxremove"
                     className={css(styles.item)}
                 >
@@ -560,11 +570,12 @@ export default class ContextMenu extends React.Component {
         if (this.props.focusbox.box_id == '') {     // ボックスが選択されていない場合
         } else {                                    // ボックスが選択されている場合
             // <hr>
-            item.push(<hr/>);
+            item.push(<hr key={'hr_2'}/>);
 
             // 最前面へ
             item.push(
                 <div
+                    key={'cm_boxtofront'}
                     id="cm_boxtofront"
                     className={css(styles.item)}
                 >
@@ -574,6 +585,7 @@ export default class ContextMenu extends React.Component {
             // 再背面へ
             item.push(
                 <div
+                    key={'cm_boxtoback'}
                     id="cm_boxtoback"
                     className={css(styles.item)}
                 >

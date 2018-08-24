@@ -143,6 +143,7 @@ export default class TopScreen extends React.Component {
             case 'scale':   // 拡大縮小ツールボックス
                 toolboxs.push(
                     <ToolBoxMap
+                        key={this.props.toolboxs[i].toolbox_id}
                         toolbox_id={this.props.toolboxs[i].toolbox_id}
                         x={this.props.toolboxs[i].x}
                         y={this.props.toolboxs[i].y}
@@ -163,6 +164,7 @@ export default class TopScreen extends React.Component {
 
                 toolboxs.push(
                     <ToolBoxMap
+                        key={this.props.toolboxs[i].toolbox_id}
                         toolbox_id={this.props.toolboxs[i].toolbox_id}
                         x={this.props.toolboxs[i].x}
                         y={this.props.toolboxs[i].y}
@@ -184,6 +186,7 @@ export default class TopScreen extends React.Component {
 
                 toolboxs.push(
                     <ToolBoxMap
+                        key={this.props.toolboxs[i].toolbox_id}
                         toolbox_id={this.props.toolboxs[i].toolbox_id}
                         x={this.props.toolboxs[i].x}
                         y={this.props.toolboxs[i].y}
@@ -205,6 +208,7 @@ export default class TopScreen extends React.Component {
 
                 toolboxs.push(
                     <ToolBoxMap
+                        key={this.props.toolboxs[i].toolbox_id}
                         toolbox_id={this.props.toolboxs[i].toolbox_id}
                         x={this.props.toolboxs[i].x}
                         y={this.props.toolboxs[i].y}
@@ -225,6 +229,7 @@ export default class TopScreen extends React.Component {
 
                 toolboxs.push(
                     <ToolBoxMap
+                        key={this.props.toolboxs[i].toolbox_id}
                         toolbox_id={this.props.toolboxs[i].toolbox_id}
                         x={this.props.toolboxs[i].x}
                         y={this.props.toolboxs[i].y}
@@ -244,6 +249,7 @@ export default class TopScreen extends React.Component {
 
                 toolboxs.push(
                     <ToolBoxMap
+                        key={this.props.toolboxs[i].toolbox_id}
                         toolbox_id={this.props.toolboxs[i].toolbox_id}
                         x={this.props.toolboxs[i].x}
                         y={this.props.toolboxs[i].y}
@@ -264,6 +270,7 @@ export default class TopScreen extends React.Component {
 
                 toolboxs.push(
                     <ToolBoxMap
+                        key={this.props.toolboxs[i].toolbox_id}
                         toolbox_id={this.props.toolboxs[i].toolbox_id}
                         x={this.props.toolboxs[i].x}
                         y={this.props.toolboxs[i].y}
@@ -319,6 +326,7 @@ export default class TopScreen extends React.Component {
 
         dropobj.push(
             <div
+                key={1}
                 style={{
                     ...objstyle,
                     left: this.state.x - (130 / 2) + 'px',

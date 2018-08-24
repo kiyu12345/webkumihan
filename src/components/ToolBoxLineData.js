@@ -116,10 +116,11 @@ export default class ToolBoxLineData extends React.Component {
                                 ...styles.select,
                                 width: '80px',
                             }}
+                            value={this.state.hoko}
                             onChange={(e) => this.setState({hoko: e.target.value})}
                         >
-                        <option value="tate" selected={(this.state.hoko == 'tate') ? true : false}>たて</option>
-                        <option value="yoko" selected={(this.state.hoko == 'yoko') ? true : false}>よこ</option>
+                        <option key={'tate'} value="tate">たて</option>
+                        <option key={'yoko'} value="yoko">よこ</option>
                         </select>
                 </div>
                 <div
@@ -176,13 +177,14 @@ export default class ToolBoxLineData extends React.Component {
                                 ...styles.select,
                                 width: '100px',
                             }}
+                            value={this.state.kind}
                             onChange={(e) => this.setState({kind: e.target.value})}
                         >
-                        <option value="1" selected={(this.state.kind == 1) ? true : false}>実線</option>
-                        <option value="2" selected={(this.state.kind == 2) ? true : false}>破線１</option>
-                        <option value="3" selected={(this.state.kind == 3) ? true : false}>破線２</option>
-                        <option value="4" selected={(this.state.kind == 4) ? true : false}>破線３</option>
-                        <option value="5" selected={(this.state.kind == 5) ? true : false}>二重線</option>
+                        <option key={1} value="1">実線</option>
+                        <option key={2} value="2">破線１</option>
+                        <option key={3} value="3">破線２</option>
+                        <option key={4} value="4">破線３</option>
+                        <option key={5} value="5">二重線</option>
                         </select>
                 </div>
                 <div

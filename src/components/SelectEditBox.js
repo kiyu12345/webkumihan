@@ -436,6 +436,7 @@ export default class SelectEditBox extends React.Component {
          || this.props.type == 'title') {
             html.push(
                 <text
+                    key={1}
                     x={this.state.x + 5}
                     y={this.state.y + 20}
                     style={{
@@ -536,6 +537,7 @@ export default class SelectEditBox extends React.Component {
         for (let i = 0; i < kind.length; i++) {
             jsx.push(
                 <HandleMap
+                    key={kind[i]}
                     kind={kind[i]}
 
                     x={this.state.x}

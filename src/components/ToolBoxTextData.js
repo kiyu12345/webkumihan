@@ -110,49 +110,31 @@ export default class ToolBoxTextData extends React.Component {
 
         for (let size = 6; size <= 50; size++) {
             html.push(
-                <option value={size} selected={(this.state.size_j == size) ? true : false}>{size} pt</option>
+                <option key={size} value={size} selected={(this.state.size_j == size) ? true : false}>{size} pt</option>
             );
         }
 
         for (let size = 60; size <= 100; size += 10) {
             html.push(
-                <option value={size} selected={(this.state.size_j == size) ? true : false}>{size} pt</option>
+                <option key={size} value={size} selected={(this.state.size_j == size) ? true : false}>{size} pt</option>
             );
         }
 
         return html;
     }
 
-    htmlMojiSizeOption(mojisize) {
+    htmlMojiSizeOption() {
         let html = [];
 
         for (let size = 6; size <= 50; size++) {
             html.push(
-                <option value={size} selected={(mojisize == size) ? true : false}>{size} pt</option>
+                <option key={size} value={size}>{size} pt</option>
             );
         }
 
         for (let size = 60; size <= 100; size += 10) {
             html.push(
-                <option value={size} selected={(mojisize == size) ? true : false}>{size} pt</option>
-            );
-        }
-
-        return html;
-    }
-
-    htmlMojiSizeGOption() {
-        let html = [];
-
-        for (let size = 6; size <= 50; size++) {
-            html.push(
-                <option value={size} selected={(this.state.size_g == size) ? true : false}>{size} pt</option>
-            );
-        }
-
-        for (let size = 60; size <= 100; size += 10) {
-            html.push(
-                <option value={size} selected={(this.state.size_g == size) ? true : false}>{size} pt</option>
+                <option key={size} value={size}>{size} pt</option>
             );
         }
 
@@ -223,10 +205,11 @@ export default class ToolBoxTextData extends React.Component {
                                     ...styles.select,
                                     width: '50px',
                                 }}
+                                value={this.state.kumihoko}
                                 onChange={(e) => this.setState({kumihoko: e.target.value})}
                            >
-                           <option value="tate" selected={(this.state.kumihoko == 'tate') ? true : false}>たて</option>
-                           <option value="yoko" selected={(this.state.kumihoko == 'yoko') ? true : false}>よこ</option>
+                           <option key={'tate'} value="tate">たて</option>
+                           <option key={'yoko'} value="yoko">よこ</option>
                            </select>
                     &nbsp;
                     行間 <input
@@ -254,9 +237,10 @@ export default class ToolBoxTextData extends React.Component {
                                             ...styles.select,
                                             width: '60px',
                                         }}
+                                        value={this.state.size_j}
                                         onChange={(e) => this.setState({size_j: parseInt(e.target.value)})}
                                     >
-                                    { this.htmlMojiSizeOption(this.state.size_j) }
+                                    { this.htmlMojiSizeOption() }
                                     </select>
                 </div>
                 <div
@@ -277,9 +261,10 @@ export default class ToolBoxTextData extends React.Component {
                                             ...styles.select,
                                             width: '60px',
                                         }}
+                                        value={this.state.size_g}
                                         onChange={(e) => this.setState({size_g: parseInt(e.target.value)})}
                                     >
-                                    { this.htmlMojiSizeOption(this.state.size_g) }
+                                    { this.htmlMojiSizeOption() }
                                     </select>
                 </div>
                 <div
@@ -300,11 +285,12 @@ export default class ToolBoxTextData extends React.Component {
                                     ...styles.select,
                                     width: '100px',
                                 }}
+                                value={this.state.font}
                                 onChange={(e) => this.setState({font: e.target.value})}
                             >
-                            <option value="1" selected={(this.state.font == 1) ? true : false}>明朝（細）</option>
-                            <option value="2" selected={(this.state.font == 2) ? true : false}>明朝（太）</option>
-                            <option value="3" selected={(this.state.font == 3) ? true : false}>ゴシック</option>
+                            <option key={1} value="1">明朝（細）</option>
+                            <option key={2} value="2">明朝（太）</option>
+                            <option key={3} value="3">ゴシック</option>
                             </select>
                 </div>
                 <div

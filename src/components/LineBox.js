@@ -67,6 +67,7 @@ export default class LineBox extends React.Component {
         case 'solid':
             html.push(
                 <line
+                    key={1}
                     x1={sx}
                     y1={sy}
                     x2={ex}
@@ -86,6 +87,7 @@ export default class LineBox extends React.Component {
             };
             html.push(
                 <line
+                    key={1}
                     x1={sx}
                     y1={sy}
                     x2={ex}
@@ -103,6 +105,7 @@ export default class LineBox extends React.Component {
             if (this.props.line.hoko == 'tate') {   // 縦罫
                 html.push(
                     <line
+                        key={1}
                         x1={sx - (Line[linedata.kind].space / 2)}
                         y1={sy}
                         x2={ex - (Line[linedata.kind].space / 2)}
@@ -117,6 +120,7 @@ export default class LineBox extends React.Component {
                 );
                 html.push(
                     <line
+                        key={2}
                         x1={sx + (Line[linedata.kind].space / 2)}
                         y1={sy}
                         x2={ex + (Line[linedata.kind].space / 2)}
@@ -132,6 +136,7 @@ export default class LineBox extends React.Component {
             } else {                                // 横罫
                 html.push(
                     <line
+                        key={1}
                         x1={sx}
                         y1={sy - (Line[linedata.kind].space / 2)}
                         x2={ex}
@@ -146,6 +151,7 @@ export default class LineBox extends React.Component {
                 );
                 html.push(
                     <line
+                        key={2}
                         x1={sx}
                         y1={sy + (Line[linedata.kind].space / 2)}
                         x2={ex}

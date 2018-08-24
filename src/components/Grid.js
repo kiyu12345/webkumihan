@@ -30,6 +30,7 @@ export default class Grid extends React.Component {
 
             html.push(
                 <line
+                    key={y}
                     x1={0}
                     y1={Zahyo.luToruY(y, this.props.height)}
                     x2={this.props.width}
@@ -60,6 +61,7 @@ export default class Grid extends React.Component {
 
             html.push(
                 <line
+                    key={x}
                     x1={Zahyo.luToruX(x, this.props.width)}
                     y1={0}
                     x2={Zahyo.luToruX(x, this.props.width)}

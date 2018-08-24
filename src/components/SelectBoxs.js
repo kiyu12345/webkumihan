@@ -19,6 +19,7 @@ export default class SelectBoxs extends React.Component {
         for (let i = 0; i < this.props.boxs.length; i++) {
             selectboxs.push(
                 <SelectSonotaBoxMap
+                    key={this.props.boxs[i].box_id}
                     box_id={this.props.boxs[i].box_id}
                     group_id={this.props.boxs[i].group_id}
                     group_no={this.props.boxs[i].group_no}
@@ -43,6 +44,7 @@ export default class SelectBoxs extends React.Component {
             if (this.props.focusbox.box_id == this.props.boxs[i].box_id) {
                 editbox = (
                     <SelectEditBoxMap
+                        key={this.props.boxs[i].box_id}
                         box_id={this.props.boxs[i].box_id}
                         group_id={this.props.boxs[i].group_id}
                         group_no={this.props.boxs[i].group_no}
@@ -61,6 +63,7 @@ export default class SelectBoxs extends React.Component {
             if (this.props.focusbox.group_id == this.props.boxs[i].group_id) {
                 selectboxs.push(
                     <SelectGroupBoxMap
+                        key={this.props.boxs[i].box_id}
                         box_id={this.props.boxs[i].box_id}
                         group_id={this.props.boxs[i].group_id}
                         group_no={this.props.boxs[i].group_no}
@@ -78,6 +81,7 @@ export default class SelectBoxs extends React.Component {
             // その他のボックスの場合
             selectboxs.push(
                 <SelectSonotaBoxMap
+                    key={this.props.boxs[i].box_id}
                     box_id={this.props.boxs[i].box_id}
                     group_id={this.props.boxs[i].group_id}
                     group_no={this.props.boxs[i].group_no}

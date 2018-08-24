@@ -197,7 +197,7 @@ export default class ToolBoxSozai extends React.Component {
 
     sozailist() {
         return (
-            this.props.sozai.map((rec) => {
+            this.props.sozai.map((rec, i) => {
                 let color;
                 switch (rec.type) {
                 case 'text':
@@ -214,6 +214,7 @@ export default class ToolBoxSozai extends React.Component {
 
                 return (
                     <div
+                        key={i}
                         style={{
                             ...styles.sozailist,
                             backgroundColor: color,
@@ -255,6 +256,7 @@ export default class ToolBoxSozai extends React.Component {
         if (this.state.sozai_id == '') {
             html = [
                 <div
+                    key={1}
                     style={{
                         ...styles.line,
                     }}
@@ -270,6 +272,7 @@ export default class ToolBoxSozai extends React.Component {
                             />
                 </div>,
                 <div
+                    key={2}
                     style={{
                         ...styles.line,
                     }}
@@ -310,6 +313,7 @@ export default class ToolBoxSozai extends React.Component {
 
             html = [
                 <div
+                    key={1}
                     style={{
                         ...styles.line,
                     }}
@@ -317,6 +321,7 @@ export default class ToolBoxSozai extends React.Component {
                     素材ID：{this.state.sozai_id}
                 </div>,
                 <div
+                    key={2}
                     style={{
                         ...styles.line,
                     }}
@@ -334,6 +339,7 @@ export default class ToolBoxSozai extends React.Component {
         if (this.state.sozai_id == '') {
             html = [
                 <div
+                    key={1}
                     style={{
                         ...styles.button,
                         width: '60px',
@@ -348,6 +354,7 @@ export default class ToolBoxSozai extends React.Component {
             if (this.state.type == 'text') {
                 html = [
                     <div
+                        key={1}
                         style={{
                             ...styles.button,
                             float: 'right',
@@ -370,6 +377,7 @@ export default class ToolBoxSozai extends React.Component {
         if (this.state.sozai_id == '') {
             html = [
                 <textarea
+                    key={1}
                     id="toolboxsozaitextarea"
                     value={this.state.text}
                     style={{
@@ -382,6 +390,7 @@ export default class ToolBoxSozai extends React.Component {
             if (this.state.type == 'text') {
                 html = [
                     <textarea
+                        key={1}
                         id="toolboxsozaitextarea"
                         value={this.state.text}
                         style={{
@@ -393,6 +402,7 @@ export default class ToolBoxSozai extends React.Component {
             } else {
                 html = [
                     <div
+                        key={1}
                         id="toolboxsozaiimagearea"
                         style={{
                             ...styles.imagebox,

@@ -55,7 +55,7 @@ export default class Boxs extends React.Component {
                         }
 
                         return (
-                            <g>
+                            <g key={box.box_id}>
                                 <TextBoxMap
                                     box_id={box.box_id}
                                     group_id={box.group_id}
@@ -74,6 +74,7 @@ export default class Boxs extends React.Component {
                     case 'image':
                         return (
                             <ImageBoxMap
+                                key={box.box_id}
                                 box_id={box.box_id}
                                 group_id={box.group_id}
                                 group_no={box.group_no}
@@ -89,6 +90,7 @@ export default class Boxs extends React.Component {
                     case 'line':
                         return (
                             <LineBoxMap
+                                key={box.box_id}
                                 box_id={box.box_id}
                                 group_id={box.group_id}
                                 group_no={box.group_no}

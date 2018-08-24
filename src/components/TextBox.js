@@ -62,6 +62,7 @@ export default class TextBox extends React.Component {
 
             ary.push(
                 <rect
+                    key={i}
                     x={x - (size_x / 2)}
                     y={y - (size_y / 2)}
                     width={size_x}
@@ -132,6 +133,7 @@ export default class TextBox extends React.Component {
 
             ary.push(
                 <text
+                    key={i}
                     // x={x - (size_x / 2)}
                     // y={y + (size_y / 2) - (size_y * 12.5 / 100.0)}
                     x={-1 * (basesize / 2)}
